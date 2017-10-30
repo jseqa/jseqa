@@ -1,7 +1,7 @@
 package jseqa.sequence;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Nucleotide property lookup

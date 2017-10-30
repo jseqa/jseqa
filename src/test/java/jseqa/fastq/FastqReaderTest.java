@@ -1,10 +1,11 @@
 package jseqa.fastq;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Paths;
+
 import org.junit.Before;
 import org.junit.Test;
 

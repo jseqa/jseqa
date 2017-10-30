@@ -1,6 +1,6 @@
 package jseqa.alignment.substitution;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
