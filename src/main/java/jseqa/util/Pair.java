@@ -1,5 +1,11 @@
 package jseqa.util;
 
+/**
+ * Generic utility class to hold a pair of variables. 
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class Pair<K, V> implements Comparable<Pair<K, V>> {
 
 	private K key;
