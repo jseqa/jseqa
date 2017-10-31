@@ -40,4 +40,16 @@ public class IntervalTest {
 			assertEquals(false, i1.contains(i));
 		}
 	}
+	
+	@Test
+	public void testEquals() {
+		Interval i1 = new Interval(1,10);
+		Interval i2 = new Interval(2,9);
+		Interval i3 = new Interval(1,10);
+		assertEquals(true, i1.equals(i1));
+		//
+		assertEquals(false, i1.equals(i2));
+		assertEquals(true, i1.equals(i3));
+		assertEquals(false, i2.equals(i3));
+	}
 }

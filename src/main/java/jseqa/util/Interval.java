@@ -69,7 +69,7 @@ public class Interval {
 	}
 	
 	/**
-	 * Checks if two intervals overlap, i.e., <br>
+	 * Checks if two intervals overlap, e.g., <br>
 	 * <pre>{@code 
 	 * this:   |---------|
 	 * other:       |---------|
