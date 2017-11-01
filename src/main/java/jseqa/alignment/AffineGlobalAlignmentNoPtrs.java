@@ -33,8 +33,8 @@ public class AffineGlobalAlignmentNoPtrs extends AbstractAffinePairwiseAlignment
 			this.alignScoreMatrix.setLeft(i, 0, PairwiseAlignment.MIN_VALUE);
 			this.alignScoreMatrix.setDiagonal(i, 0, PairwiseAlignment.MIN_VALUE);
 			//
-			this.alignPtrMatrix.setUp(i, 0, BacktrackPtr.UP);
-			this.alignPtrMatrix.setLeft(i, 0, BacktrackPtr.UP);
+//			this.alignPtrMatrix.setUp(i, 0, BacktrackPtr.UP);
+//			this.alignPtrMatrix.setLeft(i, 0, BacktrackPtr.UP);
 		}
 		for(int j = 1; j < this.lenSeqB+1; j++) {
 			int val = gapOpen + ((j-1)*gapExt);
@@ -42,8 +42,8 @@ public class AffineGlobalAlignmentNoPtrs extends AbstractAffinePairwiseAlignment
 			this.alignScoreMatrix.setUp(0, j, PairwiseAlignment.MIN_VALUE);
 			this.alignScoreMatrix.setDiagonal(0, j, PairwiseAlignment.MIN_VALUE);
 			//
-			this.alignPtrMatrix.setLeft(0, j, BacktrackPtr.LEFT);
-			this.alignPtrMatrix.setUp(0, j, BacktrackPtr.LEFT);
+//			this.alignPtrMatrix.setLeft(0, j, BacktrackPtr.LEFT);
+//			this.alignPtrMatrix.setUp(0, j, BacktrackPtr.LEFT);
 		}
 		this.alignScoreMatrix.setDiagonal(0, 0, 0);
 		this.alignScoreMatrix.setInsertion(0, 0, 0);
@@ -83,8 +83,9 @@ public class AffineGlobalAlignmentNoPtrs extends AbstractAffinePairwiseAlignment
 		int leftScore = this.alignScoreMatrix.getDeletion(i-1, j-1);
 		int upScore = this.alignScoreMatrix.getInsertion(i-1, j-1);
 		
-		int matchmismatchScore = this.scoreMatrix.score(aCh, bCh);
-		this.alignScoreMatrix.setDiagonal(i, j, Math.max(diagScore, Math.max(leftScore, upScore)) + matchmismatchScore);
+//		int matchmismatchScore = this.scoreMatrix.score(aCh, bCh);
+//		this.alignScoreMatrix.setDiagonal(i, j, Math.max(diagScore, Math.max(leftScore, upScore)) + matchmismatchScore);
+		this.alignScoreMatrix.setDiagonal(i, j, Math.max(diagScore, Math.max(leftScore, upScore)) + this.scoreMatrix.score(aCh, bCh)); 
 		
 		// left recurrence looks to extend (left), or start a new gap (diag)
 		int leftExtScore = this.alignScoreMatrix.getDeletion(i, j-1) + gapExtendPenal;
