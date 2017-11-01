@@ -26,18 +26,5 @@ public interface NtIndexer {
 		} else {
 			return 5;
 		}
-//		switch(ch) {  // 18sec
-//			case 'A':
-//				return 0;
-//			case 'C':
-//				return 1;
-//			case 'G':
-//				return 2;
-//			case 'T':
-//				return 3;
-//			case 'N':
-//				return 4;
-//			default: return 5;
-//		}
 	}
 }
