@@ -22,18 +22,18 @@ public class AffineLocalAlignmentNoPtrs extends AffineGlobalAlignmentNoPtrs {
 			this.alignScoreMatrix.setLeft(i, 0, 0);
 			this.alignScoreMatrix.setDiagonal(i, 0, 0);
 			//
-			this.alignPtrMatrix.setUp(i, 0, BacktrackPtr.FREERIDE);
-			this.alignPtrMatrix.setLeft(i, 0, BacktrackPtr.FREERIDE);
-			this.alignPtrMatrix.setDiagonal(i, 0, BacktrackPtr.FREERIDE);
+//			this.alignPtrMatrix.setUp(i, 0, BacktrackPtr.FREERIDE);
+//			this.alignPtrMatrix.setLeft(i, 0, BacktrackPtr.FREERIDE);
+//			this.alignPtrMatrix.setDiagonal(i, 0, BacktrackPtr.FREERIDE);
 		}
 		for(int j = 1; j < this.lenSeqB+1; j++) {
 			this.alignScoreMatrix.setLeft(0, j, 0);
 			this.alignScoreMatrix.setUp(0, j, 0);
 			this.alignScoreMatrix.setDiagonal(0, j, 0);
 			//
-			this.alignPtrMatrix.setLeft(0, j, BacktrackPtr.FREERIDE);
-			this.alignPtrMatrix.setUp(0, j, BacktrackPtr.FREERIDE);
-			this.alignPtrMatrix.setDiagonal(0, j, BacktrackPtr.FREERIDE);
+//			this.alignPtrMatrix.setLeft(0, j, BacktrackPtr.FREERIDE);
+//			this.alignPtrMatrix.setUp(0, j, BacktrackPtr.FREERIDE);
+//			this.alignPtrMatrix.setDiagonal(0, j, BacktrackPtr.FREERIDE);
 		}
 		this.alignScoreMatrix.setDiagonal(0, 0, 0);
 		this.alignScoreMatrix.setInsertion(0, 0, 0);
