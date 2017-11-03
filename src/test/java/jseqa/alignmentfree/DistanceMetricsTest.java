@@ -23,8 +23,6 @@ public class DistanceMetricsTest {
 		assertEquals(0.0, DistanceMetrics.lpNormDist(b, b, 2),  DELTA);
 	}
 	
-
-
 	@Test
 	public void testEuclideanDist() {
 		double[] lclA = {2.0, -1.0};
@@ -32,5 +30,16 @@ public class DistanceMetricsTest {
 		assertEquals(5.0, DistanceMetrics.euclideanDist(lclA, lclB), DELTA);
 	}
 
+	@Test
+	public void testPearsonDist() {
+		assertEquals(0.0, DistanceMetrics.pearsonDistance(a, a), DELTA);
+		assertEquals(0.0, DistanceMetrics.pearsonDistance(b, b), DELTA);
+	}
+	
+	@Test
+	public void testCosineDist() {
+		assertEquals(0.0, DistanceMetrics.cosineDistance(a, a), DELTA);
+		assertEquals(0.0, DistanceMetrics.cosineDistance(b, b), DELTA);
+	}
 	
 }
