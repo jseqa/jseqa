@@ -23,7 +23,6 @@ public class FastaReaderTest {
 		FastaReader fa = new FastaReader(Paths.get(sampleUrl.getPath()));
 		int num = 0;
 		for(Entry entry : fa) {
-			System.out.println(entry.id() + "\t" + entry.sequence());
 			assertEquals(50, entry.sequence().length());
 			num++;
 		}
