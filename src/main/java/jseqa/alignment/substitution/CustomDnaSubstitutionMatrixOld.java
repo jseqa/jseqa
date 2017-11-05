@@ -5,7 +5,7 @@ package jseqa.alignment.substitution;
  * off-diagonals (i.e., mismatches) are all another, user-defined, value.
  *
  */
-public class CustomDnaSubstitutionMatrix extends AbstractSubstitutionMatrix implements NtIndexer {
+public class CustomDnaSubstitutionMatrixOld extends AbstractSubstitutionMatrix implements NtIndexer {
 	
 	private int match;
 	
@@ -24,13 +24,13 @@ public class CustomDnaSubstitutionMatrix extends AbstractSubstitutionMatrix impl
 						 -2,-2,-2,-2,-1
 						};
 	
-	public CustomDnaSubstitutionMatrix() {}
+	public CustomDnaSubstitutionMatrixOld() {}
 	
-	public CustomDnaSubstitutionMatrix(int gappenalty, int extensionPenalty) {
+	public CustomDnaSubstitutionMatrixOld(int gappenalty, int extensionPenalty) {
 		super(gappenalty, extensionPenalty);
 	}
 
-	public CustomDnaSubstitutionMatrix(int match, int mismatch, int gap, int extension) {
+	public CustomDnaSubstitutionMatrixOld(int match, int mismatch, int gap, int extension) {
 		super(gap, extension);
 		this.match = match;
 		this.mismatch = mismatch;
