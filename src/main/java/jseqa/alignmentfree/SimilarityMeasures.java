@@ -42,6 +42,11 @@ public class SimilarityMeasures {
 		return (num / (aMag * bMag));
 	}
 	
+	/**
+	 * Log base 2.
+	 * @param val
+	 * @return
+	 */
 	public static double log2(double val) {
 		return Math.log(val) / Math.log(2.0);
 	}
@@ -67,7 +72,7 @@ public class SimilarityMeasures {
 	 */
 	public static double kullbackLeibler(double[] p, double[] q) {
 		return -IntStream.range(0, p.length)
-				.mapToDouble(i -> p[i] * Math.log(q[i] / p[i]))
+				.mapToDouble(i -> p[i] * SimilarityMeasures.log2(q[i] / p[i]))
 				.sum();
 	}
 }
