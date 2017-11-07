@@ -135,7 +135,7 @@ public class FullAlignments {
 							 AffineAlignmentMatrixScore alignScoreMat,
 							 AffineAlignmentMatrixBacktrack alignPtrMat,
 							 SubstitutionMatrix scoreMat) {
-		AffineGlobalAlignment galn = new AffineGlobalAlignment(seqA, seqB, scoreMat);
+		AffineGlobalAlignmentNoPtrs galn = new AffineGlobalAlignmentNoPtrs(seqA, seqB, scoreMat);
 		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
 		galn.initMatrix();
 		galn.fillMatrix();
@@ -148,7 +148,7 @@ public class FullAlignments {
 			AffineAlignmentMatrixScore alignScoreMat,
 			AffineAlignmentMatrixBacktrack alignPtrMat,
 			SubstitutionMatrix scoreMat) {
-		AffineLocalAlignment galn = new AffineLocalAlignment(seqA, seqB, scoreMat);
+		AffineLocalAlignmentNoPtrs galn = new AffineLocalAlignmentNoPtrs(seqA, seqB, scoreMat);
 		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
 		galn.initMatrix();
 		galn.fillMatrix();
@@ -161,7 +161,7 @@ public class FullAlignments {
 												 AffineAlignmentMatrixScore alignScoreMat,
 												 AffineAlignmentMatrixBacktrack alignPtrMat,
 												 SubstitutionMatrix scoreMat) {
-		AffineGlobalAlignment galn = new AffineGlobalAlignment(seqA, seqB, scoreMat);
+		AffineGlobalAlignmentNoPtrs galn = new AffineGlobalAlignmentNoPtrs(seqA, seqB, scoreMat);
 		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
 		galn.initMatrix();
 		galn.fillMatrix();

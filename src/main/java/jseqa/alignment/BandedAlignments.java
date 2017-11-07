@@ -51,7 +51,7 @@ public class BandedAlignments {
 			AffineAlignmentMatrixBacktrack alignPtrMat,
 			SubstitutionMatrix scoreMat,
 			int bandwidth) {
-		AffineGlobalAlignment galn = new AffineGlobalAlignment(seqA, seqB, scoreMat);
+		AffineGlobalAlignmentNoPtrs galn = new AffineGlobalAlignmentNoPtrs(seqA, seqB, scoreMat);
 		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
 		galn.initMatrix();
 		galn.bandedFillMatrix(bandwidth);
