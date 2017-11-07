@@ -8,11 +8,11 @@ import jseqa.alignment.substitution.SubstitutionMatrix;
  */
 public class BandedAlignments {
 	
-	public static Alignment globalBasicNt(String seqA, 
+	public static Alignment globalBasic(String seqA, 
 			String seqB, 
 			SubstitutionMatrix scoreMat,
 			int bandwidth) {
-		return BandedAlignments.globalBasicNt(seqA, 
+		return BandedAlignments.globalBasic(seqA, 
 				seqB, 
 				new AlignmentMatrixScore(seqA.length()+5, seqB.length()+5), 
 				new AlignmentMatrixBacktrack(seqA.length()+5, seqB.length()+5), 
@@ -20,7 +20,7 @@ public class BandedAlignments {
 				bandwidth);		
 	}
 	
-	public static Alignment globalBasicNt(String seqA, 
+	public static Alignment globalBasic(String seqA, 
 			String seqB, 
 			AlignmentMatrixScore alignScoreMat,
 			AlignmentMatrixBacktrack alignPtrMat,
@@ -37,7 +37,7 @@ public class BandedAlignments {
 			String seqB, 
 			SubstitutionMatrix scoreMat,
 			int bandwidth) {
-		return BandedAlignments.globalAffineNt(seqA, 
+		return BandedAlignments.globalAffine(seqA, 
 				seqB, 
 				new AffineAlignmentMatrixScore(seqA.length()+5, seqB.length()+5), 
 				new AffineAlignmentMatrixBacktrack(seqA.length()+5, seqB.length()+5), 
@@ -45,7 +45,7 @@ public class BandedAlignments {
 				bandwidth);
 	}
 
-	public static Alignment globalAffineNt(String seqA, 
+	public static Alignment globalAffine(String seqA, 
 			String seqB, 
 			AffineAlignmentMatrixScore alignScoreMat,
 			AffineAlignmentMatrixBacktrack alignPtrMat,
@@ -58,11 +58,11 @@ public class BandedAlignments {
 		return galn.backtrack();
 	}
 	
-	public static Alignment localBasicNt(String seqA, 
+	public static Alignment localBasic(String seqA, 
 			String seqB, 
 			SubstitutionMatrix scoreMat,
 			int bandwidth) {
-		return BandedAlignments.localBasicNt(seqA, 
+		return BandedAlignments.localBasic(seqA, 
 				seqB,
 				new AlignmentMatrixScore(seqA.length()+5, seqB.length()+5), 
 				new AlignmentMatrixBacktrack(seqA.length()+5, seqB.length()+5), 
@@ -70,7 +70,7 @@ public class BandedAlignments {
 				bandwidth);	
 	}
 	
-	public static Alignment localBasicNt(String seqA, 
+	public static Alignment localBasic(String seqA, 
 			String seqB, 
 			AlignmentMatrixScore alignScoreMat,
 			AlignmentMatrixBacktrack alignPtrMat,

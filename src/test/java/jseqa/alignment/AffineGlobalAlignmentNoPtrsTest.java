@@ -21,7 +21,7 @@ public class AffineGlobalAlignmentNoPtrsTest {
 		Alignment aln = galn.backtrack();
 		assertEquals(1, aln.score());
 		
-		Alignment aln2 = FullAlignments.affineGlobalAlignNt(a, b, new DnaSubstitutionMatrix(-5));
+		Alignment aln2 = FullAlignments.affineGlobalAlign(a, b, new DnaSubstitutionMatrix(-5));
 		assertEquals(1, aln2.score());
 	}
 	
@@ -42,7 +42,7 @@ public class AffineGlobalAlignmentNoPtrsTest {
 		assertEquals(9, aln.score());
 		assertEquals(4, aln.numMatches());
 		
-		Alignment aln2 = FullAlignments.affineGlobalAlignNt(a, b, new DnaSubstitutionMatrix(-5, -1));
+		Alignment aln2 = FullAlignments.affineGlobalAlign(a, b, new DnaSubstitutionMatrix(-5, -1));
 		assertEquals(9, aln2.score());
 	}
 	
@@ -52,7 +52,7 @@ public class AffineGlobalAlignmentNoPtrsTest {
 		String b = "ATAGAGT";
 		
 		
-		Alignment aln = FullAlignments.affineGlobalAlignNt(a, b, new DnaSubstitutionMatrix(-5, -1));
+		Alignment aln = FullAlignments.affineGlobalAlign(a, b, new DnaSubstitutionMatrix(-5, -1));
 		assertEquals(21, aln.score());
 		
 		Alignment aln2 = BandedAlignments.globalAffineNt(a, b, new DnaSubstitutionMatrix(-5, -1), 8);
@@ -82,7 +82,6 @@ public class AffineGlobalAlignmentNoPtrsTest {
 		galn.fillMatrix();
 //		galn.alignScoreMatrix.
 		Alignment aln = galn.backtrack();
-//		System.out.println(aln.toString(50));
 		assertEquals(1174, aln.score()); // score determined by EMBOSS
 	}
 
@@ -91,7 +90,7 @@ public class AffineGlobalAlignmentNoPtrsTest {
 		String seq1 = "TELKDD";
 		String seq2 = "LKTEL";
 		BlosumSubstitutionMatrix blosum62 = new BlosumSubstitutionMatrix(BlosumMatrices.BLOSUM62, -10, -2);
-	    Alignment aln = FullAlignments.affineGlobalAlignNt(seq1, seq2, blosum62);
+	    Alignment aln = FullAlignments.affineGlobalAlign(seq1, seq2, blosum62);
 	    assertEquals(-12, aln.score());
 	}
 	
