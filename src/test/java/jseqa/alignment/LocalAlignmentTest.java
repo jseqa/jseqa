@@ -24,7 +24,7 @@ public class LocalAlignmentTest {
 		galn.initMatrix();
 		galn.fillMatrix();
 		Alignment aln = galn.backtrack();
-		System.out.println(scoreMat);
+//		System.out.println(scoreMat);
 		assertEquals(5*3, aln.score());
 	}
 	
@@ -50,7 +50,7 @@ public class LocalAlignmentTest {
 		SubstitutionMatrix blosum62 = new BlosumSubstitutionMatrix(BlosumMatrices.BLOSUM62, -10, -1);
 		Alignment aln = FullAlignments.localAlignNt(mouseFos, mouseFosB, blosum62);
 //		System.out.println(aln.toString(45));
-//		assertEquals(381, aln.score()); //611
+		assertEquals(381, aln.score()); //611
 	}
 	
 	@Test
@@ -64,7 +64,6 @@ public class LocalAlignmentTest {
 		AlignmentMatrixBacktrack alignPtrMat = new AlignmentMatrixBacktrack(300,300);
 		jseqa.alignment.substitution.SubstitutionMatrix subMat = new DnaSubstitutionMatrix(-10);
 		Alignment aln = FullAlignments.localAlignNt(v13, v13, alignScoreMat, alignPtrMat, subMat);
-		System.out.println(aln);
 		
 		Map<BacktrackPtr,Integer> ptrHist = new HashMap<BacktrackPtr,Integer>();
 		ptrHist.put(BacktrackPtr.DIAG, 0);
@@ -77,7 +76,7 @@ public class LocalAlignmentTest {
 				ptrHist.put(alignPtrMat.get(i, j), val+1);
 			}
 		}
-		System.out.println(ptrHist);
+//		System.out.println(ptrHist);
 	}
 	
 }

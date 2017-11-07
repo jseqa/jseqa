@@ -7,44 +7,49 @@ package jseqa.alignment.substitution;
  */
 abstract public class AbstractNtSubstitutionMatrix extends AbstractSubstitutionMatrix {
 
-//	/** Sparse vector for looking up nucleotide char to index */
-//	protected int[] ntLookup;
-	
+	/** Sparse flat matrix representation */
 	private int[] flatSparceMatrix;
 	
+	/** Nucleotide alphabet allowed */
 	private char[] nucs = {'A', 'C', 'G', 'T', 'N'};
 	
 	public AbstractNtSubstitutionMatrix() {
 		this(-5, -1);
 	}
 	
+	/**
+	 * Constructor that uses default substitution values of 5/-4 for non-N nts.
+	 * @param gapPenal
+	 * @param gapExtendPenal
+	 */
 	public AbstractNtSubstitutionMatrix(int gapPenal, int gapExtendPenal) {
 		super(gapPenal, gapExtendPenal);
-//		this.ntLookup = new int[128];
-//		this.ntLookup['A'] = 0;
-//		this.ntLookup['C'] = 1;
-//		this.ntLookup['G'] = 2;
-//		this.ntLookup['T'] = 3;
-//		this.ntLookup['N'] = 4;
 		this.flatSparceMatrix = new int[128*128];
 		this.initFlatSparceMatrix(5, -4, -2, -1);
 	}
 	
+	/**
+	 * Initializes flat sparse matrix with general match, mismatch penalties (i.e., diagonal/off-diagonal values).
+	 * @param match
+	 * @param mismatch
+	 * @param nMismatch
+	 * @param nMatch
+	 */
 	protected void initFlatSparceMatrix(int match, int mismatch, int nMismatch, int nMatch) {
 		for(int i = 0; i < nucs.length; i++) {
 			for(int j = 0; j < nucs.length; j++) {
 				int val = 0;
 				if(nucs[i] == 'N' || nucs[j] == 'N') {
 					if(nucs[i] == 'N' && nucs[j] == 'N') {
-						val = nMatch; //-1;
+						val = nMatch;
 					} else {
-						val = nMismatch; //-2;
+						val = nMismatch;
 					}
 				} else {
 					if(nucs[i] == nucs[j]) {
-						val = match; //5; 
+						val = match;
 					} else {
-						val = mismatch; //-4; 
+						val = mismatch;
 					}
 				}
 				this.flatSparceMatrix[nucs[i]*128 + nucs[j]] = val;

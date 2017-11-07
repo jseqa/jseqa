@@ -57,7 +57,6 @@ public class AffineGlobalAlignment extends AbstractAffinePairwiseAlignment imple
 		for(int i = 1; i < nrow; i++) {
 			for(int j = 1; j < ncol; j++) {
 				fillCell(i,j);
-//				fillCell2(i,j);
 			}
 		}
 	}
@@ -68,62 +67,6 @@ public class AffineGlobalAlignment extends AbstractAffinePairwiseAlignment imple
 		BandedMatrixFiller.super.fillBandedMatrix(nrow, ncol, bandwidth);
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 * <br>
-	 * Fills in each cell, of each matrix, using global alignment recurrence with affine gaps.
-	 */
-//	@Override
-	public void fillCell2(int i, int j) {
-		// diagonal recurrence looks at diagonal, up, left
-		char aCh = this.inputSeqA.charAt(i-1);
-		char bCh = this.inputSeqB.charAt(j-1);
-		int gapOpenPenal = this.scoreMatrix.gapPenalty();
-		int gapExtendPenal = this.scoreMatrix.gapExtensionPenalty();
-		
-		int diagScore = this.alignScoreMatrix.getDiagonal(i-1, j-1); // + this.scoreMatrix.score(aCh, bCh);
-		int leftScore = this.alignScoreMatrix.getDeletion(i-1, j-1); // + this.scoreMatrix.score(aCh, bCh);
-		int upScore = this.alignScoreMatrix.getInsertion(i-1, j-1); // + this.scoreMatrix.score(aCh, bCh);
-		
-		int matchmismatchScore = this.scoreMatrix.score(aCh, bCh);
-		int retval = this.argmax3(diagScore, leftScore, upScore);
-		int currScore = -1;
-		BacktrackPtr currPtr = null;
-		if(retval == 0) {
-			currScore = diagScore + matchmismatchScore; //this.scoreMatrix.score(aCh, bCh);
-			currPtr = BacktrackPtr.DIAG;
-		} else if(retval == 1) {
-			currScore = leftScore + matchmismatchScore; //this.scoreMatrix.score(aCh, bCh);
-			currPtr = BacktrackPtr.LEFT;
-		} else {
-			currScore = upScore + matchmismatchScore; //this.scoreMatrix.score(aCh, bCh);
-			currPtr = BacktrackPtr.UP;
-		}
-		this.alignScoreMatrix.setDiagonal(i, j, currScore);
-		this.alignPtrMatrix.setDiagonal(i, j, currPtr);
-				
-		// left recurrence looks to extend (left), or start a new gap (diag)
-		int leftExtScore = this.alignScoreMatrix.getDeletion(i, j-1) + gapExtendPenal; //+ this.scoreMatrix.gapExtensionPenalty();
-		int leftStrtScore = this.alignScoreMatrix.getDiagonal(i, j-1) + gapOpenPenal;  //this.scoreMatrix.gapPenalty();
-		if(leftExtScore >= leftStrtScore) {
-			this.alignScoreMatrix.setDeletion(i, j, leftExtScore);
-			this.alignPtrMatrix.setDeletion(i, j, BacktrackPtr.LEFT);
-		} else {
-			this.alignScoreMatrix.setDeletion(i, j, leftStrtScore);
-			this.alignPtrMatrix.setDeletion(i, j, BacktrackPtr.DIAG);
-		}
-		
-		// up recurrence looks to extend (up), or start a new gap (diag)
-		int upExtScore = this.alignScoreMatrix.getInsertion(i-1, j) + gapExtendPenal; //this.scoreMatrix.gapExtensionPenalty();
-		int upStrtScore = this.alignScoreMatrix.getDiagonal(i-1, j) + gapOpenPenal; //this.scoreMatrix.gapPenalty();
-		if(upExtScore >= upStrtScore) {
-			this.alignScoreMatrix.setInsertion(i, j, upExtScore);
-			this.alignPtrMatrix.setInsertion(i, j, BacktrackPtr.UP);
-		} else {
-			this.alignScoreMatrix.setInsertion(i, j, upStrtScore);
-			this.alignPtrMatrix.setInsertion(i, j, BacktrackPtr.DIAG);
-		}
-	}
 	
 	public void fillCell(int i, int j) {
 		// diagonal recurrence looks at diagonal, up, left
@@ -175,60 +118,6 @@ public class AffineGlobalAlignment extends AbstractAffinePairwiseAlignment imple
 			this.alignPtrMatrix.setInsertion(i, j, BacktrackPtr.DIAG);
 		}
 	}
-
-	public void fillCell_broken(int i, int j) {
-		// diagonal recurrence looks at diagonal, up, left
-		char aCh = this.inputSeqA.charAt(i-1);
-		char bCh = this.inputSeqB.charAt(j-1);
-		int gapOpenPenal = this.scoreMatrix.gapPenalty();
-		int gapExtendPenal = this.scoreMatrix.gapExtensionPenalty();
-		
-		int diagScore = this.alignScoreMatrix.getDiagonal(i-1, j-1); // + this.scoreMatrix.score(aCh, bCh);
-		int leftScore = this.alignScoreMatrix.getDeletion(i-1, j-1); // + this.scoreMatrix.score(aCh, bCh);
-		int upScore = this.alignScoreMatrix.getInsertion(i-1, j-1); // + this.scoreMatrix.score(aCh, bCh);
-		
-		int matchmismatchScore = this.scoreMatrix.score(aCh, bCh);
-//		int retval = this.argmax3(diagScore, leftScore, upScore);
-//		int currScore = -1;
-		BacktrackPtr currPtr = this.argmax3Ptr(diagScore, leftScore, upScore); 
-//		if(currPtr == BacktrackPtr.DIAG) { // if/else brackets main bottleneck it seems...
-//			currScore = diagScore + matchmismatchScore;
-//		} else if(currPtr == BacktrackPtr.LEFT) {
-//			currScore = leftScore + matchmismatchScore;
-//		} else {
-//			currScore = upScore + matchmismatchScore; 
-//		}
-		
-//		this.alignScoreMatrix.setDiagonal(i, j, currScore);
-//		int currScore = Math.max(diagScore, Math.max(leftScore, upScore));
-		int currScore = this.maxB(diagScore, leftScore, upScore) + matchmismatchScore;
-//		int currScore = diagScore;
-		this.alignScoreMatrix.setDiagonal(i, j, currScore);
-		this.alignPtrMatrix.setDiagonal(i, j, currPtr);
-		
-		// left recurrence looks to extend (left), or start a new gap (diag)
-		int leftExtScore = this.alignScoreMatrix.getDeletion(i, j-1) + gapExtendPenal; //+ this.scoreMatrix.gapExtensionPenalty();
-		int leftStrtScore = this.alignScoreMatrix.getDiagonal(i, j-1) + gapOpenPenal;  //this.scoreMatrix.gapPenalty();
-		if(leftExtScore >= leftStrtScore) {
-			this.alignScoreMatrix.setDeletion(i, j, leftExtScore);
-			this.alignPtrMatrix.setDeletion(i, j, BacktrackPtr.LEFT);
-		} else {
-			this.alignScoreMatrix.setDeletion(i, j, leftStrtScore);
-			this.alignPtrMatrix.setDeletion(i, j, BacktrackPtr.DIAG);
-		}
-//		
-//		// up recurrence looks to extend (up), or start a new gap (diag)
-//		int upExtScore = this.alignScoreMatrix.getInsertion(i-1, j) + gapExtendPenal; //this.scoreMatrix.gapExtensionPenalty();
-//		int upStrtScore = this.alignScoreMatrix.getDiagonal(i-1, j) + gapOpenPenal; //this.scoreMatrix.gapPenalty();
-//		if(upExtScore >= upStrtScore) {
-//			this.alignScoreMatrix.setInsertion(i, j, upExtScore);
-//			this.alignPtrMatrix.setInsertion(i, j, BacktrackPtr.UP);
-//		} else {
-//			this.alignScoreMatrix.setInsertion(i, j, upStrtScore);
-//			this.alignPtrMatrix.setInsertion(i, j, BacktrackPtr.DIAG);
-//		}
-	}
-
 	
 	/**
 	 * {@inheritDoc}
