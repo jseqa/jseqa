@@ -22,5 +22,13 @@ public class FittingAlignmentTest {
 		assertEquals("-------"+b, aln.top());
 		assertEquals("GGGGGGG"+b, aln.bottom());
 	}
+	
+	@Test
+	public void testSimpleFit2() {
+		String seqA = "AAAAACCCCTTTTTTT";
+		String seqB =        "CCCC";
+		Alignment aln = FullAlignments.fittingAlign(seqB, seqA, new DnaSubstitutionMatrix(-5));
+		assertEquals(20, aln.score());
+	}
 
 }

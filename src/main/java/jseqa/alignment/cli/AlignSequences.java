@@ -84,8 +84,7 @@ public class AlignSequences {
 			} else if(type.equals("local")) {
 				aln = FullAlignments.localAlignNt(seqA, seqB, subMat);
 			} else if(type.equals("fitting")) {
-				System.err.println("NOT YET IMPLEMENTED");
-				System.exit(1);
+				aln = FullAlignments.fittingAlign(seqA, seqB, subMat);
 			} else if(type.equals("affine_global")) {
 				subMat = new DnaSubstitutionMatrix(indelPenal, extensionPenal);
 				aln = FullAlignments.affineGlobalAlignNoPtrsNt(seqA, seqB, subMat);
@@ -93,7 +92,8 @@ public class AlignSequences {
 				subMat = new DnaSubstitutionMatrix(indelPenal, extensionPenal);
 				aln = FullAlignments.affineLocalAlignNoPtrsNt(seqA, seqB, subMat);
 			} else {
-				System.err.println("INVALID TYPE:\t" + type);
+				System.err.println("Invalid type specified, look at help (-h)");
+				System.exit(-1);
 			}
 			
 			System.out.println(aln.toString(80));

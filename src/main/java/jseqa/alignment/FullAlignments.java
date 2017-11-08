@@ -90,7 +90,7 @@ public class FullAlignments {
 	 * @param alignScoreMat {@code AlignmentMatrixScore} existing scoring matrix to fill.
 	 * @param alignPtrMat {@code AlignmentMatrixBacktrack} existing backtracking matrix to fill.
 	 * @param scoreMat {@code ScoringMatrix} used to score match/mismatch/indel.
-	 * @return {@code Alignment} of locally aligne sequences.
+	 * @return {@code Alignment} of locally aligned sequences.
 	 */
 	public static Alignment localAlignNt(String seqA, 
 										 String seqB, 
@@ -98,6 +98,46 @@ public class FullAlignments {
 										 AlignmentMatrixBacktrack alignPtrMat,
 										 SubstitutionMatrix scoreMat) {
 		LocalAlignment galn = new LocalAlignment(seqA, seqB, scoreMat);
+		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
+		galn.initMatrix();
+		galn.fillMatrix();
+		return galn.backtrack();
+	}
+	
+	/**
+	 * Utility for performing fitting alignment (aka, semi-global alignment), whereby one sequence 'fit'into a larger sequence.
+	 * Here {@code seqA} is assumed to be the larger sequence, and {@code seqB} is assumed to be the sequence to be 'fit'.
+	 * @param seqA {@code String} smaller sequence to be 'fit' into larger one.
+	 * @param seqB {@code String} larger sequence.
+	 * @param scoreMat  {@code ScoringMatrix} used to score match/mismatch/indel.
+	 * @return {@code Alignment} of fitting alignment.
+	 */
+	public static Alignment fittingAlign(String seqA,
+										 String seqB,
+										 SubstitutionMatrix scoreMat) {
+		return FullAlignments.fittingAlign(seqA, 
+										   seqB,
+										   new AlignmentMatrixScore(seqA.length()+5, seqB.length()+5), 
+										   new AlignmentMatrixBacktrack(seqA.length()+5, seqB.length()+5),
+										   scoreMat);
+	}
+	
+	/**
+	 * Utility for performing fitting alignment (aka, semi-global alignment), whereby one sequence 'fit'into a larger sequence.
+	 * Here {@code seqA} is assumed to be the larger sequence, and {@code seqB} is assumed to be the sequence to be 'fit'.
+	 * @param seqA {@code String} smaller sequence to be 'fit' into larger one.
+	 * @param seqB {@code String} larger sequence.
+	 * @param alignScoreMat {@code AlignmentMatrixScore} existing scoring matrix to fill.
+	 * @param alignPtrMat {@code AlignmentMatrixBacktrack} existing backtracking matrix to fill.
+	 * @param scoreMat {@code ScoringMatrix} used to score match/mismatch/indel.
+	 * @return {@code Alignment} of fitting alignment.
+	 */
+	public static Alignment fittingAlign(String seqA,
+										 String seqB,
+										 AlignmentMatrixScore alignScoreMat,
+										 AlignmentMatrixBacktrack alignPtrMat,
+										 SubstitutionMatrix scoreMat) {
+		FittingAlignment galn = new FittingAlignment(seqA, seqB, scoreMat);
 		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
 		galn.initMatrix();
 		galn.fillMatrix();
