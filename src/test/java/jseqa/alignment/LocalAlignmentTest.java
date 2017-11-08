@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import jseqa.alignment.substitution.BlosumMatrices;
 import jseqa.alignment.substitution.BlosumSubstitutionMatrix;
+import jseqa.alignment.substitution.CustomDnaSubstitutionMatrix;
 import jseqa.alignment.substitution.DnaSubstitutionMatrix;
 import jseqa.alignment.substitution.SubstitutionMatrix;
 
@@ -49,8 +50,29 @@ public class LocalAlignmentTest {
 		String mouseFosB = "MFQAFPGDYDSGSRCSSSPSAESQYLSSVDSFGSPPTAAASQECAGLGEMPGSFVPTVTAITTSQDLQWLVQPTLISSMAQSQGQPLASQPPAVDPYDMPGTSYSTPGLSAYSTGGASGSGGPSTSTTTSGPVSARPARARPRRPREETLTPEEEEKRRVRRERNKLAAAKCRNRRRELTDRLQAETDQLEEEKAELESEIAELQKEKERLEFVLVAHKPGCKIPYEEGPGPGPLAEVRDLPGSTSAKEDGFGWLLPPPPPPPLPFQSSRDAPPNLTASLFTHSEVQVLGDPFPVVSPSYTSSFVLTCPEVSAFAGAQRTSGSEQPSDPLNSPSLLAL";
 		SubstitutionMatrix blosum62 = new BlosumSubstitutionMatrix(BlosumMatrices.BLOSUM62, -10, -1);
 		Alignment aln = FullAlignments.localAlignNt(mouseFos, mouseFosB, blosum62);
-//		System.out.println(aln.toString(45));
 		assertEquals(381, aln.score()); //611
+	}
+	
+	@Test
+	public void testFosSub() {
+		String subA = "EADSFPSCAAAHRKGSSSNEPSSDSLSSPTLLAL";
+		String subB = "EVSAFAGAQRTSGSEQPSDPLNSPSLLAL";
+		SubstitutionMatrix blosum62 = new BlosumSubstitutionMatrix(BlosumMatrices.BLOSUM62, -10, -1);
+		Alignment aln = FullAlignments.localAlignNt(subA, subB, blosum62);
+		assertEquals(54, aln.score()); // verified by EMBOSS
+		assertEquals(14, aln.numMatches());
+		assertEquals(28, aln.numColumns());
+	}
+	
+	
+	@Test
+	public void testSmallNuc() {
+		String a = "CGTGAATTCAT";
+		String b = "GACTTAC";
+		Alignment aln = FullAlignments.localAlignNt(a, b, new CustomDnaSubstitutionMatrix(5, -3, -4, -4));
+		assertEquals(18, aln.score());
+		assertEquals("GAATT-C", aln.top());
+		assertEquals("GACTTAC", aln.bottom());
 	}
 	
 	@Test

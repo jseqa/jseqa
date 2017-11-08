@@ -52,7 +52,7 @@ public class AffineGlobalAlignmentIT {
 			char mutCh = subLists.get(germlineCh)[randIdx];
 			mutV13.setCharAt(pos, mutCh);
 			// now align
-			Alignment aln = FullAlignments.affineGlobalAlignNt(v13, mutV13.toString(), alignScoreMat, alignPtrMat, subMat);
+			Alignment aln = FullAlignments.affineGlobalAlign(v13, mutV13.toString(), alignScoreMat, alignPtrMat, subMat);
 			// should be off by 1
 			int diff = aln.numColumns() - aln.numMatches();
 			assertEquals(1, diff);

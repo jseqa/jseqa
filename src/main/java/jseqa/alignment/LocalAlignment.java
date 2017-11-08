@@ -7,7 +7,6 @@ import jseqa.util.Pair;
  * Local alignment of two sequences using basic indel penalties (Smith-Waterman).
  *
  */
-//public class LocalAlignment extends GlobalAlignment implements FullMatrixFiller, BandedMatrixFiller {
 public class LocalAlignment extends AbstractBasicPairwiseAlignment implements FullMatrixFiller, BandedMatrixFiller {
 
 	private int maxScore;
@@ -25,19 +24,7 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment implements Fu
 		
 		this.gappenal = this.scoreMatrix.gapPenalty();
 		this.matchmismatch = -this.scoreMatrix.gapPenalty();
-		
-//		this.nrows = this.lenSeqA+1;
-//		this.ncols = this.lenSeqB+1;
-//		this.lclMat = new int[this.nrows*this.ncols];
 	}
-	
-//	private void setMatrix(int i, int j, int val) {
-//		this.lclMat[this.ncols*i + j] = val;
-//	}
-//	
-//	private int getMatrix(int i, int j) {
-//		return this.lclMat[this.ncols*i + j];
-//	}
 	
 	/**
 	 * {@inheritDoc}
@@ -46,13 +33,6 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment implements Fu
 	 */
 	@Override
 	public void initMatrix() {
-//		super.initMatrix();
-//		for(int i = 0; i < this.lenSeqA+1; i++) {
-//			for(int j = 0; j < this.lenSeqB+1; j++) {
-//				this.alignScoreMatrix.set(i, j, 0);
-//				this.alignPtrMatrix.set(i, j, BacktrackPtr.FREERIDE);
-//			}
-//		}
 		for(int i = 0; i < this.lenSeqA+1; i++) {
 			this.alignScoreMatrix.set(i, 0, 0);
 //			this.setMatrix(i, 0, 0);
@@ -109,64 +89,11 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment implements Fu
 		char aCh = this.inputSeqA.charAt(i-1);
 		char bCh = this.inputSeqB.charAt(j-1);
 		
-		
 		int insScore = this.alignScoreMatrix.get(i-1, j) + this.scoreMatrix.gapPenalty();
 		int delScore = this.alignScoreMatrix.get(i, j-1) + this.scoreMatrix.gapPenalty(); // add 1.5sec each
-//		int insScore = this.alignScoreMatrix.get(i-1, j) - 1;
-//		int delScore = this.alignScoreMatrix.get(i, j-1) - 1;
-//		int insScore = this.alignScoreMatrix.get(i-1, j) + this.gappenal;
-//		int delScore = this.alignScoreMatrix.get(i, j-1) + this.gappenal;
 
-		int diagScore = this.alignScoreMatrix.get(i-1, j-1) + this.scoreMatrix.score(aCh, bCh);
-//		int diagScore = this.alignScoreMatrix.get(i-1, j-1) + (((aCh ^ bCh) > 0) ? -1 : 1) ;
-//		int diagScore = this.alignScoreMatrix.get(i-1, j-1) + 1;
-		
-		
-//		int insScore = this.alignScoreMatrix.get(i-1, j) + this.gappenal;
-//		int delScore = this.alignScoreMatrix.get(i, j-1) + this.gappenal;
-//		
-////		int diagScore = this.alignScoreMatrix.get(i-1, j-1) + 1; // 3 sec 
-//		int diagScore = this.alignScoreMatrix.get(i-1, j-1) + (aCh == bCh ? 1 : -1); // 11 sec
-//		int diagScore = this.alignScoreMatrix.get(i-1, j-1) + this.scoreMatrix.score(aCh, bCh); // 10sec
-////		int diagScore = this.alignScoreMatrix.get(i-1, j-1) + this.matchmismatch; // 3sec
-		
-		
-//		int score = this.setCellOk(i, j, diagScore, insScore, delScore);
-//		int score = this.setCellOk2(i, j, diagScore, insScore, delScore);
-//		this.alignScoreMatrix.set(i, j, score);
+		int diagScore = this.alignScoreMatrix.get(i-1, j-1) + this.scoreMatrix.score(aCh, bCh);		
 		int score = this.setCellOrig(i, j, diagScore, insScore, delScore);
-		
-		// lcl-aln/score = 11/10 sec with max comp during fill - same as compute after
-//		if(score > this.maxScore && score > 0) {
-//			this.maxScore = score;
-//			this.best_i = i;
-//			this.best_j = j;
-//		}
-		
-//		int retval = this.argmax3(diagScore, insScore, delScore);
-//		BacktrackPtr ptr = null;
-//		int score = 0;
-//		if(retval == 0) {
-//			score = diagScore;
-//			ptr = BacktrackPtr.DIAG;
-//		} else if(retval == 1) {
-//			score = insScore;
-//			ptr = BacktrackPtr.UP;
-//		} else {
-//			score = delScore;
-//			ptr = BacktrackPtr.LEFT;
-//		}
-//		if(score < 0) {
-//			score = 0;
-//			ptr = BacktrackPtr.FREERIDE;
-//		} else if(score > this.maxScore) {
-//			this.maxScore = score;
-//			this.best_i = i;
-//			this.best_j = j;
-//		}
-//		
-//		this.alignScoreMatrix.set(i, j, score);
-//		this.alignPtrMatrix.set(i, j, ptr);
 	}
 	
 	private int argmax4(int aVal, int bVal, int cVal) {
@@ -207,138 +134,84 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment implements Fu
 		return score;
 	}
 	
-	/** 13sec, ok */
-	private int setCellOk(int i, int j, int diagScore, int insScore, int delScore) {
-		int retval = this.argmax3(diagScore, insScore, delScore);
-		BacktrackPtr ptr = null;
-		int score = 0;
-		if(retval == 0) {
-			score = diagScore;
-			ptr = BacktrackPtr.DIAG;
-		} else if(retval == 1) {
-			score = insScore;
-			ptr = BacktrackPtr.UP;
-		} else {
-			score = delScore;
-			ptr = BacktrackPtr.LEFT;
-		}
-		if(score < 0) {
-			score = 0;
-			ptr = BacktrackPtr.FREERIDE;
-		} 
-		this.alignPtrMatrix.set(i, j, ptr);
-		return score;
-	}
-	
-	/** 14 sec */
-	private int setCellOk2(int i, int j, int diagScore, int insScore, int delScore) {
-		int maxval = Math.max(0, Math.max(diagScore, Math.max(insScore, delScore)));
-		BacktrackPtr ptr = BacktrackPtr.DIAG;
-		
-		if(maxval < 0) {
-			this.alignPtrMatrix.set(i, j, BacktrackPtr.FREERIDE);
-			return maxval;
-		}
-		
-		if(maxval == diagScore) {
-		} else if(maxval == insScore) {
-			ptr = BacktrackPtr.UP;
-		} else {
-			ptr = BacktrackPtr.LEFT;
-		}
-		 
-		this.alignPtrMatrix.set(i, j, ptr);
-		return maxval;
-	}
-	
-	private int setCellSlow28(int i, int j, int diagScore, int insScore, int delScore) {
-		int maxval = Math.max(0, Math.max(diagScore, Math.max(insScore, delScore)));
-		if(maxval == 0) {
-			this.alignPtrMatrix.set(i, j, BacktrackPtr.FREERIDE);
-			return 0;
-		} else if(maxval == diagScore) {
-			this.alignPtrMatrix.set(i, j, BacktrackPtr.DIAG);
-			return diagScore;
-		} else if(maxval == insScore) {
-			this.alignPtrMatrix.set(i, j, BacktrackPtr.UP);
-			return insScore;
-		} else {
-			this.alignPtrMatrix.set(i, j, BacktrackPtr.LEFT);
-			return delScore;
-		}
-	}
-	
-	
-	private int setCell2(int i, int j, int diagScore, int insScore, int delScore) {
+//	/** 13sec, ok */
+//	private int setCellOk(int i, int j, int diagScore, int insScore, int delScore) {
 //		int retval = this.argmax3(diagScore, insScore, delScore);
-		int retval = this.argmax4(diagScore, insScore, delScore);
-		
 //		BacktrackPtr ptr = null;
 //		int score = 0;
-		if(retval == -1) {
-			this.alignPtrMatrix.set(i, j, BacktrackPtr.FREERIDE);
-			return 0;
-		} else if(retval == 0) {
+//		if(retval == 0) {
 //			score = diagScore;
 //			ptr = BacktrackPtr.DIAG;
-			this.alignPtrMatrix.set(i, j, BacktrackPtr.DIAG);
-			return diagScore;
-		} else if(retval == 1) {
+//		} else if(retval == 1) {
 //			score = insScore;
 //			ptr = BacktrackPtr.UP;
-			this.alignPtrMatrix.set(i, j, BacktrackPtr.UP);
-			return insScore;
-		} else { //if(retval == 2) {
+//		} else {
 //			score = delScore;
 //			ptr = BacktrackPtr.LEFT;
-			this.alignPtrMatrix.set(i, j, BacktrackPtr.LEFT);
-			return delScore;
-		} 
-		
+//		}
 //		if(score < 0) {
 //			score = 0;
 //			ptr = BacktrackPtr.FREERIDE;
-//		} else if(score > this.maxScore) {
-//			this.maxScore = score;
-//			this.best_i = i;
-//			this.best_j = j;
-//		}
-		
-		
-//		this.alignScoreMatrix.set(i, j, score);
+//		} 
 //		this.alignPtrMatrix.set(i, j, ptr);
-	}
-	
-//	@Override
-//	public void fillCell(int i, int j) {
-//		char aCh = this.inputSeqA.charAt(i-1);
-//		char bCh = this.inputSeqB.charAt(j-1);
+//		return score;
+//	}
+//	
+//	/** 14 sec */
+//	private int setCellOk2(int i, int j, int diagScore, int insScore, int delScore) {
+//		int maxval = Math.max(0, Math.max(diagScore, Math.max(insScore, delScore)));
+//		BacktrackPtr ptr = BacktrackPtr.DIAG;
 //		
-//		int insScore = this.alignScoreMatrix.get(i-1, j) + this.scoreMatrix.gapPenalty();
-//		int delScore = this.alignScoreMatrix.get(i, j-1) + this.scoreMatrix.gapPenalty();
-//		int diagScore = this.alignScoreMatrix.get(i-1, j-1) + this.scoreMatrix.score(aCh, bCh);
-//		
-//		int retval = this.argmax3(diagScore, insScore, delScore);
-//		
-//		if(retval == 0) {
-//			this.alignScoreMatrix.set(i, j, diagScore);
-//			this.alignPtrMatrix.set(i, j, BacktrackPtr.DIAG);
-//		} else if(retval == 1) {
-//			this.alignScoreMatrix.set(i, j, insScore);
-//			this.alignPtrMatrix.set(i, j, BacktrackPtr.UP);
-//		} else {
-//			this.alignScoreMatrix.set(i, j, delScore);
-//			this.alignPtrMatrix.set(i, j, BacktrackPtr.LEFT);
-//		}
-//		
-//		if(this.alignScoreMatrix.get(i, j) < 0) {
-//			this.alignScoreMatrix.set(i, j, 0); 
+//		if(maxval < 0) {
 //			this.alignPtrMatrix.set(i, j, BacktrackPtr.FREERIDE);
-//		} else if(this.alignScoreMatrix.get(i, j)  > this.maxScore) {
-//			this.maxScore = this.alignScoreMatrix.get(i, j);
-//			this.best_i = i;
-//			this.best_j = j;
+//			return maxval;
 //		}
+//		
+//		if(maxval == diagScore) {
+//		} else if(maxval == insScore) {
+//			ptr = BacktrackPtr.UP;
+//		} else {
+//			ptr = BacktrackPtr.LEFT;
+//		}
+//		 
+//		this.alignPtrMatrix.set(i, j, ptr);
+//		return maxval;
+//	}
+//	
+//	private int setCellSlow28(int i, int j, int diagScore, int insScore, int delScore) {
+//		int maxval = Math.max(0, Math.max(diagScore, Math.max(insScore, delScore)));
+//		if(maxval == 0) {
+//			this.alignPtrMatrix.set(i, j, BacktrackPtr.FREERIDE);
+//			return 0;
+//		} else if(maxval == diagScore) {
+//			this.alignPtrMatrix.set(i, j, BacktrackPtr.DIAG);
+//			return diagScore;
+//		} else if(maxval == insScore) {
+//			this.alignPtrMatrix.set(i, j, BacktrackPtr.UP);
+//			return insScore;
+//		} else {
+//			this.alignPtrMatrix.set(i, j, BacktrackPtr.LEFT);
+//			return delScore;
+//		}
+//	}
+//	
+//	
+//	private int setCell2(int i, int j, int diagScore, int insScore, int delScore) {
+//		int retval = this.argmax4(diagScore, insScore, delScore);
+//		
+//		if(retval == -1) {
+//			this.alignPtrMatrix.set(i, j, BacktrackPtr.FREERIDE);
+//			return 0;
+//		} else if(retval == 0) {
+//			this.alignPtrMatrix.set(i, j, BacktrackPtr.DIAG);
+//			return diagScore;
+//		} else if(retval == 1) {
+//			this.alignPtrMatrix.set(i, j, BacktrackPtr.UP);
+//			return insScore;
+//		} else { //if(retval == 2) {
+//			this.alignPtrMatrix.set(i, j, BacktrackPtr.LEFT);
+//			return delScore;
+//		} 
 //	}
 	
 	/**
@@ -348,24 +221,19 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment implements Fu
 	 */
 	@Override
 	protected void setBacktrackCell() {
-		// creating pairs as go takes: 14/13sec
-//		this.endCell = new Pair<Integer,Integer>(this.lenSeqA, this.lenSeqB);
-		this.best_i = this.lenSeqA;
-		this.best_j = this.lenSeqB;
-		int maxScore = this.alignScoreMatrix.get(this.lenSeqA, this.lenSeqB);
-		for(int i = 0; i < this.lenSeqA+1; i++) {
-			for(int j = 0; j < this.lenSeqB+1; j++) {
-				if(this.alignScoreMatrix.get(i, j) > maxScore) {
-//					this.endCell = new Pair<Integer,Integer>(i, j);
-					maxScore = this.alignScoreMatrix.get(i, j);
-					this.best_i = i;
-					this.best_j = j;
-				}
-			}
-		}
-		
-//		this.alignScoreMatrix.set(this.best_i, this.best_j, this.maxScore);
-		
+//		this.best_i = this.lenSeqA;
+//		this.best_j = this.lenSeqB;
+//		int maxScore = this.alignScoreMatrix.get(this.lenSeqA, this.lenSeqB);
+//		for(int i = 0; i < this.lenSeqA+1; i++) {
+//			for(int j = 0; j < this.lenSeqB+1; j++) {
+//				if(this.alignScoreMatrix.get(i, j) > maxScore) {
+//					maxScore = this.alignScoreMatrix.get(i, j);
+//					this.best_i = i;
+//					this.best_j = j;
+//				}
+//			}
+//		}
+//				
 		// used when finding max while filling in
 		this.endCell = new Pair<Integer,Integer>(this.best_i, this.best_j);
 	}
