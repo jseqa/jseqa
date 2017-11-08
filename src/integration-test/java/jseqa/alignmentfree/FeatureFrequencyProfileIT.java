@@ -18,11 +18,11 @@ import jseqa.alignment.GlobalAlignmentsIT;
 public class FeatureFrequencyProfileIT {
 
 	//IGHV1S13*01
-		private String v13 = "CAGGAGCAGCTGGAGGAATCCGGGGGAGGCCTGGTCACGCCTGGAGGAACCCTGACACTC" +
-				"ACCTGCACAGTCTCTGGATTCTCCCTCAGTAGCTATGGAGTAAGCTGGGTCCGCCAGGCT" +
-				"GCAGGGAAGGGGCTGGAATGGATCGGATACATTAGTAGTAGTGGTAGCGCATACTACGCG" +
-				"AGTTGGGTAAATGGTCGATTCACCATCTCCAAAACCTCGAGCACGGTGGATCTGAAAATG" + 
-				"ACCAGTCTGAGAGCCGCGGACACGGCCACCTATTTCTGTGCCAGAAA";
+	private String v13 = "CAGGAGCAGCTGGAGGAATCCGGGGGAGGCCTGGTCACGCCTGGAGGAACCCTGACACTC" +
+			"ACCTGCACAGTCTCTGGATTCTCCCTCAGTAGCTATGGAGTAAGCTGGGTCCGCCAGGCT" +
+			"GCAGGGAAGGGGCTGGAATGGATCGGATACATTAGTAGTAGTGGTAGCGCATACTACGCG" +
+			"AGTTGGGTAAATGGTCGATTCACCATCTCCAAAACCTCGAGCACGGTGGATCTGAAAATG" + 
+			"ACCAGTCTGAGAGCCGCGGACACGGCCACCTATTTCTGTGCCAGAAA";
 	
 	@Test
 	public void testSimilar() {
@@ -40,7 +40,6 @@ public class FeatureFrequencyProfileIT {
 
 		double mean = DistributionStatistics.mean( muts.stream().mapToDouble(d -> d).toArray() );
 		double std = DistributionStatistics.std( muts.stream().mapToDouble(d -> d).toArray() );
-		System.out.println(mean + " +/- " + std);
 		assertEquals(0.99999, mean, 0.0001);		
 	}
 
@@ -58,7 +57,7 @@ public class FeatureFrequencyProfileIT {
 		for(int i = 0; i < numIter; i++) {
 			String altSeq = new String(initRandSeq);
 			List<String> lst = Arrays.asList(altSeq.split(""));
-			Collections.shuffle(lst);
+			Collections.shuffle(lst, rand);
 			String altSeq2 = lst.stream().map(ch -> ch).collect(Collectors.joining(""));
 			
 			ffp.compareSeqs(initRandSeq, altSeq2);
@@ -67,7 +66,8 @@ public class FeatureFrequencyProfileIT {
 
 		double mean = DistributionStatistics.mean( muts.stream().mapToDouble(d -> d).toArray() );
 		double std = DistributionStatistics.std( muts.stream().mapToDouble(d -> d).toArray() );
-		System.out.println(mean + " +/- " + std);
+		assertEquals(0.035522, mean, 0.000001);
+		assertTrue(std < 0.006);
 	}
 	
 }

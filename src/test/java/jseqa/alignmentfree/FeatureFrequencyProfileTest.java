@@ -15,7 +15,6 @@ public class FeatureFrequencyProfileTest {
 	public void testComputeFFP() {
 		FeatureFrequencyProfile ffp = new FeatureFrequencyProfile(2);
 		ffp.compareSeqs("AAAAAAAA", "AAAAAAAA");
-		System.out.println(Arrays.toString(ffp.getFfpA()) + "\n" + Arrays.toString(ffp.getFfpB()));
 		assertEquals(0.0, ffp.euclideanDist(), 0.00000001);
 	}
 
