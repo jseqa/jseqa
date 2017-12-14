@@ -39,11 +39,15 @@ public class FeatureFrequencyProfile {
 	}
 	
 	/**
-	 * 
+	 * Compare two sequences using FFP.
 	 * @param seqA
 	 * @param seqB
 	 */
 	public void compareSeqs(String seqA, String seqB) {
+		for(int i = 0; i < this.numNt; i++) {
+			this.fcpA[i] = 0;
+			this.fcpB[i] = 0;
+		}
 		this.computeFCP(seqA, this.fcpA);
 		this.computeFCP(seqB, this.fcpB);
 		this.computeFFP(this.fcpA, this.ffpA);
