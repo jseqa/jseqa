@@ -70,6 +70,20 @@ public class MultipleAlignment {
 		}
 	}
 	
+	/**
+	 * Get the {@code Interval} of the original positions given an {@code Interval} over 
+	 * the current MSA columns.
+	 * @param colIntval {@code Interval} of columns in current MSA.
+	 * @param rowIdx int row index of original {@code Interval} to return.
+	 * @return
+	 */
+	public Interval getTrueInterval(Interval colIntval, int rowIdx) {
+		List<MsaCell> currRow = this.rows.get(rowIdx); 
+		int strt = currRow.get(colIntval.start()).pos();
+		int end  = (colIntval.end() < currRow.size() ? currRow.get(colIntval.end()).pos() : (currRow.get(currRow.size()-1).pos + 1));
+		return new Interval(strt, end);
+	}
+	
 	public String toString() {
 		StringBuilder msa = new StringBuilder();
 		for(int i = 0; i < this.rows.size(); i++) {
@@ -104,7 +118,31 @@ public class MultipleAlignment {
 				colsToRm.add(j);
 			}
 		}
-		
+		this.removeSelectColumns(colsToRm);
+	}
+	
+	/**
+	 * Remove any column with an indel, i.e., '-', at any row.
+	 */
+	public void removeIndelColumns() {
+		List<Integer> colsToRm  = new LinkedList<Integer>();
+		for(int j = 0; j < this.rows.get(0).size(); j++) {
+			Set<Character> charsAtPos = new HashSet<Character>();
+			for(int i = 0; i < this.rows.size(); i++) {
+				charsAtPos.add(this.getCell(i, j).ch());
+			}
+			if(charsAtPos.contains('-')) {
+				colsToRm.add(j);
+			}
+		}
+		this.removeSelectColumns(colsToRm);
+	}
+	
+	/**
+	 * Column ids must be in increasing order.
+	 * @param colsToRm
+	 */
+	private void removeSelectColumns(List<Integer> colsToRm) {
 		for(int j = colsToRm.size()-1; j >= 0; j--) {
 			int col = colsToRm.get(j);
 			for(int i = 0; i < this.rows.size(); i++) {
@@ -112,5 +150,4 @@ public class MultipleAlignment {
 			}
 		}
 	}
-	
 }
