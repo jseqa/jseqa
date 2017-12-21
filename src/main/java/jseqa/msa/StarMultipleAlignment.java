@@ -22,15 +22,19 @@ public class StarMultipleAlignment {
 	
 	private static final int DEFAULT_LMER_LEN = 4;
 	
-	private List<String> seqs;
+	protected List<String> seqs;
 	
-	private String guideSeq;
+	protected String guideSeq;
 	
 	private int lmerLen = 4;
 	
 	private FeatureFrequencyProfile ffp;
 		
-	private SubstitutionMatrix subMat;
+	protected SubstitutionMatrix subMat;
+	
+	public StarMultipleAlignment(SubstitutionMatrix submat) {
+		this.subMat = submat;
+	}
 	
 	public StarMultipleAlignment(List<String> rawSeqs) {
 		this(rawSeqs, DEFAULT_LMER_LEN, new CustomDnaSubstitutionMatrix(5, -4, -10, -1));
@@ -46,13 +50,13 @@ public class StarMultipleAlignment {
 	 * @param submat substitution matrix to use for alignment of sequences
 	 */
 	public StarMultipleAlignment(List<String> rawSeqs, int lmerlen, SubstitutionMatrix submat) {
+		this(submat);
 		this.lmerLen = lmerlen;
 		this.ffp = new FeatureFrequencyProfile(this.lmerLen);
 		this.guideSeq = this.centroidSeq(rawSeqs);
 		this.seqs = new ArrayList<String>(rawSeqs.size());
 		this.seqs.addAll(rawSeqs);
 		this.seqs.remove(this.guideSeq);
-		this.subMat = submat;
 	}
 	
 	/**

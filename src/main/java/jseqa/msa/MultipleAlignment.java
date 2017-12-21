@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import jseqa.util.Interval;
 
@@ -85,9 +86,48 @@ public class MultipleAlignment {
 	}
 	
 	public String toString() {
+		return this.toStringWithConsensus(false);
+	}
+	
+	public String toStringWithConsensus(boolean consflag) {
 		StringBuilder msa = new StringBuilder();
 		for(int i = 0; i < this.rows.size(); i++) {
 			msa.append(this.getRowSequence(i) + "\n");
+		}
+		
+		if(consflag) {
+			StringBuilder consensusStr = new StringBuilder();
+			for(int j = 0; j < this.rows.get(0).size(); j++) {
+				final int pos = j;
+				int numUniqCh = (int) IntStream.range(0,this.rows.size()).map(i -> this.getRowSequence(i).charAt(pos)).distinct().count();
+				char ch = numUniqCh == 1 ? ' ' : '.';
+				consensusStr.append(ch);
+			}
+			msa.append(consensusStr.toString());
+		}
+		return msa.toString();
+	}
+	
+	public String toStringFixedWidth(int colWidth) {
+		StringBuilder consensusStr = new StringBuilder();
+		for(int j = 0; j < this.rows.get(0).size(); j++) {
+			final int pos = j;
+			int numUniqCh = (int) IntStream.range(0,this.rows.size()).map(i -> this.getRowSequence(i).charAt(pos)).distinct().count();
+			char ch = numUniqCh == 1 ? ' ' : '.';
+			consensusStr.append(ch);
+		}
+		
+		StringBuilder msa = new StringBuilder();
+		int ncols = this.rows.get(0).size();
+		for(int i = 0; i < ncols; i += colWidth) {
+			if(i > 0) {
+				msa.append("\n");
+			}
+			int lclWidth = ((i+colWidth) < ncols) ? colWidth : (ncols-i); 
+			for(int j = 0; j < this.rows.size(); j++) {
+				msa.append(this.getRowSequence(j).substring(i,i+lclWidth) + "\n");
+			}
+			msa.append(consensusStr.subSequence(i, i+lclWidth) + "\n");
 		}
 		return msa.toString();
 	}

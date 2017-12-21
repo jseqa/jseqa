@@ -50,13 +50,13 @@ public class SingleGuideMultipleAlignmentBuilderTest {
 		
 		MultipleAlignment ma = maBuild.toMultipleAlignment();
 		
-//		System.out.println(ma.toString());
 		String expMsa = 
 				"ATTGCCATT--\n" + 
 				"ATGGCCATT--\n" + 
 				"ATC-CAATTTT\n" + 
 				"ATCTTC-TT--\n" + 
 				"ACTGACC----\n"; 
+		//System.out.println(ma.toString() + "\n\n" + expMsa);
 		assertEquals(expMsa, ma.toString());
 	}
 
