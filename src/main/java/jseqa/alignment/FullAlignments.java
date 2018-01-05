@@ -192,6 +192,42 @@ public class FullAlignments {
 		return galn.backtrack();
 	}
 	
+	/**
+	 * Utility method for globally aligning two sequences with affine gap penalties.
+	 * @param seqA {@code String} first sequence to align.
+	 * @param seqB {@code String} second sequence to align.
+	 * @param scoreMat
+	 * @return
+	 */
+	public static Alignment affineOverlapAlign(String seqA, String seqB, SubstitutionMatrix scoreMat) {
+		return FullAlignments.affineOverlapAlign(seqA, 
+									   seqB, 
+									   new AffineAlignmentMatrixScore(seqA.length()+5, seqB.length()+5), 
+									   new AffineAlignmentMatrixBacktrack(seqA.length()+5, seqB.length()+5),
+									   scoreMat);
+	}
+	
+	/**
+	 * Utility method for globally aligning two sequences using existing matrices with affine gap penalties.
+	 * @param seqA {@code String} first sequence to align.
+	 * @param seqB {@code String} second sequence to align.
+	 * @param alignScoreMat
+	 * @param alignPtrMat
+	 * @param scoreMat
+	 * @return
+	 */
+	public static Alignment affineOverlapAlign(String seqA, 
+							 String seqB, 
+							 AffineAlignmentMatrixScore alignScoreMat,
+							 AffineAlignmentMatrixBacktrack alignPtrMat,
+							 SubstitutionMatrix scoreMat) {
+		AffineOverlapAlignmentNoPtrs galn = new AffineOverlapAlignmentNoPtrs(seqA, seqB, scoreMat);
+		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
+		galn.initMatrix();
+		galn.fillMatrix();
+		return galn.backtrack();
+	}
+	
 	public static int affineGlobalAlignScore(String seqA, 
 												 String seqB, 
 												 AffineAlignmentMatrixScore alignScoreMat,
