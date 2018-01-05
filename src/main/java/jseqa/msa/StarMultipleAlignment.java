@@ -88,10 +88,12 @@ public class StarMultipleAlignment {
 	 * @return
 	 */
 	public MultipleAlignment buidMsa() {
-		Alignment a1 = FullAlignments.affineGlobalAlign(this.guideSeq, this.seqs.get(0), this.subMat);
+//		Alignment a1 = FullAlignments.affineGlobalAlign(this.guideSeq, this.seqs.get(0), this.subMat);
+		Alignment a1 = FullAlignments.affineOverlapAlign(this.guideSeq, this.seqs.get(0), this.subMat);
 		SingleGuideMultipleAlignmentBuilder smsa = new SingleGuideMultipleAlignmentBuilder(a1);
 		for(int i = 1; i < this.seqs.size(); i++) {
-			Alignment aln = FullAlignments.affineGlobalAlign(this.guideSeq, this.seqs.get(i), this.subMat);
+//			Alignment aln = FullAlignments.affineGlobalAlign(this.guideSeq, this.seqs.get(i), this.subMat);
+			Alignment aln = FullAlignments.affineOverlapAlign(this.guideSeq, this.seqs.get(i), this.subMat);
 			smsa.add(aln);
 		}
 		return smsa.toMultipleAlignment();
