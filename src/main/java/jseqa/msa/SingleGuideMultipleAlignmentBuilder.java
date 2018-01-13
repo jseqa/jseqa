@@ -62,6 +62,10 @@ public class SingleGuideMultipleAlignmentBuilder implements MultipleAlignmentBui
 			} else if(topRow.charAt(i) != '-' && newRow.charAt(i) == '-') {
 				rStr.append(newRow.charAt(i));
 				msaIdx++;
+			} else if(topRow.charAt(i) == '-' && newRow.charAt(i) != '-' && i == (this.rows.get(0).length()-1) ) {
+				// don't add new row if not at the end of the alignment yet
+				rStr.append(newRow.charAt(i));
+				msaIdx++;
 			} else {
 				rStr.append(newRow.charAt(i));
 				// make new column in existing rows and add indel

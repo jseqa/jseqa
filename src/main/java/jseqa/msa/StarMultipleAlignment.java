@@ -2,6 +2,7 @@ package jseqa.msa;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import jseqa.alignment.Alignment;
 import jseqa.alignment.FullAlignments;
@@ -85,15 +86,28 @@ public class StarMultipleAlignment {
 	
 	/**
 	 * Build the MSA using the star alignment approach.
-	 * @return
+	 * @return {@code MultipleAlignment} of all reads
 	 */
 	public MultipleAlignment buidMsa() {
+		return this.buidMsa(aln -> false);
+	}
+	
+	/**
+	 * Buld the MSA using the star alignment approach. Any {@code Alignment} that the predicate returns as true, is 
+	 * not added to the MSA.
+	 * @param apred {@code Predicate} to filter out {@code Alignment} by any criteria.
+	 * @return {@code MultipleAlignment}.
+	 */
+	public MultipleAlignment buidMsa(Predicate<Alignment> apred) {
 //		Alignment a1 = FullAlignments.affineGlobalAlign(this.guideSeq, this.seqs.get(0), this.subMat);
 		Alignment a1 = FullAlignments.affineOverlapAlign(this.guideSeq, this.seqs.get(0), this.subMat);
 		SingleGuideMultipleAlignmentBuilder smsa = new SingleGuideMultipleAlignmentBuilder(a1);
 		for(int i = 1; i < this.seqs.size(); i++) {
 //			Alignment aln = FullAlignments.affineGlobalAlign(this.guideSeq, this.seqs.get(i), this.subMat);
 			Alignment aln = FullAlignments.affineOverlapAlign(this.guideSeq, this.seqs.get(i), this.subMat);
+			if(!apred.test(aln)) {
+				continue;
+			}
 			smsa.add(aln);
 		}
 		return smsa.toMultipleAlignment();
