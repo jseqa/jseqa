@@ -89,11 +89,11 @@ public class StarMultipleAlignment {
 	 * @return {@code MultipleAlignment} of all reads
 	 */
 	public MultipleAlignment buidMsa() {
-		return this.buidMsa(aln -> false);
+		return this.buidMsa(aln -> true);
 	}
 	
 	/**
-	 * Buld the MSA using the star alignment approach. Any {@code Alignment} that the predicate returns as true, is 
+	 * Build the MSA using the star alignment approach. Any {@code Alignment} that the predicate returns as false, is 
 	 * not added to the MSA.
 	 * @param apred {@code Predicate} to filter out {@code Alignment} by any criteria.
 	 * @return {@code MultipleAlignment}.
