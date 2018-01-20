@@ -2,6 +2,10 @@ package jseqa.alignmentfree;
 
 import java.util.stream.IntStream;
 
+/**
+ * A collection of utility methods of different distances.
+ *
+ */
 public class DistanceMetrics {
 
 	/**

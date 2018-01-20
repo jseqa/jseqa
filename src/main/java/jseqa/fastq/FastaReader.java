@@ -13,6 +13,14 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Reader of FASTA files, iterates over entries.
+ * <br>
+ * Once created, can use for-each syntax to iterate over entries:
+ * <br>
+ * {@code
+ * 	for(Entry ent : fqReader) {
+ * 		...
+ *  }
+ * }
  *
  */
 public class FastaReader  extends AbstractSequenceReader implements Iterable<Entry> {

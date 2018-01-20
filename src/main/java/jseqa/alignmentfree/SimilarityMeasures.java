@@ -2,13 +2,17 @@ package jseqa.alignmentfree;
 
 import java.util.stream.IntStream;
 
+/**
+ * Collection of methods for computing a variety of similarity scores.
+ *
+ */
 public class SimilarityMeasures {
 	
 	/**
 	 * Computes the dot product between two vectors.
-	 * @param a
-	 * @param b
-	 * @return
+	 * @param a {@code double[]} vector of values.
+	 * @param b {@code double[]} vector of values.
+	 * @return dot product of {@code a} and {@code b}.
 	 */
 	public static double dotProduct(double[] a, double[] b) {
 		if(a.length != b.length) {
@@ -21,8 +25,8 @@ public class SimilarityMeasures {
 	
 	/**
 	 * Computes the magnitude of the input vector.
-	 * @param vals
-	 * @return
+	 * @param vals {@code double[]} vector of values.
+	 * @return magnitude of the input vector.
 	 */
 	public static double magnitude(double[] vals) {
 		double dotprod = SimilarityMeasures.dotProduct(vals, vals);
@@ -31,8 +35,8 @@ public class SimilarityMeasures {
 	
 	/**
 	 * Computes the cosine similarity measure.
-	 * @param a
-	 * @param b
+	 * @param a {@code double[]} vector of values.
+	 * @param b {@code double[]} vector of values.
 	 * @return
 	 */
 	public static double cosine(double[] a, double[] b) {
@@ -45,7 +49,7 @@ public class SimilarityMeasures {
 	/**
 	 * Log base 2.
 	 * @param val
-	 * @return
+	 * @return log2 of input.
 	 */
 	public static double log2(double val) {
 		return Math.log(val) / Math.log(2.0);
@@ -55,7 +59,7 @@ public class SimilarityMeasures {
 	 * Computes Shannon entropy of discrete probability distribution {@code p}. 
 	 * Assumes {@code p} is a discrete probability distributions.
 	 * @param p {@code double[]} discrete probability distribution
-	 * @return
+	 * @return entropy of input array.
 	 */
 	public static double entropy(double[] p) {
 		return -IntStream.range(0, p.length)
@@ -66,9 +70,9 @@ public class SimilarityMeasures {
 	/**
 	 * Computes the Kullback-Leibler divergence, defined as: -SUM_i p_i * log(q_i/p_i). 
 	 * Assumes {@code p} and {@code q} are discrete probability distributions.
-	 * @param a
-	 * @param b
-	 * @return
+	 * @param a {@code double[]} vector of values.
+	 * @param b {@code double[]} vector of values.
+	 * @return KL divergence.
 	 */
 	public static double kullbackLeibler(double[] p, double[] q) {
 		return -IntStream.range(0, p.length)
