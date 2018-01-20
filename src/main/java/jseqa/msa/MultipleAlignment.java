@@ -39,6 +39,10 @@ public class MultipleAlignment {
 	
 	private List<List<MsaCell>> rows;
 	
+	/**
+	 * Construct a multiple alignment from {@code String}s that are assumed to be already aligned.
+	 * @param alignedSeqs
+	 */
 	public MultipleAlignment(List<String> alignedSeqs) {
 		this.rows = new LinkedList<List<MsaCell>>();
 		for(int i = 0; i < alignedSeqs.size(); i++) {
@@ -49,6 +53,10 @@ public class MultipleAlignment {
 		}
 	}
 	
+	/**
+	 * Copy constructor.
+	 * @param msaObj
+	 */
 	public MultipleAlignment(MultipleAlignment msaObj) {
 		this.rows = new LinkedList<List<MsaCell>>();
 		for(int i = 0; i < msaObj.rows.size(); i++) {
@@ -85,10 +93,18 @@ public class MultipleAlignment {
 		return new Interval(strt, end);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public String toString() {
 		return this.toStringWithConsensus(false);
 	}
 	
+	/**
+	 * Output multpile alignment to {@code String} with a consensus row.
+	 * @param consflag
+	 * @return
+	 */
 	public String toStringWithConsensus(boolean consflag) {
 		StringBuilder msa = new StringBuilder();
 		for(int i = 0; i < this.rows.size(); i++) {
@@ -108,6 +124,11 @@ public class MultipleAlignment {
 		return msa.toString();
 	}
 	
+	/**
+	 * Output the multiple alignment to a {@code String} of a fixed width.
+	 * @param colWidth int maximum width of alignment columns.
+	 * @return
+	 */
 	public String toStringFixedWidth(int colWidth) {
 		StringBuilder consensusStr = new StringBuilder();
 		for(int j = 0; j < this.rows.get(0).size(); j++) {
@@ -132,20 +153,33 @@ public class MultipleAlignment {
 		return msa.toString();
 	}
 	
+	/**
+	 * Number of columns in the multiple alignment.
+	 * @return int number of columns.
+	 */
 	public int numCols() {
 		return this.rows.get(0).size();
 	}
 	
+	/**
+	 * Number of rows int the multiple alignment, i.e., the number of sequences.
+	 * @return int number of rows (sequences).
+	 */
 	public int numRows() {
 		return this.rows.size();
 	}
 	
+	/**
+	 * Get the row from the multiple alignment.
+	 * @param i int row index to retrieve.
+	 * @return {@code String} of row i.
+	 */
 	public String getRowSequence(int i) {
 		return this.rows.get(i).stream().map(cell -> ""+cell.ch()).collect(Collectors.joining(""));
 	}
 	
 	/**
-	 * Remove any columns that are identical
+	 * Remove any columns that are identical, i.e., monomorphic.
 	 */
 	public void removeMonomorphicColumns() {
 		List<Integer> colsToRm  = new LinkedList<Integer>();
@@ -180,7 +214,7 @@ public class MultipleAlignment {
 	
 	/**
 	 * Column ids must be in increasing order.
-	 * @param colsToRm
+	 * @param colsToRm {@code List<Integer>} columns to remove.
 	 */
 	private void removeSelectColumns(List<Integer> colsToRm) {
 		for(int j = colsToRm.size()-1; j >= 0; j--) {
