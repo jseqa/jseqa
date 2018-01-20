@@ -25,11 +25,9 @@ public class MultipleAlignmentTest {
 	
 	@Test
 	public void testPrintMatrix() {
-//		msa.printMatrix();
 		assertEquals(6, msa.numCols());
 		
 		msa.removeMonomorphicColumns();
-//		msa.printMatrix();
 		assertEquals(3, msa.numCols());
 	}
 

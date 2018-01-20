@@ -1,19 +1,11 @@
 package jseqa.msa;
 
-import static org.junit.Assert.*;
-
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Test;
 
-import jseqa.alignment.Alignment;
-import jseqa.alignment.FullAlignments;
-import jseqa.alignment.substitution.CustomDnaSubstitutionMatrix;
-
 public class StarMultipleAlignmentTest {
-
-	
 	
 	@Test
 	public void testStarMultipleAlignment() {
@@ -26,7 +18,6 @@ public class StarMultipleAlignmentTest {
 		
 		StarMultipleAlignment star = new StarMultipleAlignment(seqs);
 		MultipleAlignment msa = star.buidMsa();
-		System.out.println(msa.toString());
 	}
 	
 }

@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import jseqa.alignment.Alignment;
 import jseqa.msa.MultipleAlignment;
-import jseqa.msa.MultipleAlignmentBuilder;
 
 public class SingleGuideMultipleAlignmentBuilderTest {
 
@@ -23,7 +22,6 @@ public class SingleGuideMultipleAlignmentBuilderTest {
 		maBuild.add(a4.top(), a4.bottom());
 		
 		MultipleAlignment ma = maBuild.toMultipleAlignment();
-//		System.out.println(ma.toString());
 		String expMsa = "A-CT\n" + 
 				"T-CT\n" + 
 				"--CT\n" + 
@@ -56,7 +54,6 @@ public class SingleGuideMultipleAlignmentBuilderTest {
 				"ATC-CAATTTT\n" + 
 				"ATCTTC-TT--\n" + 
 				"ACTGACC----\n"; 
-		//System.out.println(ma.toString() + "\n\n" + expMsa);
 		assertEquals(expMsa, ma.toString());
 	}
 

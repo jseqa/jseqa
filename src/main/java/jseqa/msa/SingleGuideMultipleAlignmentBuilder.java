@@ -85,8 +85,8 @@ public class SingleGuideMultipleAlignmentBuilder implements MultipleAlignmentBui
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Outputs to a {@code MultipleAlignment}
+	 * @return {@code MultipleAlignment} of current state.
 	 */
 	public MultipleAlignment toMultipleAlignment() {
 		List<String> currRows = this.rows.stream()
