@@ -7,7 +7,9 @@ import java.net.URL;
 import java.nio.file.Paths;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class FastqReaderTest {
 
@@ -38,8 +40,12 @@ public class FastqReaderTest {
 	}
 
 	@Test
-	 public void testNumEntries() {
+	 public void testNumEntries() throws FileNotFoundException {
 		assertEquals(3, FastqReader.numEntries(Paths.get(sampleUrl.getPath())));
 	}
 	
+	@Test(expected = FileNotFoundException.class)
+	public void testNumEntriesFail() throws FileNotFoundException {
+		assertEquals(-1, FastqReader.numEntries(Paths.get("blahblahblah.fa")));
+	}
 }

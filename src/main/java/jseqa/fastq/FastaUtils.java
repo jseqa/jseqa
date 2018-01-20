@@ -48,7 +48,12 @@ public class FastaUtils {
 	 * @return stream of {@code IntervalFastaReaders} that iterate over non-overlapping entries.
 	 */
 	public static Stream<IntervalFastaReader> partitionIntoIntervals(Path faFile, int numParts) {
-		int numEntries = FastaReader.numEntries(faFile);
+		int numEntries = -1;
+		try {
+			numEntries = FastaReader.numEntries(faFile);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		int intval = (int)Math.ceil((double)numEntries / (double)numParts);
 		
 		return IntStream.iterate(0, i -> i + intval)
