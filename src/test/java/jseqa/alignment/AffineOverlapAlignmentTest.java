@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import jseqa.alignment.substitution.DnaSubstitutionMatrix;
 
-public class AffineOverlapAlignmentNoPtrsTest {
+public class AffineOverlapAlignmentTest {
 
 	@Test
 	public void testFillCell() {

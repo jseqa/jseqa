@@ -6,9 +6,9 @@ import jseqa.alignment.substitution.SubstitutionMatrix;
  * Overlap alignment using affine gap penalties; i.e., global alignment that does not penalize gaps at start/end.
  *
  */
-public class AffineOverlapAlignmentNoPtrs extends AffineGlobalAlignmentNoPtrs {
+public class AffineOverlapAlignment extends AffineGlobalAlignment {
 
-	public AffineOverlapAlignmentNoPtrs(String inSeqA, String inSeqB, SubstitutionMatrix scoremat) {
+	public AffineOverlapAlignment(String inSeqA, String inSeqB, SubstitutionMatrix scoremat) {
 		super(inSeqA, inSeqB, scoremat);
 	}
 	

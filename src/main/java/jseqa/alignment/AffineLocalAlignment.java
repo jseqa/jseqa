@@ -7,9 +7,9 @@ import jseqa.util.Pair;
  * Local alignment using affine gap penalties. Uses three matrices to keep track. 
  *
  */
-public class AffineLocalAlignmentNoPtrs extends AffineGlobalAlignmentNoPtrs {
+public class AffineLocalAlignment extends AffineGlobalAlignment {
 
-	public AffineLocalAlignmentNoPtrs(String inSeqA, String inSeqB, SubstitutionMatrix scoremat) {
+	public AffineLocalAlignment(String inSeqA, String inSeqB, SubstitutionMatrix scoremat) {
 		super(inSeqA, inSeqB, scoremat);
 	}
 	

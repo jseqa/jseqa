@@ -34,7 +34,7 @@ public class LocalAlignmentsIT {
 		List<String> mutSeqs = GlobalAlignmentsIT.mutateSeq(v13, numIter);
 
 		for(String mutV13 : mutSeqs) {
-			Alignment affAln = FullAlignments.affineLocalAlignNoPtrsNt(v13, mutV13.toString(), affineAlignScoreMat, affineAlignPtrMat, subMat);
+			Alignment affAln = FullAlignments.affineLocalAlignNt(v13, mutV13.toString(), affineAlignScoreMat, affineAlignPtrMat, subMat);
 			Alignment simpAln = FullAlignments.localAlignNt(v13, mutV13.toString(), alignScoreMat, alignPtrMat, subMat);
 
 			assertFalse(simpAln == affAln);

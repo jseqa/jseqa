@@ -8,13 +8,13 @@ import jseqa.alignment.substitution.BlosumMatrices;
 import jseqa.alignment.substitution.BlosumSubstitutionMatrix;
 import jseqa.alignment.substitution.DnaSubstitutionMatrix;
 
-public class AffineGlobalAlignmentNoPtrsTest {
+public class AffineGlobalAlignmentTest {
 
 	@Test
 	public void testSimpleFromGlobal() {
 		String a = "AAATTT";
 		String b = "AATC";
-		AffineGlobalAlignmentNoPtrs galn = new AffineGlobalAlignmentNoPtrs(a, b, new DnaSubstitutionMatrix(-5, -5));
+		AffineGlobalAlignment galn = new AffineGlobalAlignment(a, b, new DnaSubstitutionMatrix(-5, -5));
 		galn.setAlignmentMatrix(new AffineAlignmentMatrixScore(10,10), new AffineAlignmentMatrixBacktrack(10,10));
 		galn.initMatrix();
 		galn.fillMatrix();
@@ -29,16 +29,12 @@ public class AffineGlobalAlignmentNoPtrsTest {
 	public void testSimple() {
 		String a = "AAAAAATTTTT";
 		String b =     "AATT";
-		AffineGlobalAlignmentNoPtrs galn = new AffineGlobalAlignmentNoPtrs(a, b, new DnaSubstitutionMatrix(-5, -1));
+		AffineGlobalAlignment galn = new AffineGlobalAlignment(a, b, new DnaSubstitutionMatrix(-5, -1));
 		galn.setAlignmentMatrix(new AffineAlignmentMatrixScore(20,20), new AffineAlignmentMatrixBacktrack(20,20));
 		galn.initMatrix();
-//		System.out.println(galn.alignScoreMatrix.toString(a.length()+1, b.length()+1));
-//		System.out.println(galn.alignPtrMatrix.toString(a.length()+1, b.length()+1));
 		galn.fillMatrix();
-//		System.out.println(galn.alignScoreMatrix.toString(a.length()+1, b.length()+1));
-//		System.out.println(galn.alignPtrMatrix.toString(a.length()+1, b.length()+1));
 		Alignment aln = galn.backtrack();
-//		System.out.println(aln);
+
 		assertEquals(9, aln.score());
 		assertEquals(4, aln.numMatches());
 		
@@ -75,7 +71,7 @@ public class AffineGlobalAlignmentNoPtrsTest {
 		"CCAGGGGAGGGGCTGGAATACATCGGATGGATTAGTACTGGTGGTAGCGCATACTACGCG" +
 		"AGCTGGGTGAATGGTCGATTCACCATCTCCAAAACCTCGACCACGATGGATCTGAAAATG" + 
 		"ACCAGTCTGACAGCCGCGGACACGGCCACCTATTTCTGTGCCAGAGA";
-		AffineGlobalAlignmentNoPtrs galn = new AffineGlobalAlignmentNoPtrs(v13, v17, new DnaSubstitutionMatrix(-10));
+		AffineGlobalAlignment galn = new AffineGlobalAlignment(v13, v17, new DnaSubstitutionMatrix(-10));
 		galn.setAlignmentMatrix(new AffineAlignmentMatrixScore(300,300), new AffineAlignmentMatrixBacktrack(300,300));
 
 		galn.initMatrix();
