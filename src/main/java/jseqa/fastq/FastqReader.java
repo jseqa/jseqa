@@ -41,8 +41,9 @@ public class FastqReader extends AbstractSequenceReader implements Iterable<Qual
 	 * Counts the number of entries in FASTQ file.
 	 * @param fqFile {@code Path} FASTQ file to count entries
 	 * @return number of identified entries
+	 * @throws FileNotFoundException 
 	 */
-	public static int numEntries(Path fqFile) {
+	public static int numEntries(Path fqFile) throws FileNotFoundException {
 		try(FastqReader fq = new FastqReader(fqFile)) {
 			int numEntries = 0;
 			for(QualityEntry entry : fq) {
@@ -50,7 +51,7 @@ public class FastqReader extends AbstractSequenceReader implements Iterable<Qual
 			}
 			return numEntries;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			throw e;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

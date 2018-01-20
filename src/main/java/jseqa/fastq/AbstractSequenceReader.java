@@ -54,7 +54,6 @@ public abstract class AbstractSequenceReader implements AutoCloseable {
 				this.buff = new BufferedReader(fr);
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 			throw e;
 		} catch (IOException e) {
 			e.printStackTrace();

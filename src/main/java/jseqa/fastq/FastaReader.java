@@ -48,8 +48,9 @@ public class FastaReader  extends AbstractSequenceReader implements Iterable<Ent
 	 * Counts the number of entries in FASTQ file.
 	 * @param fqFile {@code Path} FASTQ file to count entries
 	 * @return number of identified entries
+	 * @throws FileNotFoundException 
 	 */
-	public static int numEntries(Path fqFile) {
+	public static int numEntries(Path fqFile) throws FileNotFoundException {
 		try(FastaReader fq = new FastaReader(fqFile)) {
 			int numEntries = 0;
 			for(Entry entry : fq) {
@@ -57,7 +58,7 @@ public class FastaReader  extends AbstractSequenceReader implements Iterable<Ent
 			}
 			return numEntries;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			throw e;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

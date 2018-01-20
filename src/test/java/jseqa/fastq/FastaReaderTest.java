@@ -3,6 +3,7 @@ package jseqa.fastq;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 
@@ -19,14 +20,24 @@ public class FastaReaderTest {
 	}
 	
 	@Test
-	public void test() throws FileNotFoundException {
-		FastaReader fa = new FastaReader(Paths.get(sampleUrl.getPath()));
-		int num = 0;
-		for(Entry entry : fa) {
-			assertEquals(50, entry.sequence().length());
-			num++;
+	public void test() throws IOException {
+		try(FastaReader fa = new FastaReader(Paths.get(sampleUrl.getPath()))) {
+			int num = 0;
+			for(Entry entry : fa) {
+				assertEquals(50, entry.sequence().length());
+				num++;
+			}
+			assertEquals(3, num);
 		}
-		assertEquals(3, num);
 	}
-
+	
+	@Test
+	 public void testNumEntries() throws FileNotFoundException {
+		assertEquals(3, FastaReader.numEntries(Paths.get(sampleUrl.getPath())));
+	}
+	
+	@Test(expected = FileNotFoundException.class)
+	public void testNumEntriesFail() throws FileNotFoundException {
+		assertEquals(-1, FastaReader.numEntries(Paths.get("blahblahblah.fa")));
+	}
 }
