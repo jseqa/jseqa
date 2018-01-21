@@ -37,6 +37,16 @@ public class DistanceMetrics {
 	}
 	
 	/**
+	 * Computes Chebyshev distance, same as {@link #linfNormDist(double[], double[])}.
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public static double chebyshevDist(double[] a, double[] b) {
+		return DistanceMetrics.linfNormDist(a, b);
+	}
+	
+	/**
 	 * Computes the Manhattan distance (i.e., L1-norm distance).
 	 * @param a
 	 * @param b

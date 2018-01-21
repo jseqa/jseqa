@@ -42,4 +42,20 @@ public class DistanceMetricsTest {
 		assertEquals(0.0, DistanceMetrics.cosineDistance(b, b), DELTA);
 	}
 	
+	@Test
+	public void testManhattanDist() {
+		assertEquals(1.0, DistanceMetrics.manhattanDist(a, b), DELTA);
+		double[] c = {0.0, 0.0};
+		assertEquals(2.0, DistanceMetrics.manhattanDist(c, b), DELTA);
+		assertEquals(3.0, DistanceMetrics.manhattanDist(c, a), DELTA);
+	}
+	
+	@Test
+	public void testChebyshevDist() {
+		assertEquals(1.0, DistanceMetrics.chebyshevDist(a, b), DELTA);
+		double[] c = {0.0, 0.0};
+		assertEquals(2.0, DistanceMetrics.chebyshevDist(c, b), DELTA);
+		assertEquals(2.0, DistanceMetrics.chebyshevDist(c, a), DELTA);
+	}
+	
 }

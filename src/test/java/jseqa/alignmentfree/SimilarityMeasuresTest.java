@@ -18,6 +18,12 @@ public class SimilarityMeasuresTest {
 		assertEquals(1.0, SimilarityMeasures.dotProduct(b, b), DELTA);
 	}
 	
+	@Test(expected=IllegalArgumentException.class)
+	public void testDotProductInvalid() {
+		double[] c = {1.0, 0.0};
+		SimilarityMeasures.dotProduct(a, c);
+	}
+	
 	@Test
 	public void testCosine() {
 		assertEquals(0.0, SimilarityMeasures.cosine(a, b), DELTA);
