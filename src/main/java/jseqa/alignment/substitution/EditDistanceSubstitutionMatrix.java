@@ -1,5 +1,9 @@
 package jseqa.alignment.substitution;
 
+/**
+ * Substitution matrix that scores for edit distance: +1 for match, -1 for mismatch/indel. 
+ *
+ */
 public class EditDistanceSubstitutionMatrix implements SubstitutionMatrix {
 	
 	public EditDistanceSubstitutionMatrix() {}

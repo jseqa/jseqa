@@ -8,14 +8,14 @@ import jseqa.util.Pair;
  * matrices to keep track.
  *
  */
-public class AffineGlobalAlignmentNoPtrs extends AbstractAffinePairwiseAlignment implements FullMatrixFiller, BandedMatrixFiller {
+public class AffineGlobalAlignment extends AbstractAffinePairwiseAlignment implements FullMatrixFiller, BandedMatrixFiller {
 
 	protected BacktrackPtr currMatrix;
 	
 	private int[] currDrow;
 	private int[] prevDrow;
 	
-	public AffineGlobalAlignmentNoPtrs(String inSeqA, String inSeqB, SubstitutionMatrix scoremat) {
+	public AffineGlobalAlignment(String inSeqA, String inSeqB, SubstitutionMatrix scoremat) {
 		super(inSeqA, inSeqB, scoremat);
 		this.currMatrix = null;
 	}

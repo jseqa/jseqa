@@ -16,7 +16,7 @@ import jseqa.util.Interval;
  */
 public class MultipleAlignment {
 
-	private class MsaCell {
+	class MsaCell {
 		private int pos;
 		private char ch;
 		public MsaCell(int pos, char ch) {
@@ -47,8 +47,12 @@ public class MultipleAlignment {
 		this.rows = new LinkedList<List<MsaCell>>();
 		for(int i = 0; i < alignedSeqs.size(); i++) {
 			this.rows.add(i, new LinkedList<MsaCell>());
+			int truePos = -1;
 			for(int j = 0; j < alignedSeqs.get(i).length(); j++) {
-				this.rows.get(i).add(j, new MsaCell(j, alignedSeqs.get(i).charAt(j)));
+				if(alignedSeqs.get(i).charAt(j) != '-' || j == 0) {
+					truePos ++;
+				}
+				this.rows.get(i).add(j, new MsaCell(truePos, alignedSeqs.get(i).charAt(j)));
 			}
 		}
 	}
@@ -64,7 +68,7 @@ public class MultipleAlignment {
 		}
 	}
 	
-	private List<MsaCell> getRow(int i) {
+	List<MsaCell> getRow(int i) {
 		return this.rows.get(i);
 	}
 	

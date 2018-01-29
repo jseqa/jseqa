@@ -21,19 +21,28 @@ public class Interval {
 	public Interval(int s, int e) {
 		this.start = s;
 		this.end = e;
-		if(e < s) {
-			throw new IllegalArgumentException();
-		}
 	}
 	
+	/**
+	 * Start value of interval.
+	 * @return
+	 */
 	public int start() {
 		return this.start;
 	}
 	
+	/**
+	 * End value of interval.
+	 * @return
+	 */
 	public int end() {
 		return this.end;
 	}
 	
+	/**
+	 * Length of interval.
+	 * @return int length of interval.
+	 */
 	public int length() {
 		return (this.end - this.start);
 	}
@@ -59,9 +68,9 @@ public class Interval {
 	}
 	
 	/**
-	 * determins if val is in [s,e), i.e., s <= val < e
+	 * Determines if val is in [s,e), i.e., s \u2264 val < e
 	 * @param val int value to check if is in interval
-	 * @return true if s <= val < e, false otherwise
+	 * @return true if s \u2264 val < e, false otherwise
 	 */
 	public boolean contains(int val) {
 		if(this.start <= val && val < this.end) {
@@ -90,10 +99,17 @@ public class Interval {
 		}
 	}
 	
+	/**
+	 * Outputs interval in {@code String} in format [x,y), as would be parsable from {@link #parseInterval(String)}.
+	 */
 	public String toString() {
 		return "[" + this.start + "," + this.end + ")";
 	}
 	
+	/**
+	 * Outputs interval as {@code String} in format x..y
+	 * @return
+	 */
 	public String toRangeString() {
 		return this.start + ".." + this.end;
 	}
@@ -101,6 +117,12 @@ public class Interval {
 	
 	private final static Pattern intvalRe = Pattern.compile("\\[(\\d+),(\\d+)\\)");
 	
+	/**
+	 * Parses a {@code String} returning an {@code Interval} object if it matches the pattern: [x,y)
+	 * where {@code x} and {@code y} are integers.
+	 * @param intvalStr
+	 * @return {@code Interval} if could parse the input {@code String}.
+	 */
 	public static Interval parseInterval(String intvalStr) {
 		Matcher m = intvalRe.matcher(intvalStr);
 		if(m.find()) {

@@ -99,11 +99,9 @@ public class StarMultipleAlignment {
 	 * @return {@code MultipleAlignment}.
 	 */
 	public MultipleAlignment buidMsa(Predicate<Alignment> apred) {
-//		Alignment a1 = FullAlignments.affineGlobalAlign(this.guideSeq, this.seqs.get(0), this.subMat);
 		Alignment a1 = FullAlignments.affineOverlapAlign(this.guideSeq, this.seqs.get(0), this.subMat);
 		SingleGuideMultipleAlignmentBuilder smsa = new SingleGuideMultipleAlignmentBuilder(a1);
 		for(int i = 1; i < this.seqs.size(); i++) {
-//			Alignment aln = FullAlignments.affineGlobalAlign(this.guideSeq, this.seqs.get(i), this.subMat);
 			Alignment aln = FullAlignments.affineOverlapAlign(this.guideSeq, this.seqs.get(i), this.subMat);
 			if(!apred.test(aln)) {
 				continue;

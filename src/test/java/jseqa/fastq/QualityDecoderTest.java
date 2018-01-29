@@ -2,6 +2,8 @@ package jseqa.fastq;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 public class QualityDecoderTest {
@@ -21,6 +23,11 @@ public class QualityDecoderTest {
 		double[] q13 = QualityDecoder.decodeQualities(ilmn13Range, FastqQualityEncoding.ILLUMINA13);
 		for(int i = 0; i < q13.length; i++) {
 			assertEquals((double)i, q13[i], 0.00000001);
+		}
+		QualityDecoder q13Dec = new QualityDecoder(FastqQualityEncoding.ILLUMINA13);
+		double[] q13v2 = q13Dec.decode(ilmn13Range);
+		for(int i = 0; i < q13.length; i++) {
+			assertEquals((double)i, q13v2[i], 0.00000001);
 		}
 	}
 	

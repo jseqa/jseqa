@@ -1,7 +1,7 @@
 package jseqa.fastq;
 
 /**
- * Entry from a FASTQ file containing quality values
+ * Entry from a FASTQ file containing quality values.
  *
  */
 public class QualityEntry extends Entry {
@@ -15,10 +15,23 @@ public class QualityEntry extends Entry {
 	/** Encoding type used for quality values */
 	protected FastqQualityEncoding encoding; 
 	
+	/**
+	 * Contstructor that uses {@link #DEFAULT_ENCODING} for quality values.
+	 * @param id
+	 * @param seq
+	 * @param quals
+	 */
 	public QualityEntry(String id, String seq, String quals) {
 		this(id, seq, quals, -1, DEFAULT_ENCODING);
 	}
 	
+	/**
+	 * Constructor that specifies a specific encoding {@link #FastqQualityEncoding}.
+	 * @param id
+	 * @param seq
+	 * @param quals
+	 * @param enc
+	 */
 	public QualityEntry(String id, String seq, String quals, FastqQualityEncoding enc) {
 		this(id, seq, quals, -1, enc);
 	}

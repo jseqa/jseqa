@@ -7,8 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Reads a BLOSUM substitution matrix from a resource file during object construction, instantiating the substitution
- * matrix.<br>
+ * Reads a BLOSUM amino acid substitution matrix from a resource file during object construction, instantiating 
+ * the substitution matrix.
+ * <br>
  * See {@see BlosumMatrices} for details and different matrices. 
  *
  */

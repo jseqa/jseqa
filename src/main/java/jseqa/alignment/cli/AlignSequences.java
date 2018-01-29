@@ -12,6 +12,10 @@ import jseqa.alignment.substitution.BlosumSubstitutionMatrix;
 import jseqa.alignment.substitution.DnaSubstitutionMatrix;
 import jseqa.alignment.substitution.SubstitutionMatrix;
 
+/**
+ * Command line utility to align two sequences.
+ *
+ */
 public class AlignSequences {
 
 	public static void main(String[] args) throws Exception {
@@ -22,7 +26,7 @@ public class AlignSequences {
 		opts.addOption("1", "seq_1", true, "First sequence to align");
 		opts.addOption("2", "seq_2", true, "Second sequence to align");
 		//
-		opts.addOption("t", "type", true, "type of alignment: [global/local/fitting/affine_global/affine_local], default=global");
+		opts.addOption("t", "type", true, "type of alignment: [global/local/fitting/affine_global/affine_local/affine_overlap], default=global");
 		opts.addOption("a", "amino_acid", false, "flag to toggle use of amino acid substitution matrix BLOSUM");
 		//
 		opts.addOption("p", "indel_penalty", true, "indel penalty, default=-10");
@@ -73,24 +77,27 @@ public class AlignSequences {
 			}
 			//
 			
-			SubstitutionMatrix subMat = new DnaSubstitutionMatrix(indelPenal);
+			SubstitutionMatrix subMat = null;
+			
 			if(aminoacid) {
 				subMat = BlosumSubstitutionMatrix.BLOSUM62;
+			} else {
+				subMat = new DnaSubstitutionMatrix(indelPenal, extensionPenal);
 			}
 			
 			Alignment aln = null;
 			if(type.equals("global")) {
-				aln = FullAlignments.globalAlignNt(seqA, seqB, subMat);
+				aln = FullAlignments.globalAlign(seqA, seqB, subMat);
 			} else if(type.equals("local")) {
-				aln = FullAlignments.localAlignNt(seqA, seqB, subMat);
+				aln = FullAlignments.localAlign(seqA, seqB, subMat);
 			} else if(type.equals("fitting")) {
 				aln = FullAlignments.fittingAlign(seqA, seqB, subMat);
 			} else if(type.equals("affine_global")) {
-				subMat = new DnaSubstitutionMatrix(indelPenal, extensionPenal);
-				aln = FullAlignments.affineGlobalAlignNoPtrsNt(seqA, seqB, subMat);
+				aln = FullAlignments.affineGlobalAlign(seqA, seqB, subMat);
 			} else if(type.equals("affine_local")) {
-				subMat = new DnaSubstitutionMatrix(indelPenal, extensionPenal);
-				aln = FullAlignments.affineLocalAlignNoPtrsNt(seqA, seqB, subMat);
+				aln = FullAlignments.affineLocalAlign(seqA, seqB, subMat);
+			} else if(type.equals("affine_overlap")) {
+				aln = FullAlignments.affineOverlapAlign(seqA, seqB, subMat);
 			} else {
 				System.err.println("Invalid type specified, look at help (-h)");
 				System.exit(-1);

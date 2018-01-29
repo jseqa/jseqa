@@ -4,7 +4,7 @@ import jseqa.alignment.substitution.SubstitutionMatrix;
 import jseqa.util.Pair;
 
 /**
- * Fitting alignment (a.k.a. semi-global alignment), fits one sequence into another larger sequence, without penalizing 
+ * Fitting alignment (i.e., semi-global alignment), fits one sequence into another larger sequence, without penalizing 
  * either end. 
  * <br>
  * <pre>{@code

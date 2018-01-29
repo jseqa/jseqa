@@ -8,6 +8,15 @@ import jseqa.alignment.substitution.SubstitutionMatrix;
  */
 public class FullAlignments {
 	
+	/**
+	 * Utility method that returns the score of a global alignment (Needleman-Wunch). {@see GlobalAlignment}.
+	 * @param seqA {@code String} first sequence to align.
+	 * @param seqB {@code String} second sequence to align.
+	 * @param alignScoreMat
+	 * @param alignPtrMat
+	 * @param scoreMat {@code ScoringMatrix} used to score match/mismatch/indel.
+	 * @return int score of global alignment.
+	 */
 	public static int globalAlignScore(String seqA, 
 									   String seqB, 
 									   AlignmentMatrixScore alignScoreMat,
@@ -27,12 +36,16 @@ public class FullAlignments {
 	 * @param scoreMat {@code ScoringMatrix} used to score match/mismatch/indel.
 	 * @return {@code Alignment} of globally aligned sequences.
 	 */
-	public static Alignment globalAlignNt(String seqA, String seqB, SubstitutionMatrix scoreMat) {
+	public static Alignment globalAlign(String seqA, String seqB, SubstitutionMatrix scoreMat) {
 		return FullAlignments.globalAlignNt(seqA, 
 									   seqB, 
 									   new AlignmentMatrixScore(seqA.length()+5, seqB.length()+5), 
 									   new AlignmentMatrixBacktrack(seqA.length()+5, seqB.length()+5),
 									   scoreMat);
+	}
+	
+	public static Alignment globalAlignNt(String seqA, String seqB, SubstitutionMatrix scoreMat) {
+		return FullAlignments.globalAlign(seqA, seqB, scoreMat);
 	}
 	
 	/**
@@ -75,12 +88,16 @@ public class FullAlignments {
 	 * @param scoreMat
 	 * @return {@code Alignment} of locally aligne sequences.
 	 */
-	public static Alignment localAlignNt(String seqA, String seqB, SubstitutionMatrix scoreMat) {
+	public static Alignment localAlign(String seqA, String seqB, SubstitutionMatrix scoreMat) {
 		return FullAlignments.localAlignNt(seqA, 
 										   seqB, 
 										   new AlignmentMatrixScore(seqA.length()+5, seqB.length()+5), 
 										   new AlignmentMatrixBacktrack(seqA.length()+5, seqB.length()+5),
 										   scoreMat);
+	}
+	
+	public static Alignment localAlignNt(String seqA, String seqB, SubstitutionMatrix scoreMat) {
+		return FullAlignments.localAlign(seqA, seqB, scoreMat);
 	}
 	
 	/**
@@ -173,7 +190,7 @@ public class FullAlignments {
 							 AffineAlignmentMatrixScore alignScoreMat,
 							 AffineAlignmentMatrixBacktrack alignPtrMat,
 							 SubstitutionMatrix scoreMat) {
-		AffineGlobalAlignmentNoPtrs galn = new AffineGlobalAlignmentNoPtrs(seqA, seqB, scoreMat);
+		AffineGlobalAlignment galn = new AffineGlobalAlignment(seqA, seqB, scoreMat);
 		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
 		galn.initMatrix();
 		galn.fillMatrix();
@@ -185,11 +202,21 @@ public class FullAlignments {
 			AffineAlignmentMatrixScore alignScoreMat,
 			AffineAlignmentMatrixBacktrack alignPtrMat,
 			SubstitutionMatrix scoreMat) {
-		AffineLocalAlignmentNoPtrs galn = new AffineLocalAlignmentNoPtrs(seqA, seqB, scoreMat);
+		AffineLocalAlignment galn = new AffineLocalAlignment(seqA, seqB, scoreMat);
 		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
 		galn.initMatrix();
 		galn.fillMatrix();
 		return galn.backtrack();
+	}
+	
+	public static Alignment affineLocalAlign(String seqA, 
+			String seqB, 
+			SubstitutionMatrix scoreMat) {
+		return FullAlignments.affineLocalAlign(seqA, 
+				seqB, 
+				new AffineAlignmentMatrixScore(seqA.length()+5, seqB.length()+5), 
+				new AffineAlignmentMatrixBacktrack(seqA.length()+5, seqB.length()+5),
+				scoreMat);
 	}
 	
 	/**
@@ -221,7 +248,7 @@ public class FullAlignments {
 							 AffineAlignmentMatrixScore alignScoreMat,
 							 AffineAlignmentMatrixBacktrack alignPtrMat,
 							 SubstitutionMatrix scoreMat) {
-		AffineOverlapAlignmentNoPtrs galn = new AffineOverlapAlignmentNoPtrs(seqA, seqB, scoreMat);
+		AffineOverlapAlignment galn = new AffineOverlapAlignment(seqA, seqB, scoreMat);
 		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
 		galn.initMatrix();
 		galn.fillMatrix();
@@ -233,65 +260,58 @@ public class FullAlignments {
 												 AffineAlignmentMatrixScore alignScoreMat,
 												 AffineAlignmentMatrixBacktrack alignPtrMat,
 												 SubstitutionMatrix scoreMat) {
-		AffineGlobalAlignmentNoPtrs galn = new AffineGlobalAlignmentNoPtrs(seqA, seqB, scoreMat);
+		AffineGlobalAlignment galn = new AffineGlobalAlignment(seqA, seqB, scoreMat);
 		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
 		galn.initMatrix();
 		galn.fillMatrix();
 		return galn.getScore();
 	}
 	
-	public static int affineGlobalAlignNoPtrsScore(String seqA, 
-			String seqB, 
-			AffineAlignmentMatrixScore alignScoreMat,
-			AffineAlignmentMatrixBacktrack alignPtrMat,
-			SubstitutionMatrix scoreMat) {
-		AffineGlobalAlignmentNoPtrs galn = new AffineGlobalAlignmentNoPtrs(seqA, seqB, scoreMat);
-		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
-		galn.initMatrix();
-		galn.fillMatrix();
-		return galn.getScore();
-	}
-	
-	
-	
-	public static Alignment affineGlobalAlignNoPtrsNt(String seqA, 
+	public static Alignment affineGlobalAlignNt(String seqA, 
 			String seqB, 
 			SubstitutionMatrix scoreMat) {
-		return FullAlignments.affineGlobalAlignNoPtrsNt(seqA, 
+		return FullAlignments.affineGlobalAlignNt(seqA, 
 				seqB, 
 				new AffineAlignmentMatrixScore(seqA.length()+5, seqB.length()+5), 
 				new AffineAlignmentMatrixBacktrack(seqA.length()+5, seqB.length()+5),
 				scoreMat);
 	}
 	
-	public static Alignment affineGlobalAlignNoPtrsNt(String seqA, 
+	public static Alignment affineGlobalAlignNt(String seqA, 
 			String seqB, 
 			AffineAlignmentMatrixScore alignScoreMat,
 			AffineAlignmentMatrixBacktrack alignPtrMat,
 			SubstitutionMatrix scoreMat) {
-		AffineGlobalAlignmentNoPtrs galn = new AffineGlobalAlignmentNoPtrs(seqA, seqB, scoreMat);
+		AffineGlobalAlignment galn = new AffineGlobalAlignment(seqA, seqB, scoreMat);
 		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
 		galn.initMatrix();
 		galn.fillMatrix();
 		return galn.backtrack();
 	}
 	
-	public static Alignment affineLocalAlignNoPtrsNt(String seqA, 
+	/**
+	 * Affine local alignment.
+	 * @param seqA
+	 * @param seqB
+	 * @param scoreMat
+	 * @return
+	 */
+	public static Alignment affineLocalAlignNt(String seqA, 
 			String seqB, 
 			SubstitutionMatrix scoreMat) {
-		return FullAlignments.affineLocalAlignNoPtrsNt(seqA, 
+		return FullAlignments.affineLocalAlignNt(seqA, 
 				seqB, 
 				new AffineAlignmentMatrixScore(seqA.length()+5, seqB.length()+5), 
 				new AffineAlignmentMatrixBacktrack(seqA.length()+5, seqB.length()+5),
 				scoreMat);
 	}
 	
-	public static Alignment affineLocalAlignNoPtrsNt(String seqA, 
+	public static Alignment affineLocalAlignNt(String seqA, 
 			String seqB, 
 			AffineAlignmentMatrixScore alignScoreMat,
 			AffineAlignmentMatrixBacktrack alignPtrMat,
 			SubstitutionMatrix scoreMat) {
-		AffineLocalAlignmentNoPtrs galn = new AffineLocalAlignmentNoPtrs(seqA, seqB, scoreMat);
+		AffineLocalAlignment galn = new AffineLocalAlignment(seqA, seqB, scoreMat);
 		galn.setAlignmentMatrix(alignScoreMat, alignPtrMat);
 		galn.initMatrix();
 		galn.fillMatrix();

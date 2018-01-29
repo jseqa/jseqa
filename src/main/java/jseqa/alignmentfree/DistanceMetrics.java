@@ -2,6 +2,10 @@ package jseqa.alignmentfree;
 
 import java.util.stream.IntStream;
 
+/**
+ * A collection of utility methods of different distances.
+ *
+ */
 public class DistanceMetrics {
 
 	/**
@@ -30,6 +34,16 @@ public class DistanceMetrics {
 						.mapToDouble(i -> Math.abs(a[i] - b[i]))
 						.max()
 						.getAsDouble();
+	}
+	
+	/**
+	 * Computes Chebyshev distance, same as {@link #linfNormDist(double[], double[])}.
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public static double chebyshevDist(double[] a, double[] b) {
+		return DistanceMetrics.linfNormDist(a, b);
 	}
 	
 	/**

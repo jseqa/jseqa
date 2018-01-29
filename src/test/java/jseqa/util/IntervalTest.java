@@ -29,10 +29,10 @@ public class IntervalTest {
 		assertEquals(null, Interval.parseInterval("9..2"));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void testInvalidArguments() {
-		new Interval(5, 1);
-	}
+//	@Test(expected = IllegalArgumentException.class)
+//	public void testInvalidArguments() {
+//		new Interval(5, 1);
+//	}
 
 	@Test
 	public void testOverlaps() {

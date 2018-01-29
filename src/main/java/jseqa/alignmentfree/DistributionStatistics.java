@@ -2,12 +2,16 @@ package jseqa.alignmentfree;
 
 import java.util.stream.IntStream;
 
+/**
+ * Collection of methods for computing statistics of a distribution. 
+ *
+ */
 public class DistributionStatistics {
 	
 	/**
 	 * Computes the mean of a distribution of values.
-	 * @param vals
-	 * @return
+	 * @param vals {@code double[]} array of values.
+	 * @return double mean value of inputs.
 	 */
 	public static double mean(double[] vals) {
 		double n = (double)vals.length;
@@ -18,8 +22,8 @@ public class DistributionStatistics {
 	
 	/**
 	 * Computes the variance of a distribution of values.
-	 * @param vals
-	 * @return
+	 * @param vals {@code double[]} array of values.
+	 * @return double variance of inputs.
 	 */
 	public static double var(double[] vals) {
 		double mean = DistributionStatistics.mean(vals);
@@ -34,8 +38,8 @@ public class DistributionStatistics {
 	
 	/**
 	 * Comptues the standard deviation of a distribution of values.
-	 * @param vals
-	 * @return
+	 * @param vals {@code double[]} array of values.
+	 * @return double standard deviation of inputs
 	 */
 	public static double std(double[] vals) {
 		return Math.sqrt(DistributionStatistics.var(vals));
@@ -43,9 +47,9 @@ public class DistributionStatistics {
 	
 	/**
 	 * Pearson correlation coefficient, ranges from [-1.0,1.0]
-	 * @param a
-	 * @param b
-	 * @return
+	 * @param a {@code double[]} array 
+	 * @param b {@code double[]} array
+	 * @return Pearson correlation coefficient, \u03C1{@code (a,b)}.
 	 */
 	public static double pearsonCor(double[] a, double[] b) {
 		double cor = 0.0;
