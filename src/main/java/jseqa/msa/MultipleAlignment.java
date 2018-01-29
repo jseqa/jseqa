@@ -49,7 +49,6 @@ public class MultipleAlignment {
 			this.rows.add(i, new LinkedList<MsaCell>());
 			int truePos = -1;
 			for(int j = 0; j < alignedSeqs.get(i).length(); j++) {
-//				this.rows.get(i).add(j, new MsaCell(j, alignedSeqs.get(i).charAt(j)));
 				if(alignedSeqs.get(i).charAt(j) != '-' || j == 0) {
 					truePos ++;
 				}

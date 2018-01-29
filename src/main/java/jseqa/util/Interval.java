@@ -21,9 +21,6 @@ public class Interval {
 	public Interval(int s, int e) {
 		this.start = s;
 		this.end = e;
-//		if(e < s) {
-//			throw new IllegalArgumentException();
-//		}
 	}
 	
 	/**

@@ -13,7 +13,7 @@ import jseqa.alignment.substitution.DnaSubstitutionMatrix;
 import jseqa.alignment.substitution.SubstitutionMatrix;
 
 /**
- * Command line utility to align sequences.
+ * Command line utility to align two sequences.
  *
  */
 public class AlignSequences {

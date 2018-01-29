@@ -43,17 +43,13 @@ public class SingleGuideMultipleAlignmentBuilder implements MultipleAlignmentBui
 		int msaIdx = 0;
 		for(int i = 0; i < newRow.length(); i++) {
 			if(topRow.charAt(i) != '-' && newRow.charAt(i) != '-') {
-//				if(rows.get(0).charAt(i) == '-') {
 				if(rows.get(0).charAt(msaIdx) == '-') {
 					int j = i;
-//					while(rows.get(0).charAt(j) == '-') {
 					while(rows.get(0).charAt(msaIdx) == '-') {
 						rStr.append('-');
-//						j++;
 						msaIdx++;
 					}
 					rStr.append(newRow.charAt(i));
-//					i = j;
 				} else {
 					rStr.append(newRow.charAt(i));
 					msaIdx++;
