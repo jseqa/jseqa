@@ -5,21 +5,21 @@ package jseqa.fastq;
  *
  */
 public class PairedEntry {
-	
-	final private QualityEntry ent1;
-	
-	final private QualityEntry ent2;
-	
-	public PairedEntry(QualityEntry e1, QualityEntry e2) {
-		this.ent1 = e1;
-		this.ent2 = e2;
-	}
-	
-	public QualityEntry firstEntry() {
-		return this.ent1;
-	}
-	
-	public QualityEntry secondEntry() {
-		return this.ent2;
-	}
+
+    private final QualityEntry ent1;
+
+    private final QualityEntry ent2;
+
+    public PairedEntry(QualityEntry e1, QualityEntry e2) {
+        this.ent1 = e1;
+        this.ent2 = e2;
+    }
+
+    public QualityEntry firstEntry() {
+        return this.ent1;
+    }
+
+    public QualityEntry secondEntry() {
+        return this.ent2;
+    }
 }
