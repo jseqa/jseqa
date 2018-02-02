@@ -14,11 +14,11 @@ import org.apache.logging.log4j.Logger;
  * <br>
  * Once created, can use for-each syntax to iterate over entries:
  * <br>
- * {@code
+ * <pre>{@code
  *  for(Entry ent : fqReader) {
  *      ...
  *  }
- * }
+ * }</pre>
  *
  */
 public class FastqReader extends AbstractSequenceReader implements Iterable<QualityEntry> {

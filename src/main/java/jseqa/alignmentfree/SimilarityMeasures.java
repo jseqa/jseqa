@@ -56,7 +56,8 @@ public class SimilarityMeasures {
     }
 
     /**
-     * Computes Shannon entropy of discrete probability distribution {@code p}. 
+     * Computes <a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)">
+     * Shannon entropy</a> of discrete probability distribution {@code p}.
      * Assumes {@code p} is a discrete probability distributions.
      * @param p {@code double[]} discrete probability distribution.
      * @return entropy of input array.
@@ -68,7 +69,8 @@ public class SimilarityMeasures {
     }
 
     /**
-     * Computes the Kullback-Leibler divergence, defined as: -SUM_i p_i * log(q_i/p_i). 
+     * Computes the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">
+     * Kullback-Leibler divergence</a>, defined as: -SUM_i p_i * log(q_i/p_i). 
      * Assumes {@code p} and {@code q} are discrete probability distributions.
      * @param p {@code double[]} vector of values.
      * @param q {@code double[]} vector of values.

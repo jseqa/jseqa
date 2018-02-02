@@ -10,7 +10,7 @@ public class FullAlignments {
 
     /**
      * Utility method that returns the score of a global alignment 
-     * (Needleman-Wunch). {@see GlobalAlignment}.
+     * (Needleman-Wunch). See {@link GlobalAlignment}.
      * @param seqA {@code String} first sequence to align.
      * @param seqB {@code String} second sequence to align.
      * @param alignScoreMat
@@ -32,7 +32,7 @@ public class FullAlignments {
 
     /**
      * Utility method for aligning two sequences using global alignment 
-     * (Needleman-Wunch). {@see GlobalAlignment}.
+     * (Needleman-Wunch). See {@link GlobalAlignment}.
      * @param seqA {@code String} first sequence to align.
      * @param seqB {@code String} second sequence to align.
      * @param scoreMat {@code ScoringMatrix} used to score match/mismatch/indel.
@@ -52,7 +52,7 @@ public class FullAlignments {
 
     /**
      * Utility method for globally aligning (Needleman-Wunch) two sequences using 
-     * existing matrices. {@see GlobalAlignment}.
+     * existing matrices. See {@link GlobalAlignment}.
      * @param seqA {@code String} first sequence to align.
      * @param seqB {@code String} second sequence to align.
      * @param alignScoreMat {@code AlignmentMatrixScore} existing scoring matrix to fill.
@@ -72,6 +72,16 @@ public class FullAlignments {
         return galn.backtrack();
     }
 
+    /**
+     * Aligns two sequences using local alignment (Smith-Waterman).
+     * See {@link LocalAlignment}. 
+     * @param seqA
+     * @param seqB
+     * @param alignScoreMat
+     * @param alignPtrMat
+     * @param scoreMat
+     * @return
+     */
     public static int localAlignScore(String seqA, 
                                       String seqB, 
                                       AlignmentMatrixScore alignScoreMat,
@@ -85,7 +95,8 @@ public class FullAlignments {
     }
 
     /**
-     * Utility method for locally aligning (Smith-Waterman) two sequences using default matrices. 
+     * Aligns two sequences using local alignment (Smith-Waterman) using default matrices. 
+     * See {@link LocalAlignment}.
      * @param seqA {@code String} first sequence to align.
      * @param seqB {@code String} second sequence to align.
      * @param scoreMat
@@ -104,8 +115,8 @@ public class FullAlignments {
     }
 
     /**
-     * Utility for locally aligning (Smith-Waterman) two sequences using existing 
-     * matrices. {@see LocalAlignment}.
+     * Aligns two sequences using local alignment (Smith-Waterman) two sequences using existing
+     * matrices. See {@link LocalAlignment}.
      * @param seqA {@code String} first sequence to align.
      * @param seqB {@code String} second sequence to align.
      * @param alignScoreMat {@code AlignmentMatrixScore} existing scoring matrix to fill.
@@ -126,9 +137,10 @@ public class FullAlignments {
     }
 
     /**
-     * Utility for performing fitting alignment (aka, semi-global alignment), whereby one 
+     * Aligns two sequences using fitting alignment (aka, semi-global alignment), whereby one 
      * sequence 'fit'into a larger sequence. Here {@code seqA} is assumed to be the larger 
      * sequence, and {@code seqB} is assumed to be the sequence to be 'fit'.
+     * See {@link FittingAlignment}.
      * @param seqA {@code String} smaller sequence to be 'fit' into larger one.
      * @param seqB {@code String} larger sequence.
      * @param scoreMat  {@code ScoringMatrix} used to score match/mismatch/indel.
@@ -145,9 +157,10 @@ public class FullAlignments {
     }
 
     /**
-     * Utility for performing fitting alignment (aka, semi-global alignment), whereby one 
+     * Aligns two sequences using fitting alignment (aka, semi-global alignment), whereby one 
      * sequence 'fit'into a larger sequence. Here {@code seqA} is assumed to be the larger 
      * sequence, and {@code seqB} is assumed to be the sequence to be 'fit'.
+     * See {@link FittingAlignment}.
      * @param seqA {@code String} smaller sequence to be 'fit' into larger one.
      * @param seqB {@code String} larger sequence.
      * @param alignScoreMat {@code AlignmentMatrixScore} existing scoring matrix to fill.
@@ -168,7 +181,8 @@ public class FullAlignments {
     }
 
     /**
-     * Utility method for globally aligning two sequences with affine gap penalties.
+     * Aligns two sequences using global alignment with affine gap penalties.
+     * See {@link AffineGlobalAlignment}.
      * @param seqA {@code String} first sequence to align.
      * @param seqB {@code String} second sequence to align.
      * @param scoreMat
@@ -183,8 +197,8 @@ public class FullAlignments {
     }
 
     /**
-     * Utility method for globally aligning two sequences using existing matrices 
-     * with affine gap penalties.
+     * Aligns two sequences using global alignment with affine gap penalties using existing matrices
+     * with affine gap penalties. See {@link AffineGlobalAlignment}.
      * @param seqA {@code String} first sequence to align.
      * @param seqB {@code String} second sequence to align.
      * @param alignScoreMat
@@ -204,6 +218,16 @@ public class FullAlignments {
         return galn.backtrack();
     }
 
+    /**
+     * Aligns two sequences using local alignment with affine gap penalties using existing matrices
+     * with affine gap penalties. See {@link AffineLocalAlignment}.
+     * @param seqA
+     * @param seqB
+     * @param alignScoreMat
+     * @param alignPtrMat
+     * @param scoreMat
+     * @return
+     */
     public static Alignment affineLocalAlign(String seqA, 
                                              String seqB, 
                                              AffineAlignmentMatrixScore alignScoreMat,
@@ -216,6 +240,14 @@ public class FullAlignments {
         return galn.backtrack();
     }
 
+    /**
+     * Aligns two sequences using local alignment with affine gap
+     * penalties. See {@link AffineLocalAlignment}.
+     * @param seqA
+     * @param seqB
+     * @param scoreMat
+     * @return
+     */
     public static Alignment affineLocalAlign(String seqA, 
                                              String seqB, 
                                              SubstitutionMatrix scoreMat) {
@@ -227,7 +259,8 @@ public class FullAlignments {
     }
 
     /**
-     * Utility method for globally aligning two sequences with affine gap penalties.
+     * Aligns two sequences using global alignment with affine gap penalties but not
+     * penalizing the ends of the alignment. See {@link AffineOverlapAlignment}.
      * @param seqA {@code String} first sequence to align.
      * @param seqB {@code String} second sequence to align.
      * @param scoreMat
@@ -244,8 +277,8 @@ public class FullAlignments {
     }
 
     /**
-     * Utility method for globally aligning two sequences using existing matrices 
-     * with affine gap penalties.
+     * Aligns two sequences using global alignment with affine gap penalties but not
+     * penalizing the ends of the alignment. See {@link AffineOverlapAlignment}.
      * @param seqA {@code String} first sequence to align.
      * @param seqB {@code String} second sequence to align.
      * @param alignScoreMat

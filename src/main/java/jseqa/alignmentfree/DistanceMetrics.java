@@ -10,7 +10,8 @@ public class DistanceMetrics {
 
     /**
      * Computes the L<sub>p</sub>-norm distance between {@code a} and {@code b};
-     * also known as Minkowski distance.
+     * also known as <a href="https://en.wikipedia.org/wiki/Minkowski_distance">
+     * Minkowski distance</a>.
      * @param a {@code double[]} array.
      * @param b {@code double[]} array.
      * @param p
@@ -26,7 +27,8 @@ public class DistanceMetrics {
 
     /**
      * Computes the L<sub>&infin;</sub>-norm distance between {@code a} and {@code b};
-     * also known as Chebyshev distance.
+     * also known as <a href="https://en.wikipedia.org/wiki/Chebyshev_distance">
+     * Chebyshev distance</a>.
      * @param a {@code double[]} array.
      * @param b {@code double[]} array.
      * @return
