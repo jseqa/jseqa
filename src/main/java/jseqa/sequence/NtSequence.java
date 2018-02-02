@@ -61,5 +61,24 @@ public class NtSequence extends AbstractSequence {
     public AaSequence toAaSequence() {
         return new AaSequence(this.translateFrame(0));
     }
+    
+    /**
+     * Compute the melting temperature (Tm). Two different formulas are used: one for sequences 
+     * less than 14, another for those larger.
+     * @return double Tm of sequence.
+     */
+    public double meltingTemp() {
+        double countA = (double) this.seq().chars().filter(val -> ((char)val) == 'A').count();
+        double countC = (double) this.seq().chars().filter(val -> ((char)val) == 'C').count();
+        double countG = (double) this.seq().chars().filter(val -> ((char)val) == 'G').count();
+        double countT = (double) this.seq().chars().filter(val -> ((char)val) == 'T').count();
+        
+        if (this.seq().length() < 14) {
+            // uses the Wallace rule https://www.ncbi.nlm.nih.gov/pubmed/158748
+            return (2.0 * (countA + countT)) + (4.0 * (countG + countC));
+        } else {
+            return 64.9 + 41.0 * (countG + countC - 16.4) / (countA + countT + countG + countC);
+        }
+    }
 
 }
