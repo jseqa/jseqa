@@ -138,8 +138,8 @@ public class FullAlignments {
 
     /**
      * Aligns two sequences using fitting alignment (aka, semi-global alignment), whereby one 
-     * sequence 'fit'into a larger sequence. Here {@code seqA} is assumed to be the larger 
-     * sequence, and {@code seqB} is assumed to be the sequence to be 'fit'.
+     * sequence 'fit'into a larger sequence. Here {@code seqA} is assumed to be the smaller 
+     * sequence to be fit, and {@code seqB} is assumed to be the larger sequence.
      * See {@link FittingAlignment}.
      * @param seqA {@code String} smaller sequence to be 'fit' into larger one.
      * @param seqB {@code String} larger sequence.
@@ -158,8 +158,8 @@ public class FullAlignments {
 
     /**
      * Aligns two sequences using fitting alignment (aka, semi-global alignment), whereby one 
-     * sequence 'fit'into a larger sequence. Here {@code seqA} is assumed to be the larger 
-     * sequence, and {@code seqB} is assumed to be the sequence to be 'fit'.
+     * sequence 'fit'into a larger sequence. Here {@code seqA} is assumed to be the smaller 
+     * sequence to be fit, and {@code seqB} is assumed to be the larger sequence.
      * See {@link FittingAlignment}.
      * @param seqA {@code String} smaller sequence to be 'fit' into larger one.
      * @param seqB {@code String} larger sequence.

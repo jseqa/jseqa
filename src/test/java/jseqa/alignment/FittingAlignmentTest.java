@@ -31,4 +31,18 @@ public class FittingAlignmentTest {
 		assertEquals(20, aln.score());
 	}
 
+	@Test
+    public void testSimple() {
+        String a = "AAATTT";
+        String b = "AATC";
+        int len = a.length();
+        FittingAlignment galn = new FittingAlignment(b, a, new DnaSubstitutionMatrix(-5));
+        galn.setAlignmentMatrix(new AlignmentMatrixScore(len, len), new AlignmentMatrixBacktrack(len, len));
+        galn.initMatrix();
+        galn.fillMatrix();
+        Alignment aln = galn.backtrack();
+        System.out.println(aln);
+        assertEquals(11, aln.score());
+    }
+
 }
