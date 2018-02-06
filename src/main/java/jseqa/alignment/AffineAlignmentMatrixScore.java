@@ -15,6 +15,11 @@ public class AffineAlignmentMatrixScore extends AbstractAlignmentMatrix {
     /** Deletion matrix (LEFT). */
     protected AlignmentMatrixScore delMatrix;
 
+    /**
+     * Constructs three matrices with {@code nrow} x {@code ncol} cells.
+     * @param nrow int number of rows.
+     * @param ncol int number of columns.
+     */
     public AffineAlignmentMatrixScore(int nrow, int ncol) {
         super(nrow, ncol);
         this.diagMatrix = new AlignmentMatrixScore(nrow, ncol);

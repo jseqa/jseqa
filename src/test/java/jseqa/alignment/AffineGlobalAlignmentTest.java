@@ -51,7 +51,7 @@ public class AffineGlobalAlignmentTest {
 		Alignment aln = FullAlignments.affineGlobalAlign(a, b, new DnaSubstitutionMatrix(-5, -1));
 		assertEquals(21, aln.score());
 		
-		Alignment aln2 = BandedAlignments.globalAffineNt(a, b, new DnaSubstitutionMatrix(-5, -1), 8);
+		Alignment aln2 = BandedAlignments.affineGlobalNt(a, b, new DnaSubstitutionMatrix(-5, -1), 8);
 		assertEquals(21, aln2.score());
 		assertEquals(aln.top(), aln2.top());
 		assertEquals(aln.bottom(), aln2.bottom());
