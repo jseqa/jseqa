@@ -72,7 +72,7 @@ public class FastqReader extends AbstractSequenceReader implements Iterable<Qual
      * @return
      * @throws IOException 
      */
-    public QualityEntry nextEntry() throws IOException {
+    public QualityEntry nextEntry() throws IOException, IllegalArgumentException {
         String header = this.buff.readLine();
         String seq = this.buff.readLine();
         String plus = this.buff.readLine();
