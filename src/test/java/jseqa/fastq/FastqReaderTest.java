@@ -29,9 +29,10 @@ public class FastqReaderTest {
     @Test
     public void testReadGzip() throws FileNotFoundException {
         URL gzsampleUrl = ClassLoader.getSystemResource("sample.fq.gz");
-        FastqReader fq = new FastqReader(Paths.get(gzsampleUrl.getPath()), FastqQualityEncoding.ILLUMINA13);
+        FastqReader fq = new FastqReader(Paths.get(gzsampleUrl.getPath()), 
+                                         FastqQualityEncoding.ILLUMINA13);
         int num = 0;
-        for(QualityEntry entry : fq) {
+        for (QualityEntry entry : fq) {
             assertEquals(50, entry.sequence().length());
             assertEquals(50, entry.qualityString().length());
             double[] quals = entry.qualities();
@@ -47,9 +48,10 @@ public class FastqReaderTest {
 
     @Test
     public void testSample() throws FileNotFoundException {
-        FastqReader fq = new FastqReader(Paths.get(sampleUrl.getPath()), FastqQualityEncoding.ILLUMINA13);
+        FastqReader fq = new FastqReader(Paths.get(sampleUrl.getPath()), 
+                                         FastqQualityEncoding.ILLUMINA13);
         int num = 0;
-        for(QualityEntry entry : fq) {
+        for (QualityEntry entry : fq) {
             assertEquals(50, entry.sequence().length());
             assertEquals(50, entry.qualityString().length());
             double[] quals = entry.qualities();
