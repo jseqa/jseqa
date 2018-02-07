@@ -3,6 +3,7 @@ package jseqa.fastq;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -17,6 +18,20 @@ import jseqa.util.Interval;
  */
 public class FastaUtils {
 
+    /**
+     * Read a FASTA file's Ids into a {@code List}.
+     * @param faFile {@code Path} of FASTA file.
+     * @return {@code List<String>} all Ids, in order, of {@code faFile}.
+     * @throws IOException 
+     */
+    public static List<String> readFastaIds(Path faFile) throws IOException {
+        try (FastaReader fr = new FastaReader(faFile)) {
+            return StreamSupport.stream(fr.spliterator(), false)
+                    .map(entry -> entry.id)
+                    .collect(Collectors.toList());
+        }
+    }
+    
     /**
      * Read a FASTA file into a map with ID &rarr; sequence.
      * @param fr {@code FastaReader} to load

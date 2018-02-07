@@ -48,4 +48,12 @@ public class FastaUtilsTest {
 		assertEquals(11, keys.size());
 	}
 
+	@Test
+	public void testReadIds() throws IOException {
+	    List<String> rabD = FastaUtils.readFastaIds(faFile);
+	    assertEquals(11, rabD.size());
+	    assertEquals("IGHD1-1*01", rabD.get(0));
+	    assertEquals("IGHD2-1*01", rabD.get(1));
+	    assertEquals("IGHD8-1*01", rabD.get(10));
+	}
 }
