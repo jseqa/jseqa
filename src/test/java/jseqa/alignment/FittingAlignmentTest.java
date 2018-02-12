@@ -8,30 +8,30 @@ import jseqa.alignment.substitution.DnaSubstitutionMatrix;
 
 public class FittingAlignmentTest {
 
-	@Test
-	public void testSimpleFit() {
-		String a = "GGGGGGGAAATTTCCCCCCCCCCC";
-		String b =        "AAATTTC";
-		int len = a.length()+5;
-		FittingAlignment galn = new FittingAlignment(b, a, new DnaSubstitutionMatrix(-5));
-		galn.setAlignmentMatrix(new AlignmentMatrixScore(len, len), new AlignmentMatrixBacktrack(len, len));
-		galn.initMatrix();
-		galn.fillMatrix();
-		Alignment aln = galn.backtrack();
-		assertEquals(7*5, aln.score());
-		assertEquals("-------"+b, aln.top());
-		assertEquals("GGGGGGG"+b, aln.bottom());
-	}
-	
-	@Test
-	public void testSimpleFit2() {
-		String seqA = "AAAAACCCCTTTTTTT";
-		String seqB =        "CCCC";
-		Alignment aln = FullAlignments.fittingAlign(seqB, seqA, new DnaSubstitutionMatrix(-5));
-		assertEquals(20, aln.score());
-	}
+    @Test
+    public void testSimpleFit() {
+        String a = "GGGGGGGAAATTTCCCCCCCCCCC";
+        String b =        "AAATTTC";
+        int len = a.length()+5;
+        FittingAlignment galn = new FittingAlignment(b, a, new DnaSubstitutionMatrix(-5));
+        galn.setAlignmentMatrix(new AlignmentMatrixScore(len, len), new AlignmentMatrixBacktrack(len, len));
+        galn.initMatrix();
+        galn.fillMatrix();
+        Alignment aln = galn.backtrack();
+        assertEquals(7*5, aln.score());
+        assertEquals("-------"+b, aln.top());
+        assertEquals("GGGGGGG"+b, aln.bottom());
+    }
 
-	@Test
+    @Test
+    public void testSimpleFit2() {
+        String seqA = "AAAAACCCCTTTTTTT";
+        String seqB =        "CCCC";
+        Alignment aln = FullAlignments.fittingAlign(seqB, seqA, new DnaSubstitutionMatrix(-5));
+        assertEquals(20, aln.score());
+    }
+
+    @Test
     public void testSimple() {
         String a = "AAATTT";
         String b = "AATC";
@@ -41,7 +41,6 @@ public class FittingAlignmentTest {
         galn.initMatrix();
         galn.fillMatrix();
         Alignment aln = galn.backtrack();
-        System.out.println(aln);
         assertEquals(11, aln.score());
     }
 
