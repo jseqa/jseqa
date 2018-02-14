@@ -13,32 +13,34 @@ import jseqa.util.Interval;
  *
  */
 public class IntervalFastaReader extends FastaReader {
-	private Interval intval;
-	private int currEntryIndex;
-	
-	IntervalFastaReader(File seqFile, Interval intval) throws FileNotFoundException {
-		this(seqFile.toPath(), intval);
-	}
-	
-	IntervalFastaReader(Path seqFile, Interval intval) throws FileNotFoundException {
-		super(seqFile);
-		this.intval = intval;
-		this.currEntryIndex = 0;
-	}
-	
-	@Override
-	public Entry nextEntry() throws IOException {
-		if(this.intval.contains(this.currEntryIndex)) {
-			this.currEntryIndex++;
-			return super.nextEntry();
-		} else if(this.currEntryIndex < this.intval.start()) {
-			while(!this.intval.contains(this.currEntryIndex)) {
-				super.nextEntry();
-				this.currEntryIndex++;
-			}
-			return this.nextEntry();
-		} else {
-			return null;
-		}
-	}
+    
+    private Interval intval;
+    
+    private int currEntryIndex;
+
+    IntervalFastaReader(File seqFile, Interval intval) throws FileNotFoundException {
+        this(seqFile.toPath(), intval);
+    }
+
+    IntervalFastaReader(Path seqFile, Interval intval) throws FileNotFoundException {
+        super(seqFile);
+        this.intval = intval;
+        this.currEntryIndex = 0;
+    }
+
+    @Override
+    public Entry nextEntry() throws IOException {
+        if (this.intval.contains(this.currEntryIndex)) {
+            this.currEntryIndex++;
+            return super.nextEntry();
+        } else if (this.currEntryIndex < this.intval.start()) {
+            while (!this.intval.contains(this.currEntryIndex)) {
+                super.nextEntry();
+                this.currEntryIndex++;
+            }
+            return this.nextEntry();
+        } else {
+            return null;
+        }
+    }
 }

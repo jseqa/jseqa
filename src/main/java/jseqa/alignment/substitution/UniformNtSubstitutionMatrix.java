@@ -5,9 +5,9 @@ package jseqa.alignment.substitution;
  *
  */
 public class UniformNtSubstitutionMatrix extends AbstractNtSubstitutionMatrix {
-	
-	public UniformNtSubstitutionMatrix() {
-		super(-1, -1);
-		this.initFlatSparceMatrix(1, -1, -2, -1);
-	}
+
+    public UniformNtSubstitutionMatrix() {
+        super(-1, -1);
+        this.initFlatSparceMatrix(1, -1, -2, -1);
+    }
 }

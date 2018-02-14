@@ -6,15 +6,15 @@ package jseqa.alignment;
  */
 public interface AlignmentMatrix {
 
-	public void clearMatrix();
-	
-	public void clearCell(int i, int j);
-	
-	public void setLowestVal(int i, int j);
-	
-	public int nrows();
-	
-	public int ncols();
-	
-	public static final int MIN_VALUE = -10000000;
+    public void clearMatrix();
+
+    public void clearCell(int i, int j);
+
+    public void setLowestVal(int i, int j);
+
+    public int nrows();
+
+    public int ncols();
+
+    public static final int MIN_VALUE = -10000000;
 }

@@ -11,30 +11,31 @@ package jseqa.alignment.substitution;
  *
  */
 public enum BlosumMatrices {
-	/** BLOSUM for 50% similar sequences */
-	BLOSUM50(50),
-	
-	/** BLOSUM for 62% similar sequences; a seemingly common choice. */
-	BLOSUM62(62),
-	
-	/** BLOSUM for 80% similar sequences */
-	BLOSUM80(80),
-	
-	/** BLOSUM for 90% similar sequences */
-	BLOSUM90(90);
-	 
-	private int blosumNum;
-	
-	private BlosumMatrices(int matNum) {
-		this.blosumNum = matNum;
-	}
-	
-	/**
-	 * Get the number X, representing the % similarity of constituent sequences.
-	 * @return 
-	 */
-	public int getBlosumNum() {
-		return this.blosumNum;
-	}
-	
+    
+    /** BLOSUM for 50% similar sequences. */
+    BLOSUM50(50),
+
+    /** BLOSUM for 62% similar sequences; a seemingly common choice. */
+    BLOSUM62(62),
+
+    /** BLOSUM for 80% similar sequences. */
+    BLOSUM80(80),
+
+    /** BLOSUM for 90% similar sequences. */
+    BLOSUM90(90);
+
+    private int blosumNum;
+
+    private BlosumMatrices(int matNum) {
+        this.blosumNum = matNum;
+    }
+
+    /**
+     * Get the number X, representing the % similarity of constituent sequences.
+     * @return 
+     */
+    public int getBlosumNum() {
+        return this.blosumNum;
+    }
+
 }

@@ -38,4 +38,9 @@ public class NtSequenceTest {
 		assertEquals("AAACGT", seq1.reverseComplement().seq());
 	}
 
+	@Test
+	public void testMeltingTemperature() {
+	    assertEquals(18.0, new NtSequence("TGCTCA").meltingTemp(), 0.00000001);
+	    assertEquals(24.0, new NtSequence("AAACGTTAG").meltingTemp(), 0.00000001);
+	}
 }
