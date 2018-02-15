@@ -15,13 +15,15 @@ public class AaSequence extends AbstractSequence {
     }
 
     /**
-     * Computes the molecular weight of the sequence of residues.
+     * Computes the molecular weight of the sequence of residues, computed by the sum of
+     * all amino acids plus H2O. 
      * @return double weight of seq.
      */
     public double molecularWeight() {
         return this.seq().chars()
                 .mapToDouble(ch -> AaResidueTable.residueWeight((char)ch))
-                .sum();
+                .sum()
+                + (ElementMasses.H.monoisotopicMass()*2.0 + ElementMasses.O.monoisotopicMass());
     }
 
 }
