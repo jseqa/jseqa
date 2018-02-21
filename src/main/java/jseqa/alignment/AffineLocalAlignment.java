@@ -41,7 +41,7 @@ public class AffineLocalAlignment extends AffineGlobalAlignment {
     public void fillCell(int i, int j) {
         super.fillCell(i, j);
         // now check if a free-ride is better than what global alignment set for diagonal matrix
-        if(this.alignScoreMatrix.getDiagonal(i, j) <= 0) {
+        if (this.alignScoreMatrix.getDiagonal(i, j) <= 0) {
             this.alignScoreMatrix.setDiagonal(i, j, 0);
         }
     }

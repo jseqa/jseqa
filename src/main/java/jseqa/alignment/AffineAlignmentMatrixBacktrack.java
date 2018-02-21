@@ -15,6 +15,16 @@ public class AffineAlignmentMatrixBacktrack extends AbstractAlignmentMatrix {
     /** Deletion matrix (LEFT). */
     protected AlignmentMatrixBacktrack delMatrix;
 
+    /**
+     * Constructor that creates three {@code nrow} x {@code ncol} matrices. One for each:
+     * <ul>
+     *  <li>Diagonals</li>
+     *  <li>Insertions</li>
+     *  <li>Deletions</li>
+     * </ul>
+     * @param nrow int number of rows in each matrix.
+     * @param ncol int number of columns in each matrix.
+     */
     public AffineAlignmentMatrixBacktrack(int nrow, int ncol) {
         super(nrow, ncol);
         this.diagMatrix = new AlignmentMatrixBacktrack(nrow, ncol);
