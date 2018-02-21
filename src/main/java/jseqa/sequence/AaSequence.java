@@ -10,6 +10,11 @@ public class AaSequence extends AbstractSequence {
         super(seq);
     }
 
+    /**
+     * Checks if the sequences contains a stop codon, determined by the presence
+     * of '*' in the translated sequence.
+     * @return 
+     */
     public boolean containsStop() {
         return this.seq().contains("*");
     }
@@ -23,7 +28,7 @@ public class AaSequence extends AbstractSequence {
         return this.seq().chars()
                 .mapToDouble(ch -> AaResidueTable.residueWeight((char)ch))
                 .sum()
-                + (ElementMasses.H.monoisotopicMass()*2.0 + ElementMasses.O.monoisotopicMass());
+                + (ElementMasses.H.monoisotopicMass() * 2.0 + ElementMasses.O.monoisotopicMass());
     }
 
 }

@@ -37,77 +37,77 @@ public final class CodonTable {
             put("TTC", 'F');
             put("TTG", 'L');
             put("TTT", 'F');
-            //
+            
             put("TCA", 'S');
             put("TCC", 'S');
             put("TCG", 'S');
             put("TCT", 'S');
-            //
+            
             put("TAA", STOP_CH);
             put("TAC", 'Y');
             put("TAG", STOP_CH);
             put("TAT", 'Y');
-            //
+            
             put("TGA", STOP_CH);
             put("TGC", 'C');
             put("TGG", 'W');
             put("TGT", 'C');
-            //
+            
             put("CTA", 'L');
             put("CTC", 'L');
             put("CTG", 'L');
             put("CTT", 'L');
-            //
+            
             put("CCA", 'P');
             put("CCC", 'P');
             put("CCG", 'P');
             put("CCT", 'P');
-            //
+            
             put("CAA", 'Q');
             put("CAC", 'H');
             put("CAG", 'Q');
             put("CAT", 'H');
-            //
+            
             put("CGA", 'R');
             put("CGC", 'R');
             put("CGG", 'R');
             put("CGT", 'R');
-            //
+            
             put("ATA", 'I');
             put("ATC", 'I');
             put("ATG", 'M');
             put("ATT", 'I');
-            //
+            
             put("ACA", 'T');
             put("ACC", 'T');
             put("ACG", 'T');
             put("ACT", 'T');
-            //
+            
             put("AAA", 'K');
             put("AAC", 'N');
             put("AAG", 'K');
             put("AAT", 'N');
-            //
+            
             put("AGA", 'R');
             put("AGC", 'S');
             put("AGG", 'R');
             put("AGT", 'S');
-            //
+            
             put("GTA", 'V');
             put("GTC", 'V');
             put("GTG", 'V');
             put("GTT", 'V');
-            //
+            
             put("GCA", 'A');
             put("GCC", 'A');
             put("GCG", 'A');
             put("GCT", 'A');
-            //
+            
             put("GAA", 'E');
             put("GAC", 'D');
             put("GAG", 'E');
             put("GAT", 'D');
-            //
+            
             put("GGA", 'G');
             put("GGC", 'G');
             put("GGG", 'G');

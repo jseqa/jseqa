@@ -6,17 +6,17 @@ package jseqa.sequence;
  *
  */
 public enum ElementMasses {
-    /** Hydrogen */
-    H (1.007825035, 1.00794),
+    /** Hydrogen. */
+    H(1.007825035, 1.00794),
     
-    /** Carbon */
-    C (12.0, 12.0107),
+    /** Carbon. */
+    C(12.0, 12.0107),
     
-    /** Nitrogen */
-    N (14.003074, 14.0067),
+    /** Nitrogen. */
+    N(14.003074, 14.0067),
     
-    /** Oxygen */
-    O (15.99491463, 15.9994);
+    /** Oxygen. */
+    O(15.99491463, 15.9994);
     
     private final double monoisotopicMass;
     private final double averageMass;
