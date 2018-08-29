@@ -27,6 +27,10 @@ public class IntervalFastaReader extends FastaReader {
         this.intval = intval;
         this.currEntryIndex = 0;
     }
+    
+    public Interval interval() {
+        return this.intval;
+    }
 
     @Override
     public Entry nextEntry() throws IOException {
