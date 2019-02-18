@@ -13,5 +13,4 @@ pipelines:
             - maven
            script: # Modify the commands below to build your repository.
             -  mvn -B verify -DskipITs # -B batch mode makes Maven less verbose
-            -  vendor/bin/coveralls
-
+            -  mvn -DrepoToken=$repoToken clean test jacoco:report coveralls:report
