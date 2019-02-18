@@ -97,7 +97,7 @@ public class FastaReader  extends AbstractSequenceReader implements Iterable<Ent
             }
         }
         if (!seq.isEmpty()) {
-            return new Entry(this.nextId, seq);
+            return this.nextId == null ? new Entry(id, seq) : new Entry(this.nextId, seq);
         } else {
             return null;
         }

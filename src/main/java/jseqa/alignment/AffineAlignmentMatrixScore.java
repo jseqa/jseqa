@@ -52,7 +52,7 @@ public class AffineAlignmentMatrixScore extends AbstractAlignmentMatrix {
         this.diagMatrix.set(i, j, val);
     }
 
-    /** Set up */
+    /** Set up. */
     public void setInsertion(int i, int j, int val) {
         this.insMatrix.set(i, j, val);
     }
@@ -102,6 +102,10 @@ public class AffineAlignmentMatrixScore extends AbstractAlignmentMatrix {
         return null;
     }
 
+    /**
+     * Output a {@code String} representation of each score matrix: 
+     * diagonal, insertion, and deletion.
+     */
     @Override
     public String toString() {
         return this.toStringDiagonal() 
@@ -111,6 +115,10 @@ public class AffineAlignmentMatrixScore extends AbstractAlignmentMatrix {
                 + this.toStringDeletion();
     }
 
+    /**
+     * Output a {@code String} representation of each score submatrix starting
+     * from [0,0] and going to [{@code maxRow},{@code maxCol}].
+     */
     public String toString(int maxRow, int maxCol) {
         return this.diagMatrix.toString(maxRow, maxCol) 
                 + "\n"

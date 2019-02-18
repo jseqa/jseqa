@@ -19,34 +19,35 @@ public final class AaResidueTable {
     }
 
     /**
-     * lookup for molecular weight, originally from: 
-     * <a href="http://www.genome.jp/dbget-bin/www_bget?aaindex+FASG760101">Fasman, 1976</a>.
+     * Lookup for molecular weight, from: 
+     * <a href="http://www.genome.jp/dbget-bin/www_bget?aaindex+FASG760101">Fasman, 1976</a>. 
+     * These are monoisotopic masses.
      */
     public static final Map<Character,Double> WEIGHT_TABLE = 
             new HashMap<Character,Double>() {
         private static final long serialVersionUID = 1L; 
         {
-            put('A', 89.09);
-            put('C', 121.15);
-            put('D', 133.10);
-            put('E', 147.13);
-            put('F', 165.19);
-            put('G', 75.07);
-            put('H', 155.16);
-            put('I', 131.17);
-            put('K', 146.19);
-            put('L', 131.17);
-            put('M', 149.21);
-            put('N', 132.12);
-            put('P', 115.13);
-            put('Q', 146.15);
-            put('R', 174.20);
-            put('S', 105.09);
-            put('T', 119.12);
-            put('U', 168.06);
-            put('V', 117.15);
-            put('W', 204.23);
-            put('Y', 181.19);
+            put('A', 71.03711);
+            put('C', 103.00919);
+            put('D', 115.02694);
+            put('E', 129.04259);
+            put('F', 147.06841);
+            put('G', 57.02146);
+            put('H', 137.05891);
+            put('I', 113.08406);
+            put('K', 128.09496);
+            put('L', 113.08406);
+            put('M', 131.04049);
+            put('N', 114.04293);
+            put('P', 97.05276);
+            put('Q', 128.05858);
+            put('R', 156.10111);
+            put('S', 87.03203);
+            put('T', 101.04768);
+            put('U', 150.95363); // selenocystine
+            put('V', 99.06841);
+            put('W', 186.07931);
+            put('Y', 163.06333);
         }
     };
 }

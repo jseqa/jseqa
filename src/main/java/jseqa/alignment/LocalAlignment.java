@@ -42,12 +42,10 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment
     public void initMatrix() {
         for (int i = 0; i < this.lenSeqA + 1; i++) {
             this.alignScoreMatrix.set(i, 0, 0);
-            //			this.setMatrix(i, 0, 0);
             this.alignPtrMatrix.set(i, 0, BacktrackPtr.FREERIDE);
         }
         for (int j = 0; j < this.lenSeqB + 1; j++) {
             this.alignScoreMatrix.set(0, j, 0);
-            //			this.setMatrix(0, j, 0);
             this.alignPtrMatrix.set(0, j, BacktrackPtr.FREERIDE);
         }
         this.maxScore = 0;
@@ -97,9 +95,9 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment
         char bCh = this.inputSeqB.charAt(j - 1);
 
         int insScore = this.alignScoreMatrix.get(i - 1, j) + this.scoreMatrix.gapPenalty();
-        int delScore = this.alignScoreMatrix.get(i, j - 1) + this.scoreMatrix.gapPenalty(); // add 1.5sec each
+        int delScore = this.alignScoreMatrix.get(i, j - 1) + this.scoreMatrix.gapPenalty();
 
-        int diagScore = this.alignScoreMatrix.get(i - 1, j - 1) + this.scoreMatrix.score(aCh, bCh);		
+        int diagScore = this.alignScoreMatrix.get(i - 1, j - 1) + this.scoreMatrix.score(aCh, bCh);
         int score = this.setCellOrig(i, j, diagScore, insScore, delScore);
     }
 
@@ -141,86 +139,6 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment
         return score;
     }
 
-    //	/** 13sec, ok */
-    //	private int setCellOk(int i, int j, int diagScore, int insScore, int delScore) {
-    //		int retval = this.argmax3(diagScore, insScore, delScore);
-    //		BacktrackPtr ptr = null;
-    //		int score = 0;
-    //		if(retval == 0) {
-    //			score = diagScore;
-    //			ptr = BacktrackPtr.DIAG;
-    //		} else if(retval == 1) {
-    //			score = insScore;
-    //			ptr = BacktrackPtr.UP;
-    //		} else {
-    //			score = delScore;
-    //			ptr = BacktrackPtr.LEFT;
-    //		}
-    //		if(score < 0) {
-    //			score = 0;
-    //			ptr = BacktrackPtr.FREERIDE;
-    //		} 
-    //		this.alignPtrMatrix.set(i, j, ptr);
-    //		return score;
-    //	}
-    //	
-    //	/** 14 sec */
-    //	private int setCellOk2(int i, int j, int diagScore, int insScore, int delScore) {
-    //		int maxval = Math.max(0, Math.max(diagScore, Math.max(insScore, delScore)));
-    //		BacktrackPtr ptr = BacktrackPtr.DIAG;
-    //		
-    //		if(maxval < 0) {
-    //			this.alignPtrMatrix.set(i, j, BacktrackPtr.FREERIDE);
-    //			return maxval;
-    //		}
-    //		
-    //		if(maxval == diagScore) {
-    //		} else if(maxval == insScore) {
-    //			ptr = BacktrackPtr.UP;
-    //		} else {
-    //			ptr = BacktrackPtr.LEFT;
-    //		}
-    //		 
-    //		this.alignPtrMatrix.set(i, j, ptr);
-    //		return maxval;
-    //	}
-    //	
-    //	private int setCellSlow28(int i, int j, int diagScore, int insScore, int delScore) {
-    //		int maxval = Math.max(0, Math.max(diagScore, Math.max(insScore, delScore)));
-    //		if(maxval == 0) {
-    //			this.alignPtrMatrix.set(i, j, BacktrackPtr.FREERIDE);
-    //			return 0;
-    //		} else if(maxval == diagScore) {
-    //			this.alignPtrMatrix.set(i, j, BacktrackPtr.DIAG);
-    //			return diagScore;
-    //		} else if(maxval == insScore) {
-    //			this.alignPtrMatrix.set(i, j, BacktrackPtr.UP);
-    //			return insScore;
-    //		} else {
-    //			this.alignPtrMatrix.set(i, j, BacktrackPtr.LEFT);
-    //			return delScore;
-    //		}
-    //	}
-    //	
-    //	
-    //	private int setCell2(int i, int j, int diagScore, int insScore, int delScore) {
-    //		int retval = this.argmax4(diagScore, insScore, delScore);
-    //		
-    //		if(retval == -1) {
-    //			this.alignPtrMatrix.set(i, j, BacktrackPtr.FREERIDE);
-    //			return 0;
-    //		} else if(retval == 0) {
-    //			this.alignPtrMatrix.set(i, j, BacktrackPtr.DIAG);
-    //			return diagScore;
-    //		} else if(retval == 1) {
-    //			this.alignPtrMatrix.set(i, j, BacktrackPtr.UP);
-    //			return insScore;
-    //		} else { //if(retval == 2) {
-    //			this.alignPtrMatrix.set(i, j, BacktrackPtr.LEFT);
-    //			return delScore;
-    //		} 
-    //	}
-
     /**
      * {@inheritDoc}
      * <br>
@@ -228,19 +146,6 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment
      */
     @Override
     protected void setBacktrackCell() {
-        //		this.best_i = this.lenSeqA;
-        //		this.best_j = this.lenSeqB;
-        //		int maxScore = this.alignScoreMatrix.get(this.lenSeqA, this.lenSeqB);
-        //		for(int i = 0; i < this.lenSeqA+1; i++) {
-        //			for(int j = 0; j < this.lenSeqB+1; j++) {
-        //				if(this.alignScoreMatrix.get(i, j) > maxScore) {
-        //					maxScore = this.alignScoreMatrix.get(i, j);
-        //					this.best_i = i;
-        //					this.best_j = j;
-        //				}
-        //			}
-        //		}
-        //				
         // used when finding max while filling in
         this.endCell = new Pair<Integer,Integer>(this.best_i, this.best_j);
     }

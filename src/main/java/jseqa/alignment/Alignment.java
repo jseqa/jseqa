@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * An immutable alignment between two sequences. Use {@see AlignmentBuilder} to build an alignment.
+ * An immutable alignment between two sequences. Use {@link AlignmentBuilder} to build an alignment.
  *
  */
 public final class Alignment {
@@ -117,7 +117,10 @@ public final class Alignment {
             if (i > 0) {
                 aln.append("\n");
             }
-            int lclWidth = ((i + colWidth) < this.topRow.length()) ? colWidth : (this.topRow.length()-i); 
+            int lclWidth = ((i + colWidth) < this.topRow.length())
+                    ?
+                    colWidth : 
+                    (this.topRow.length() - i); 
             aln.append(this.topRow.substring(i, i + lclWidth) + "\n");
             aln.append(midRow.substring(i, i + lclWidth) + "\n");
             aln.append(this.bottomRow.substring(i, i + lclWidth) + "\n");

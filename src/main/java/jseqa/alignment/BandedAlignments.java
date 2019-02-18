@@ -3,7 +3,8 @@ package jseqa.alignment;
 import jseqa.alignment.substitution.SubstitutionMatrix;
 
 /**
- * Utility methods for performing banded alignments. See {@link BandedMatrixFiller} for an explanation.
+ * Utility methods for performing banded alignments. See
+ * {@link BandedMatrixFiller} for an explanation.
  *
  */
 public class BandedAlignments {
@@ -57,7 +58,8 @@ public class BandedAlignments {
      * @param seqB {@code String} second sequence to align.
      * @param scoreMat {@code ScoringMatrix} used to score match/mismatch/indel.
      * @param bandwidth int distance from diagonal to fill in values of matrix.
-     * @return Global {@code Alignment} of two sequences within {@code bandwidth} with affine gap penalties.
+     * @return Global {@code Alignment} of two sequences within {@code bandwidth}
+     * with affine gap penalties.
      */
     public static Alignment affineGlobalNt(String seqA, 
             String seqB, 
@@ -79,7 +81,8 @@ public class BandedAlignments {
      * @param alignPtrMat
      * @param scoreMat {@code ScoringMatrix} used to score match/mismatch/indel.
      * @param bandwidth int distance from diagonal to fill in values of matrix.
-     * @return Global {@code Alignment} of two sequences within {@code bandwidth} with affine gap penalties.
+     * @return Global {@code Alignment} of two sequences within {@code bandwidth}
+     * with affine gap penalties.
      */
     public static Alignment affineGlobal(String seqA, 
             String seqB, 
