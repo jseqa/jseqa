@@ -76,4 +76,25 @@ public class MultipleAlignmentTest {
         Interval trueRow2Ival = msa2.getTrueInterval(new Interval(2,5), 2);
         assertEquals(new Interval(2,4), trueRow2Ival);
     }
+
+    @Test
+    public void testToStringFixedWidth() {
+        String str = msa.toStringFixedWidth(4);
+        String[] rows = str.split("\n");
+        for (int i = 0; i < 3; i++) {
+            assertEquals(4, rows[i].length());
+        }
+        for (int i = 4; i < 6; i++) {
+            assertEquals(2, rows[i].length());
+        }
+
+        String str2 = msa2.toStringFixedWidth(6);
+        String[] rows2 = str2.split("\n");
+        for (int i = 0; i < 6; i++) {
+            assertEquals(6, rows2[i].length());
+        }
+        for (int i = 7; i < 13; i++) {
+            assertEquals(5, rows2[i].length());
+        }
+    }
 }
