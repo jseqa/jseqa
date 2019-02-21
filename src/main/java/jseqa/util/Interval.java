@@ -102,6 +102,24 @@ public class Interval {
         }
     }
 
+    public Interval overlappingInterval(Interval otherIntval) {
+        if (this.end <= otherIntval.start()) {
+            return null;
+        } else if (this.start >= otherIntval.end()) {
+            return null;
+        } else {
+            int maxStart = Math.max(this.start, otherIntval.start());
+            int minEnd = Math.min(this.end, otherIntval.end());
+            return new Interval(maxStart, minEnd);
+        }
+    }
+    
+    public Interval unionInterval(Interval otherIntval) {
+        int minStart = Math.min(this.start, otherIntval.start());
+        int maxEnd = Math.max(this.end, otherIntval.end());
+        return new Interval(minStart, maxEnd);
+    }
+    
     /**
      * Outputs interval in {@code String} in format [x,y), as would be 
      * parsable from {@link #parseInterval(String)}.

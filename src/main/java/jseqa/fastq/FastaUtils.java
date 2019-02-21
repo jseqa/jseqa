@@ -18,6 +18,14 @@ import jseqa.util.Interval;
  */
 public class FastaUtils {
 
+    public static List<Entry> readFastaEntries(Path faFile) throws FileNotFoundException, IOException {
+        try (FastaReader fr = new FastaReader(faFile)) {
+            return StreamSupport.stream(fr.spliterator(), false)
+                    .map(entry -> entry)
+                    .collect(Collectors.toList());
+        }
+    }
+    
     /**
      * Read a FASTA file's Ids into a {@code List}.
      * @param faFile {@code Path} of FASTA file.
