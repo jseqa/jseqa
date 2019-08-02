@@ -90,4 +90,22 @@ public class AffineGlobalAlignmentTest {
         assertEquals(-12, aln.score());
     }
 
+    @Test
+    public void testGlobalBlosum62Myo() {
+        String hsapMyo = "MGLSDGEWQLVLNVWGKVEADIPGHGQEVLIRLFKGHPETLEKFDKFKHLKSEDEMKASE" + 
+                "DLKKHGATVLTALGGILKKKGHHEAEIKPLAQSHATKHKIPVKYLEFISECIIQVLQSKH" + 
+                "PGDFGADAQGAMNKALELFRKDMASNYKELGFQG";
+        String ecabMyo = "MGLSDGEWQQVLNVWGKVEADIAGHGQEVLIRLFTGHPETLEKFDKFKHLKTEAEMKASE" +
+                "DLKKHGTVVLTALGGILKKKGHHEAELKPLAQSHATKHKIPIKYLEFISDAIIHVLHSKH" + 
+                "PGDFGADAQGAMTKALELFRNDIAAKYKELGFQG";
+        
+        BlosumSubstitutionMatrix blosum62 = new BlosumSubstitutionMatrix(BlosumMatrices.BLOSUM62, -10, -2);
+        Alignment aln = FullAlignments.affineLocalAlign(hsapMyo, ecabMyo, blosum62);
+        assertEquals(136, aln.numMatches());
+        
+        String delSeg = "GAMTKALELFRNDIAAKYKELGFQG";
+        Alignment alnDel = FullAlignments.affineGlobalAlign(hsapMyo, ecabMyo.replace(delSeg, ""), blosum62);
+        int numIndel = (int)alnDel.bottom().chars().filter(ch -> ch == '-').count();
+        assertEquals(delSeg.length(), numIndel);
+    }
 }
