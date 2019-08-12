@@ -103,6 +103,37 @@ public class Interval {
     }
 
     /**
+     * Computes the {@code Interval} of overlap between {@code this} and {@code otherIntval}.
+     * <br>
+     * For example, the overlapping interval between [1,10) and [5,15) is [5,10].
+     * @param otherIntval
+     * @return {@code Interval} covering the overlap, or null, if no overlap is present.
+     */
+    public Interval overlappingInterval(Interval otherIntval) {
+        if (this.end <= otherIntval.start()) {
+            return null;
+        } else if (this.start >= otherIntval.end()) {
+            return null;
+        } else {
+            int maxStart = Math.max(this.start, otherIntval.start());
+            int minEnd = Math.min(this.end, otherIntval.end());
+            return new Interval(maxStart, minEnd);
+        }
+    }
+    
+    /**
+     * Computes the union of interval {@code this} and {@code otherIntval}. It is computed
+     * by [min(A,B), max(A,B)] for two intervals A and B.
+     * @param otherIntval
+     * @return
+     */
+    public Interval unionInterval(Interval otherIntval) {
+        int minStart = Math.min(this.start, otherIntval.start());
+        int maxEnd = Math.max(this.end, otherIntval.end());
+        return new Interval(minStart, maxEnd);
+    }
+    
+    /**
      * Outputs interval in {@code String} in format [x,y), as would be 
      * parsable from {@link #parseInterval(String)}.
      */

@@ -139,6 +139,9 @@
 					<systemPropertyVariables>
 						<jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
 					</systemPropertyVariables>
+					<excludes>
+					   <exclude>jseqa/alignment/cli/*</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>

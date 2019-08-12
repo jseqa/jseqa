@@ -90,4 +90,25 @@ public class IntervalTest {
 		assertEquals(false, val2.equals(val1Shift4));
 		assertEquals(10, val1Shift4.length());
 	}
+	
+	@Test
+	public void testOverlappingInterval() {
+	    Interval olap = val1.overlappingInterval(val2);
+	    assertEquals(5, olap.start());
+	    assertEquals(10, olap.end());
+	    
+	    Interval disjointIntval = new Interval(20, 50);
+	    assertEquals(null, val1.overlappingInterval(disjointIntval));
+	}
+	
+	@Test
+    public void testUnionInterval() {
+	    Interval olap = val1.unionInterval(val2);
+        assertEquals(1, olap.start());
+        assertEquals(15, olap.end());
+        
+        Interval selfOlap = val1.unionInterval(val1);
+        assertEquals(1, selfOlap.start());
+        assertEquals(10, selfOlap.end());
+    }
 }

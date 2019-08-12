@@ -44,5 +44,14 @@ public class QualityEntryTest {
         String expEnt = "@id1\n" + seq + "\n+\n" + this.ilmn13Range;
         assertEquals(expEnt, qe.toFastq());
     }
+    
+    @Test
+    public void testGenericQuality() {
+        double[] quals = qe.qualities();
+        double[] altQuals = qe.qualities(FastqQualityEncoding.ILLUMINA13);
+        for (int i = 0; i < quals.length; i++) {
+            assertEquals(quals[i], altQuals[i], EPSILON);
+        }
+    }
 
 }
