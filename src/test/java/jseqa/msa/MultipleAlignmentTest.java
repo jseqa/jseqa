@@ -97,4 +97,11 @@ public class MultipleAlignmentTest {
             assertEquals(5, rows2[i].length());
         }
     }
+    
+    @Test
+    public void testToStringWithConsnsus() {
+        String expConsStr = "  .. .";
+        String consStr = msa.toStringWithConsensus(true).split("\n")[2];
+        assertEquals(expConsStr, consStr);
+    }
 }
