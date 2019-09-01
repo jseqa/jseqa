@@ -3,6 +3,7 @@ package jseqa.fastq;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 
@@ -37,4 +38,9 @@ public class IntervalFastqReaderTest {
         assertEquals(1, num);
     }
 
+    @Test(expected = FileNotFoundException.class)
+    public void testReadFastaEntryError() throws IOException {
+        IntervalFastqReader fq = new IntervalFastqReader(Paths.get("nonexistant"), new Interval(0, 9));
+        fq = new IntervalFastqReader(Paths.get("nonexistant").toFile(), new Interval(0, 9));
+    }
 }

@@ -40,5 +40,16 @@ public class SimilarityMeasuresTest {
         double[] unif = {0.5, 0.5};
         assertEquals(1.0, SimilarityMeasures.entropy(unif), DELTA);
     }
+    
+    @Test
+    public void testKlDivergence() {
+        double[] p = {0.36, 0.48, 0.16};
+        double[] q = {1.0/3.0, 1.0/3.0, 1.0/3.0};
+        assertEquals(0.0852996, SimilarityMeasures.kullbackLeiblerLn(p, q), DELTA);
+        assertEquals(0.09745501, SimilarityMeasures.kullbackLeiblerLn(q, p), DELTA);
+        
+        assertEquals(0.1230613, SimilarityMeasures.kullbackLeibler(p, q), DELTA);
+        assertEquals(0.1405979, SimilarityMeasures.kullbackLeibler(q, p), DELTA);
+    }
 
 }
