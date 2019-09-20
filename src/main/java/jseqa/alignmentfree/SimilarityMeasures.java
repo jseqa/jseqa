@@ -71,14 +71,30 @@ public class SimilarityMeasures {
     /**
      * Computes the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">
      * Kullback-Leibler divergence</a>, defined as: -SUM_i p_i * log(q_i/p_i). 
-     * Assumes {@code p} and {@code q} are discrete probability distributions.
+     * Assumes {@code p} and {@code q} are discrete probability distributions. Uses log2 in
+     * computation.
      * @param p {@code double[]} vector of values.
      * @param q {@code double[]} vector of values.
      * @return KL divergence.
      */
     public static double kullbackLeibler(double[] p, double[] q) {
-        return -IntStream.range(0, p.length)
-                .mapToDouble(i -> p[i] * SimilarityMeasures.log2(q[i] / p[i]))
+        return IntStream.range(0, p.length)
+                .mapToDouble(i -> p[i] * SimilarityMeasures.log2(p[i] / q[i]))
+                .sum();
+    }
+    
+    /**
+     * Computes the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">
+     * Kullback-Leibler divergence</a>, defined as: -SUM_i p_i * log(q_i/p_i). 
+     * Assumes {@code p} and {@code q} are discrete probability distributions. Uses natural log (ln)
+     * in computation.
+     * @param p {@code double[]} vector of values.
+     * @param q {@code double[]} vector of values.
+     * @return KL divergence.
+     */
+    public static double kullbackLeiblerLn(double[] p, double[] q) {
+        return IntStream.range(0, p.length)
+                .mapToDouble(i -> p[i] * Math.log(p[i] / q[i]))
                 .sum();
     }
 }

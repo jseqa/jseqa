@@ -3,6 +3,7 @@ package jseqa.fastq;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -57,4 +58,22 @@ public class FastaUtilsTest {
         assertEquals("IGHD2-1*01", rabD.get(1));
         assertEquals("IGHD8-1*01", rabD.get(10));
     }
+    
+    @Test
+    public void testReadFastaEntries() throws FileNotFoundException, IOException {
+        List<Entry> entries = FastaUtils.readFastaEntries(faFile);
+        assertEquals(11, entries.size());
+        assertEquals("IGHD1-1*01", entries.get(0).id());
+        assertEquals("IGHD2-1*01", entries.get(1).id());
+        assertEquals("IGHD8-1*01", entries.get(10).id());
+    }
+    
+    @Test(expected = FileNotFoundException.class)
+    public void testReadFastaEntryError() throws IOException {
+        List<Entry> entries = FastaUtils.readFastaEntries(Paths.get("nonexistent"));
+        FastaUtils.readFastaIds(Paths.get("nonexistant"));
+        FastaUtils.readFastaIntoMap(Paths.get("nonexistant"));
+        FastaUtils.partitionIntoIntervals(Paths.get("nonexistant"), 1);
+    }
+    
 }

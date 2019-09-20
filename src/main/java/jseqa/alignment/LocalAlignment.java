@@ -80,15 +80,6 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment
      * <br>
      * For &Delta; as the gap penalty and &delta;(x,y) defined as the substitution score of a &rarr; b. 
      */
-    //	@Override
-    //	public void fillCell(int i, int j) {
-    //		super.fillCell(i, j);
-    //		// now check if a free-ride is better than what global alignment set
-    //		if(this.alignScoreMatrix.get(i, j) < 0) {
-    //			this.alignScoreMatrix.set(i, j, 0);
-    //			this.alignPtrMatrix.set(i, j, BacktrackPtr.FREERIDE);
-    //		}
-    //	}
     @Override	
     public void fillCell(int i, int j) {
         char aCh = this.inputSeqA.charAt(i - 1);
@@ -99,16 +90,6 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment
 
         int diagScore = this.alignScoreMatrix.get(i - 1, j - 1) + this.scoreMatrix.score(aCh, bCh);
         int score = this.setCellOrig(i, j, diagScore, insScore, delScore);
-    }
-
-    private int argmax4(int aVal, int bVal, int cVal) {
-        if (aVal >= bVal && aVal >= cVal) {
-            return (aVal > 0 ? aVal : -1);
-        } else if (bVal > cVal) {
-            return (bVal > 0 ? bVal : -1);
-        } else {
-            return (cVal > 0 ? cVal : -1);
-        }
     }
 
     private int setCellOrig(int i, int j, int diagScore, int insScore, int delScore) {
