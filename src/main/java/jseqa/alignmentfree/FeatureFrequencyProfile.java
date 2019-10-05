@@ -10,14 +10,14 @@ import java.util.stream.IntStream;
  *
  */
 public class FeatureFrequencyProfile {
-    private int lmerLen;
-    private int numNt;
+    protected int lmerLen;
+    protected int numNt;
 
-    private int[] fcpA;
-    private int[] fcpB;
+    protected int[] fcpA;
+    protected int[] fcpB;
 
-    private double[] ffpA;
-    private double[] ffpB;
+    protected double[] ffpA;
+    protected double[] ffpB;
 
     /**
      * Constructor for the feature frequency profile using an l-mer of the given length.
