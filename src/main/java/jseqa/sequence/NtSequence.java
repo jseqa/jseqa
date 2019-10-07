@@ -22,8 +22,9 @@ public class NtSequence extends AbstractSequence {
      */
     public String translateFrame(int frame) {
         StringBuilder aaSeq = new StringBuilder(this.seq().length() / 3);
-        IntStream.iterate(0, i -> i + 3)
+        IntStream.iterate(frame, i -> i + 3)
             .limit(this.seq().length() / 3)
+            .filter(i -> (i + 3) <= this.seq().length())
             .forEach(i -> {
                 String codon = this.seq().substring(i, i + 3);
                 char res = CodonTable.translateCodon(codon);
