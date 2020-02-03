@@ -1,6 +1,7 @@
 package jseqa.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -69,10 +70,12 @@ public class IntervalTest {
 		Interval i2 = new Interval(2,9);
 		Interval i3 = new Interval(1,10);
 		assertEquals(true, i1.equals(i1));
-		//
+		
 		assertEquals(false, i1.equals(i2));
 		assertEquals(true, i1.equals(i3));
 		assertEquals(false, i2.equals(i3));
+		
+		assertTrue(!i1.equals(""));
 	}
 	
 	@Test
@@ -99,6 +102,7 @@ public class IntervalTest {
 	    
 	    Interval disjointIntval = new Interval(20, 50);
 	    assertEquals(null, val1.overlappingInterval(disjointIntval));
+	    assertEquals(null, disjointIntval.overlappingInterval(val1));
 	}
 	
 	@Test
@@ -111,4 +115,9 @@ public class IntervalTest {
         assertEquals(1, selfOlap.start());
         assertEquals(10, selfOlap.end());
     }
+	
+	@Test
+	public void testToString() {
+	    assertEquals("5..15", val2.toRangeString());
+	}
 }

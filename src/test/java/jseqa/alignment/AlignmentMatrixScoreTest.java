@@ -28,4 +28,29 @@ public class AlignmentMatrixScoreTest {
         assertEquals(1, maxCell2.second().intValue());
     }
 
+    @Test
+    public void testClearUpperTriangle() {
+        int nrow = 4;
+        int ncol = 4;
+        AlignmentMatrixScore mat = new AlignmentMatrixScore(nrow, ncol);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                mat.set(i, j, 10);
+            }
+        }
+        
+        mat.clearUpperTriangle();
+        
+        for (int i = 0; i < 4; i++) {
+            for (int j = i + 1; j < 4; j++) {
+                assertEquals(0, mat.get(i, j));
+            }
+        }
+        
+        for (int i = 0; i < 4; i++) {
+            for (int j = i; j < 4; j++) {
+                assertEquals(10, mat.get(j, i));
+            }
+        }
+    }
 }

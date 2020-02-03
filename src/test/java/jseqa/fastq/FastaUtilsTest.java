@@ -69,11 +69,23 @@ public class FastaUtilsTest {
     }
     
     @Test(expected = FileNotFoundException.class)
-    public void testReadFastaEntryError() throws IOException {
+    public void testReadFastaEntriesError() throws IOException {
         List<Entry> entries = FastaUtils.readFastaEntries(Paths.get("nonexistent"));
+    }
+    
+    @Test(expected = FileNotFoundException.class)
+    public void testReadFastaIdsError() throws IOException {
         FastaUtils.readFastaIds(Paths.get("nonexistant"));
+    }
+    
+    @Test(expected = FileNotFoundException.class)
+    public void testReadFastaIntoMapError() throws IOException {
         FastaUtils.readFastaIntoMap(Paths.get("nonexistant"));
-        FastaUtils.partitionIntoIntervals(Paths.get("nonexistant"), 1);
+    }
+    
+    @Test
+    public void testPartitionIntoIntervalsError() throws IOException {
+        assertEquals(null, FastaUtils.partitionIntoIntervals(Paths.get("nonexistant"), 1));
     }
     
 }

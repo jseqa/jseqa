@@ -25,6 +25,13 @@ public class PairTest {
 		
 		assertEquals(s1, s2);
 		assertNotEquals(s1, s3);
+		
+		assertEquals(s1, s1);
+		assertEquals(s2, s2);
+		
+		assertNotEquals(s1, "test");
+		
+		assertEquals(0, s1.compareTo(s2));
 	}
 
 	@Test
@@ -41,4 +48,18 @@ public class PairTest {
 		assertEquals(2, stringHash.size());
 	}
 
+	@Test
+	public void testGets() {
+	    assertEquals("ABC", s1.first());
+	    assertEquals("XYZ", s1.second());
+	    
+	    assertEquals(s1.key(), s1.first());
+	    assertEquals(s1.value(), s1.second());
+	}
+	
+	@Test
+	public void testToString() {
+	    assertEquals("[ABC:XYZ]", s1.toString());
+	    assertEquals("[10:20]", i1.toString());
+	}
 }

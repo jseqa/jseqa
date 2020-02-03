@@ -83,6 +83,7 @@ public class FastaUtils {
             numEntries = FastaReader.numEntries(faFile);
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
+            return null;
         }
         int intval = (int)Math.ceil((double)numEntries / (double)numParts);
 

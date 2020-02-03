@@ -66,7 +66,7 @@ public class Interval {
             Interval otherInt = (Interval)obj;
             return otherInt.start() == this.start && otherInt.end() == this.end;
         } else {
-            return true;
+            return false;
         }
     }
 
