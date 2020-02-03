@@ -19,7 +19,6 @@ public class AffineLocalAlignmentTest {
         galn.initMatrix();
         galn.fillMatrix();
         Alignment aln = galn.backtrack();
-        System.out.println(aln);
         assertEquals(5*4, aln.score());
         assertEquals(4, aln.numMatches());
 
