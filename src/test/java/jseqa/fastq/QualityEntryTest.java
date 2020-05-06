@@ -24,6 +24,18 @@ public class QualityEntryTest {
     }
 
     @Test
+    public void testConstructors() {
+        QualityEntry lclQe = new QualityEntry(qe.id, qe.sequence(), qe.qualityString());
+        double[] decode1 = lclQe.qualities();
+        double[] decode2 = lclQe.qualities(FastqQualityEncoding.ILLUMINA18);
+        // check default encoding used
+        assertEquals(decode1.length, decode2.length);
+        for (int i = 0; i < decode1.length; i++) {
+            assertEquals(decode1[i], decode2[i], 0.000001);
+        }
+    }
+
+    @Test
     public void testToFasta() {
         String expEnt = ">id1\n" + seq;
         assertEquals(expEnt, qe.toFasta());
