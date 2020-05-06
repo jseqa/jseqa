@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -51,6 +52,14 @@ public class FastaUtilsTest {
     }
 
     @Test
+    public void testPartitionFastqIntoIntervals() {
+        Path fqFile = Paths.get(ClassLoader.getSystemResource("sample.fq").getPath());
+        IntervalFastqReader ifq = FastaUtils.partitionFastqIntoIntervals(fqFile, 1).findFirst().get();
+        List<QualityEntry> ents = StreamSupport.stream(ifq.spliterator(), false).collect(Collectors.toList());
+        assertEquals(3, ents.size());
+    }
+
+    @Test
     public void testReadIds() throws IOException {
         List<String> rabD = FastaUtils.readFastaIds(faFile);
         assertEquals(11, rabD.size());
@@ -69,11 +78,27 @@ public class FastaUtilsTest {
     }
     
     @Test(expected = FileNotFoundException.class)
-    public void testReadFastaEntryError() throws IOException {
+    public void testReadFastaEntriesError() throws IOException {
         List<Entry> entries = FastaUtils.readFastaEntries(Paths.get("nonexistent"));
-        FastaUtils.readFastaIds(Paths.get("nonexistant"));
-        FastaUtils.readFastaIntoMap(Paths.get("nonexistant"));
-        FastaUtils.partitionIntoIntervals(Paths.get("nonexistant"), 1);
     }
     
+    @Test(expected = FileNotFoundException.class)
+    public void testReadFastaIdsError() throws IOException {
+        FastaUtils.readFastaIds(Paths.get("nonexistant"));
+    }
+    
+    @Test(expected = FileNotFoundException.class)
+    public void testReadFastaIntoMapError() throws IOException {
+        FastaUtils.readFastaIntoMap(Paths.get("nonexistant"));
+    }
+    
+    @Test
+    public void testPartitionIntoIntervalsError() throws IOException {
+        assertEquals(null, FastaUtils.partitionIntoIntervals(Paths.get("nonexistant"), 1));
+    }
+
+    @Test
+    public void testPartitionFastqIntoIntervalsError() throws IOException {
+        assertEquals(null, FastaUtils.partitionFastqIntoIntervals(Paths.get("nonexistant"), 1));
+    }
 }

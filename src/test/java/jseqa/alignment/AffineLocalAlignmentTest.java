@@ -19,7 +19,6 @@ public class AffineLocalAlignmentTest {
         galn.initMatrix();
         galn.fillMatrix();
         Alignment aln = galn.backtrack();
-
         assertEquals(5*4, aln.score());
         assertEquals(4, aln.numMatches());
 
@@ -27,6 +26,26 @@ public class AffineLocalAlignmentTest {
         assertEquals(20, aln2.score());
     }
 
+    @Test
+    public void testSplit() {
+        String a = "AAAACCCCTTTT";
+        String b = "AAATTT";
+        AffineLocalAlignment galn = new AffineLocalAlignment(a, b, new DnaSubstitutionMatrix(-5, -1));
+        galn.setAlignmentMatrix(new AffineAlignmentMatrixScore(20,20), new AffineAlignmentMatrixBacktrack(20,20));
+        galn.initMatrix();
+        galn.fillMatrix();
+        Alignment aln = galn.backtrack();
+        int expAlignScore = 5*6-(5+3*1); 
+        assertEquals(expAlignScore, aln.score());
+        
+        AffineLocalAlignment galnRev = new AffineLocalAlignment(b, a, new DnaSubstitutionMatrix(-5, -1));
+        galnRev.setAlignmentMatrix(new AffineAlignmentMatrixScore(20,20), new AffineAlignmentMatrixBacktrack(20,20));
+        galnRev.initMatrix();
+        galnRev.fillMatrix();
+        Alignment alnRev = galnRev.backtrack();
+        assertEquals(expAlignScore, alnRev.score());
+    }
+    
     @Test
     public void testRabbitVGenes() {
         //IGHV1S13*01

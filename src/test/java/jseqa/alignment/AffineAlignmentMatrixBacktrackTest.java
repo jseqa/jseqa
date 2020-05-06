@@ -56,55 +56,23 @@ public class AffineAlignmentMatrixBacktrackTest {
         assertEquals(expStr, scoreMat.toString(3, 3));
     }
 
-//    @Test
-//    public void testCellToString() {
-//        fail("Not yet implemented");
-//    }
+    @Test
+    public void testSetDiagonal() {
+        scoreMat.setDiagonal(0, 0, BacktrackPtr.FREERIDE);
+        assertEquals(BacktrackPtr.FREERIDE, scoreMat.getDiagonal(0, 0));
+    }
 
-//    @Test
-//    public void testAffineAlignmentMatrixBacktrack() {
-//        fail("Not yet implemented");
-//    }
+    @Test
+    public void testSetInsertion() {
+        scoreMat.setInsertion(0, 1, BacktrackPtr.FREERIDE);
+        assertEquals(BacktrackPtr.FREERIDE, scoreMat.getInsertion(0, 1));
+    }
 
-//    @Test
-//    public void testSetDiagonal() {
-//        fail("Not yet implemented");
-//    }
-//
-//    @Test
-//    public void testSetInsertion() {
-//        fail("Not yet implemented");
-//    }
-//
-//    @Test
-//    public void testSetDeletion() {
-//        fail("Not yet implemented");
-//    }
-//
-//    @Test
-//    public void testSetUp() {
-//        fail("Not yet implemented");
-//    }
-//
-//    @Test
-//    public void testSetLeft() {
-//        fail("Not yet implemented");
-//    }
-//
-//    @Test
-//    public void testGetDiagonal() {
-//        fail("Not yet implemented");
-//    }
-//
-//    @Test
-//    public void testGetInsertion() {
-//        fail("Not yet implemented");
-//    }
-//
-//    @Test
-//    public void testGetDeletion() {
-//        fail("Not yet implemented");
-//    }
+    @Test
+    public void testSetDeletion() {
+        scoreMat.setDeletion(1, 0, BacktrackPtr.FREERIDE);
+        assertEquals(BacktrackPtr.FREERIDE, scoreMat.getDeletion(1, 0));
+    }
 
     @Test
     public void testToStringDiagonal() {
