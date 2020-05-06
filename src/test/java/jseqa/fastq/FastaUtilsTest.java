@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,6 +49,14 @@ public class FastaUtilsTest {
         keys.addAll(part1.keySet());
         keys.addAll(part2.keySet());
         assertEquals(11, keys.size());
+    }
+
+    @Test
+    public void testPartitionFastqIntoIntervals() {
+        Path fqFile = Paths.get(ClassLoader.getSystemResource("sample.fq").getPath());
+        IntervalFastqReader ifq = FastaUtils.partitionFastqIntoIntervals(fqFile, 1).findFirst().get();
+        List<QualityEntry> ents = StreamSupport.stream(ifq.spliterator(), false).collect(Collectors.toList());
+        assertEquals(3, ents.size());
     }
 
     @Test
@@ -87,5 +96,9 @@ public class FastaUtilsTest {
     public void testPartitionIntoIntervalsError() throws IOException {
         assertEquals(null, FastaUtils.partitionIntoIntervals(Paths.get("nonexistant"), 1));
     }
-    
+
+    @Test
+    public void testPartitionFastqIntoIntervalsError() throws IOException {
+        assertEquals(null, FastaUtils.partitionFastqIntoIntervals(Paths.get("nonexistant"), 1));
+    }
 }

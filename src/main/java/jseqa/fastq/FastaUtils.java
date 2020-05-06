@@ -99,5 +99,34 @@ public class FastaUtils {
                 });
     }
 
+    /**
+     * Partition a FASTQ file into equal sized partitions based on entry index. Returns a list of
+     * {@link #FastqReader} objects, one for each interval.
+     * @param faFile {@code Path} of FASTQ file to partition
+     * @param numParts int number of partitions
+     * @return stream of {@code IntervalFastqReaders} that iterate over non-overlapping entries.
+     */
+    public static Stream<IntervalFastqReader> partitionFastqIntoIntervals(Path fqFile, int numParts) {
+        int numEntries = -1;
+        try {
+            numEntries = FastqReader.numEntries(fqFile);
+            final int intval = (int)Math.ceil((double)numEntries / (double)numParts);
+
+            return IntStream.iterate(0, i -> i + intval)
+                    .limit(numParts)
+                    .mapToObj(i -> {
+                        try {
+                            return new IntervalFastqReader(fqFile, new Interval(i, i + intval));
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    });
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+            return null;
+        }
+    }
+
     private FastaUtils() {}
 }
