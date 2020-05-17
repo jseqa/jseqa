@@ -10,6 +10,8 @@ public class SimilarityMeasures {
 
     /**
      * Computes the dot product between two vectors.
+     * <br>
+     * Computed as: \(\sum_i a_i b_i\)
      * @param a {@code double[]} vector of values.
      * @param b {@code double[]} vector of values.
      * @return dot product of {@code a} and {@code b}.
@@ -25,6 +27,8 @@ public class SimilarityMeasures {
 
     /**
      * Computes the magnitude of the input vector.
+     * <br>
+     *  Computed as: \( ||a|| = \sum_i a_i a_i \).
      * @param vals {@code double[]} vector of values.
      * @return magnitude of the input vector.
      */
@@ -35,6 +39,8 @@ public class SimilarityMeasures {
 
     /**
      * Computes the cosine similarity measure.
+     * <br>
+     * Computed as: \( \frac{\sum_i a_i b_i}{||a||*||b||} \)
      * @param a {@code double[]} vector of values.
      * @param b {@code double[]} vector of values.
      * @return
@@ -58,6 +64,8 @@ public class SimilarityMeasures {
     /**
      * Computes <a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)">
      * Shannon entropy</a> of discrete probability distribution {@code p}.
+     * <br>
+     *  Computed as:  \(H(p) = -\sum_i p_i * \log_2(p_i)\)
      * Assumes {@code p} is a discrete probability distributions.
      * @param p {@code double[]} discrete probability distribution.
      * @return entropy of input array.
@@ -70,7 +78,10 @@ public class SimilarityMeasures {
 
     /**
      * Computes the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">
-     * Kullback-Leibler divergence</a>, defined as: -SUM_i p_i * log(q_i/p_i). 
+     * Kullback-Leibler divergence</a>.
+     * <br>
+     * Defined as: \(KL(p,q) = -\sum_i p_i * \log_2(\frac{q_i}{p_i})\)
+     * <br>
      * Assumes {@code p} and {@code q} are discrete probability distributions. Uses log2 in
      * computation.
      * @param p {@code double[]} vector of values.
@@ -85,7 +96,10 @@ public class SimilarityMeasures {
     
     /**
      * Computes the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">
-     * Kullback-Leibler divergence</a>, defined as: -SUM_i p_i * log(q_i/p_i). 
+     * Kullback-Leibler divergence</a>.
+     * <br>
+     * Defined as:  \(KL(p,q) = -\sum_i p_i * \ln(\frac{q_i}{p_i})\)
+     * <br>
      * Assumes {@code p} and {@code q} are discrete probability distributions. Uses natural log (ln)
      * in computation.
      * @param p {@code double[]} vector of values.

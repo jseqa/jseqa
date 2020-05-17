@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
  *      ...
  *  }
  * }
- * </pre
+ * </pre>
  *
  */
 public class FastaReader  extends AbstractSequenceReader implements Iterable<Entry> {

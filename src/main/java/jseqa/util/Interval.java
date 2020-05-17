@@ -25,7 +25,7 @@ public class Interval {
 
     /**
      * Start value of interval.
-     * @return
+     * @return interval start.
      */
     public int start() {
         return this.start;
@@ -33,7 +33,7 @@ public class Interval {
 
     /**
      * End value of interval.
-     * @return
+     * @return interval end.
      */
     public int end() {
         return this.end;
@@ -71,9 +71,9 @@ public class Interval {
     }
 
     /**
-     * Determines if val is in [s,e), i.e., s \u2264 val < e
+     * Determines if val is in [s,e), i.e., \(s \leq val < e\).
      * @param val int value to check if is in interval
-     * @return true if s \u2264 val < e, false otherwise
+     * @return true if \(s \leq val < e\), false otherwise
      */
     public boolean contains(int val) {
         if (this.start <= val && val < this.end) {
@@ -90,7 +90,7 @@ public class Interval {
      * other:       |---------|
      * }</pre>
      * @param otherIntval {@code Interval} to determine if overlaps with self.
-     * @return
+     * @return true if intervals overlap, false otherwise.
      */
     public boolean overlaps(Interval otherIntval) {
         if (this.end <= otherIntval.start()) {
@@ -125,7 +125,7 @@ public class Interval {
      * Computes the union of interval {@code this} and {@code otherIntval}. It is computed
      * by [min(A,B), max(A,B)] for two intervals A and B.
      * @param otherIntval
-     * @return
+     * @return {@code Interval} of union.
      */
     public Interval unionInterval(Interval otherIntval) {
         int minStart = Math.min(this.start, otherIntval.start());
@@ -135,7 +135,7 @@ public class Interval {
     
     /**
      * Outputs interval in {@code String} in format [x,y), as would be 
-     * parsable from {@link #parseInterval(String)}.
+     * parsable from {@link Interval#parseInterval}.
      */
     public String toString() {
         return "[" + this.start + "," + this.end + ")";
@@ -143,7 +143,7 @@ public class Interval {
 
     /**
      * Outputs interval as {@code String} in format x..y
-     * @return
+     * @return {@code String} of interval range.
      */
     public String toRangeString() {
         return this.start + ".." + this.end;

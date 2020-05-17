@@ -24,7 +24,7 @@ public class PairedFastqReader implements AutoCloseable, Iterable<PairedEntry> {
     /**
      * Gets the next pair of entries, one {@code QualityEntry} from each file.
      * @return  {@code PairedEntry} of the entry pair.
-     * @throws IOException
+     * @throws IOException thrown when error getting next entry.
      */
     public PairedEntry nextEntry() throws IOException {
         QualityEntry e1 = this.r1Reader.nextEntry();

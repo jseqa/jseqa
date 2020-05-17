@@ -49,7 +49,7 @@ public class FastqReader extends AbstractSequenceReader implements Iterable<Qual
      * Counts the number of entries in FASTQ file.
      * @param fqFile {@code Path} FASTQ file to count entries
      * @return number of identified entries
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException thrown when {@code fqFile} is not found.
      */
     public static int numEntries(Path fqFile) throws FileNotFoundException {
         try (FastqReader fq = new FastqReader(fqFile)) {
@@ -69,7 +69,7 @@ public class FastqReader extends AbstractSequenceReader implements Iterable<Qual
     /**
      * Reads next entry from the FASTQ file, makes assumption that entry is always 4 lines. 
      * This holds true for Illumina but is not strictly correct from the format specification.
-     * @return
+     * @return {@link QualityEntry} for next entry in the FASTQ file.
      * @throws IOException 
      */
     public QualityEntry nextEntry() throws IOException, IllegalArgumentException {

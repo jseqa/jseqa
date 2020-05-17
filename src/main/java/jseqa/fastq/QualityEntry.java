@@ -16,7 +16,7 @@ public class QualityEntry extends Entry {
     protected FastqQualityEncoding encoding; 
 
     /**
-     * Contstructor that uses {@link #DEFAULT_ENCODING} for quality values.
+     * Contstructor that uses {@link DEFAULT_ENCODING} for quality values.
      * @param id {@code String} identifier for the entry.
      * @param seq {@code String} sequence for the entry.
      * @param quals {@code String} of quality values for the entry.
@@ -26,23 +26,23 @@ public class QualityEntry extends Entry {
     }
 
     /**
-     * Constructor that specifies a specific encoding {@link #FastqQualityEncoding}.
+     * Constructor that specifies a specific encoding {@link FastqQualityEncoding}.
      * @param id {@code String} identifier for the entry.
      * @param seq {@code String} sequence for the entry.
      * @param quals {@code String} of quality values for the entry.
-     * @param enc {@link #FastqQualityEncoding} to use to decode the quality value string.
+     * @param enc {@link FastqQualityEncoding} to use to decode the quality value string.
      */
     public QualityEntry(String id, String seq, String quals, FastqQualityEncoding enc) {
         this(id, seq, quals, -1, enc);
     }
 
     /**
-     * Constructor that specifies a specific encoding {@link #FastqQualityEncoding} and entry index.
+     * Constructor that specifies a specific encoding {@link FastqQualityEncoding} and entry index.
      * @param id {@code String} identifier for the entry.
      * @param seq {@code String} sequence for the entry.
      * @param quals {@code String} of quality values for the entry.
      * @param idx int index of entry.
-     * @param enc {@link #FastqQualityEncoding} to use to decode the quality value string.
+     * @param enc {@link FastqQualityEncoding} to use to decode the quality value string.
      */
     public QualityEntry(String id, String seq, String quals, int idx, FastqQualityEncoding enc) {
         super(id, seq, idx);

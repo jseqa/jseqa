@@ -7,10 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * A substitution matrix for amino acids, <a href="https://en.wikipedia.org/wiki/BLOSUM">BLOSUM: BLOcks SUbstitution Matrix</a>.
  * Reads a BLOSUM amino acid substitution matrix from a resource file during object construction,
  * instantiating the substitution matrix.
  * <br>
- * See {@see BlosumMatrices} for details and different matrices. 
+ * See {@link BlosumMatrices} for details and different matrices.
  *
  */
 public class BlosumSubstitutionMatrix extends AbstractSubstitutionMatrix {
