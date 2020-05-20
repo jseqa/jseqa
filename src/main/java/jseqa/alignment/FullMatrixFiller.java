@@ -21,8 +21,8 @@ public interface FullMatrixFiller {
 
     /**
      * Fill cell [i,j] of the dynamic programming matrix.
-     * @param i
-     * @param j
+     * @param i int row index of cell to fill.
+     * @param j int column index of cell to fill.
      */
     public abstract void fillCell(int i, int j);
 

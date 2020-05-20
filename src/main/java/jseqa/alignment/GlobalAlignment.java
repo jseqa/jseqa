@@ -4,8 +4,20 @@ import jseqa.alignment.substitution.SubstitutionMatrix;
 import jseqa.util.Pair;
 
 /**
- * Global alignment using basic indel penalties (Needleman-Wunch).
- *
+ * Global alignment, aligning two full length sequences, using basic indel penalties
+ * (<a href="https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm">Needleman-Wunch</a>).
+ * <br><br>
+ *  The alignment matrix \(M\), using indel penalty \(\Delta\) and substitution matrix \(\delta\), is computed
+ *  for sequences \(u\) and \(v\) by the recurrence relation:
+ *  \[
+ *  M_{i,j} = \max
+ *     \begin{cases}
+ *     M_{i-1,j-1} + \delta(u_i,v_j) &   \\
+ *     M_{i-1,j} + \Delta & \\
+ *     M_{i,j-1} + \Delta
+ *     \end{cases}
+ *  \]
+ *  Backtracking starts from the last element of the matrix, cell \(M_{nm}\).
  */
 public class GlobalAlignment extends AbstractBasicPairwiseAlignment 
     implements FullMatrixFiller, BandedMatrixFiller {

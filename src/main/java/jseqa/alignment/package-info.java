@@ -37,8 +37,8 @@
  * There are different types of pairwise alignment:
  * <ul>
  *     <li>Basic: normal pairwise alignment with substitution/indel penalties.</li>
- *     <li>Affine: affine gap penalties, so that each gap can have a differnt gap start/gap extend penalty.</li>
- *     <li>Banded: Only allow algning in a narrow band around the diagonal to speed up computation.</li>
+ *     <li>Affine: affine gap penalties, so that each gap can have a different gap start/gap extend penalty.</li>
+ *     <li>Banded: Only allow aligning in a narrow band around the diagonal to speed up computation.</li>
  * </ul>
  *
  */

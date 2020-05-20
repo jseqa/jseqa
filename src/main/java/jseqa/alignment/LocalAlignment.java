@@ -4,8 +4,21 @@ import jseqa.alignment.substitution.SubstitutionMatrix;
 import jseqa.util.Pair;
 
 /**
- * Local alignment of two sequences using basic indel penalties (Smith-Waterman).
- *
+ * Local alignment of two sequences using basic indel penalties
+ * (<a href="https://en.wikipedia.org/wiki/Smith%E2%80%93Waterman_algorithm">Smith-Waterman</a>).
+ * <br><br>
+ *  The alignment matrix \(M\), using indel penalty \(\Delta\) and substitution matrix \(\delta\), is computed
+ *  for sequences \(u\) and \(v\) by the recurrence relation:
+ *  \[
+ *  M_{i,j} = \max
+ *     \begin{cases}
+ *     0 \\
+ *     M_{i-1,j-1} + \delta(u_i,v_j) &   \\
+ *     M_{i-1,j} + \Delta & \\
+ *     M_{i,j-1} + \Delta
+ *     \end{cases}
+ *  \]
+ *  Backtracking starts from the cell in matrix \(M\) with maximum value.
  */
 public class LocalAlignment extends AbstractBasicPairwiseAlignment 
     implements FullMatrixFiller, BandedMatrixFiller {

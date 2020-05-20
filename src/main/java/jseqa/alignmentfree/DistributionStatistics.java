@@ -46,10 +46,16 @@ public class DistributionStatistics {
     }
 
     /**
-     * Pearson correlation coefficient, ranges from [-1.0,1.0]
+     * Pearson correlation coefficient, ranges from [-1.0,1.0].
+     * <br><br>
+     *  Computed as:
+     *  <br>
+     *  \(
+     *  \rho(x,y) = \frac{\sum_i (x_i - \bar{x})(y_i-\bar{y})}{\sqrt{\sum_i (x_i - \bar{x})^2} \sqrt{\sum_i (y_i - \bar{y})^2} }
+     *  \)
      * @param a {@code double[]} array 
      * @param b {@code double[]} array
-     * @return Pearson correlation coefficient, \u03C1{@code (a,b)}.
+     * @return Pearson correlation coefficient, \(\rho(a,b)\).
      */
     public static double pearsonCor(double[] a, double[] b) {
         double cor = 0.0;

@@ -59,14 +59,8 @@ public abstract class AbstractBasicPairwiseAlignment extends AbstractPairwiseAli
     /**
      * {@inheritDoc}
      * <br>
-     * Fill in the each cell using the global alignment (Needleman-Wunch) recurrence relation:<br>
-     * <i>d</i><sub>ij</sub> = max { 
-     * <i>d</i><sub>i-1j</sub>+ &Delta;, <br>
-     * <i>d</i><sub>ij-1</sub> + &Delta;, <br>
-     * <i>d</i><sub>i-1j-1</sub> + &delta;(i,j) <br> }
-     * <br>
-     * For &Delta; as the gap penalty and &delta;(x,y) defined 
-     * as the substitution score of a &rarr; b. 
+     * Fill in the each cell using the global alignment (Needleman-Wunch) recurrence relation, found
+     * at {@link GlobalAlignment}.
      */
     @Override
     public void fillCell(int i, int j) {
@@ -120,7 +114,6 @@ public abstract class AbstractBasicPairwiseAlignment extends AbstractPairwiseAli
     }
 
     @Override
-    //abstract protected Alignment recursiveBacktrack(int i, int j, AlignmentBuilder aln);
     protected Alignment recursiveBacktrack(int i, int j, AlignmentBuilder aln) {
         if (i <= 0 && j <= 0) {
             return aln.toAlignment();

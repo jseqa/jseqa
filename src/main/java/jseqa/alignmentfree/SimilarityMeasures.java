@@ -43,7 +43,7 @@ public class SimilarityMeasures {
      * Computed as: \( \frac{\sum_i a_i b_i}{||a||*||b||} \)
      * @param a {@code double[]} vector of values.
      * @param b {@code double[]} vector of values.
-     * @return
+     * @return cosine similarity.
      */
     public static double cosine(double[] a, double[] b) {
         double num = SimilarityMeasures.dotProduct(a, b);

@@ -18,7 +18,7 @@ import java.util.Map;
  * 	<th rowspan="2">Symbol</th>
  * 	<th colspan="5">Bases represented</th>
  *     <tr>
- * 	<th>№</th>
+ * 	<th>#</th>
  * 	<th>A</th>
  * 	<th>C</th>
  * 	<th>G</th>
