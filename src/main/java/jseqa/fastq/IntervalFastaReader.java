@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import jseqa.util.Interval;
 
 /**
- * Reader of a subset of FASTA entries, as defined by the {@link #Interval} used to construct. 
+ * Reader of a subset of FASTA entries, as defined by the {@link Interval} used to construct.
  * Reads only the entries in the interval as determined by the index of each entry.
  *
  */

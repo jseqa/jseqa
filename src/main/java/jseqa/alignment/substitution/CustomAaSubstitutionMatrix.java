@@ -23,7 +23,7 @@ public class CustomAaSubstitutionMatrix extends AbstractSubstitutionMatrix {
     
     /**
      * Constructor that creates a substitution matrix based on the type specified, with gap open/extend penalties.
-     * @param bmat {@code BlosumMatrices} type describing which matrix to use.
+     * @param pairs matrix to use.
      * @param gapopen int gap open penalty
      * @param gapextend int gap extend penalty (only used if with an affine alignment).
      */

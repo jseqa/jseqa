@@ -14,7 +14,7 @@ public class QualityDecoder {
 
     /**
      * Decode quality string to double[] array.
-     * @return
+     * @return values of decoded quality string.
      */
     public double[] decode(String qualities) {
         return QualityDecoder.decodeQualities(qualities, this.encoding);
@@ -24,11 +24,11 @@ public class QualityDecoder {
      * Decodes a string of quality values using the provided encoding type.
      * @param quals {@code String} of FASTQ quality values
      * @param encoding {@code FastqQualityEncoding} to use to decode.
-     * @return
+     * @return values of decoded quality string.
      */
     public static double[] decodeQualities(String quals, FastqQualityEncoding encoding) {
         return quals.chars()
-                .mapToDouble(ch -> encoding.decode(ch))
+                .mapToDouble(encoding::decode)
                 .toArray();
     }
 }

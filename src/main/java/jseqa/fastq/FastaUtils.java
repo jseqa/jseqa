@@ -72,7 +72,7 @@ public class FastaUtils {
 
     /**
      * Partition a FASTA file into equal sized partitions based on entry index. Returns a list of 
-     * {@link #FastaReader} objects, one for each interval.
+     * {@link FastaReader} objects, one for each interval.
      * @param faFile {@code Path} of FASTA file to partition
      * @param numParts int number of partitions
      * @return stream of {@code IntervalFastaReaders} that iterate over non-overlapping entries.
@@ -101,8 +101,8 @@ public class FastaUtils {
 
     /**
      * Partition a FASTQ file into equal sized partitions based on entry index. Returns a list of
-     * {@link #FastqReader} objects, one for each interval.
-     * @param faFile {@code Path} of FASTQ file to partition
+     * {@link FastqReader} objects, one for each interval.
+     * @param fqFile {@code Path} of FASTQ file to partition
      * @param numParts int number of partitions
      * @return stream of {@code IntervalFastqReaders} that iterate over non-overlapping entries.
      */

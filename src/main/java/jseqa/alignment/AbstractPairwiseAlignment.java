@@ -78,29 +78,6 @@ public abstract class AbstractPairwiseAlignment implements PairwiseAlignment {
         }
     }
 
-//    protected BacktrackPtr argmax3Ptr(int diagVal, int insVal, int delVal) {
-//        if (diagVal >= delVal && diagVal >= insVal) {
-//            return BacktrackPtr.DIAG;
-//        } else if (insVal > delVal) {
-//            return BacktrackPtr.LEFT;
-//        } else {
-//            return BacktrackPtr.UP;
-//        }
-//    }
-//    
-//    protected int maxB(int a, int b, int c) {
-//        if (a > b) {
-//            if (a > c) {
-//                return a;
-//            }
-//            return c;
-//        }
-//        if (b > c) {
-//            return b;
-//        }
-//        return c;
-//    }
-
     /**
      * Backtracks from the end cell of the extending class.
      */
