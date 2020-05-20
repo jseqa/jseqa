@@ -28,11 +28,11 @@ public class AlignSequences {
         opts.addOption("2", "seq_2", true, "Second sequence to align");
 
         opts.addOption("t", "type", true, "type of alignment: "
-                + "[global/local/fitting/affine_global/affine_local/affine_overlap], default=global");
+                + "[global/local/fitting/affine_global/affine_local/affine_overlap], default=affine_overlap");
         opts.addOption("a", "amino_acid", false, 
-                "flag to toggle use of amino acid substitution matrix BLOSUM");
+                "flag to toggle use of amino acid substitution matrix BLOSUM62");
         opts.addOption("n", "iupuc", false,
-                "flat to toggle use of IUPUC nucleotide substitution matrix");
+                "flag to toggle use of IUPUC nucleotide substitution matrix");
 
         opts.addOption("p", "indel_penalty", true, "indel penalty, default=-10");
         opts.addOption("e", "extension_penalty", true, 
@@ -40,7 +40,7 @@ public class AlignSequences {
 
         String seqA = null;
         String seqB = null;
-        String type = "global";
+        String type = "affine_overlap";
         boolean aminoacid = false;
         boolean useIupucMatrix = false;
 
