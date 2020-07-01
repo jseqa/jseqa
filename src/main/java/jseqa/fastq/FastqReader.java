@@ -86,8 +86,11 @@ public class FastqReader extends AbstractSequenceReader implements Iterable<Qual
         if (seq.length() != quals.length()) {
             log.error("Sequence length != qual length:\t" + seq.length() + " != " + quals.length());
             throw new IllegalArgumentException(); 
+        } else if (header.charAt(0) != '@') {
+            log.error("Entry id does not start with @:\t" + header);
+            throw new IllegalArgumentException();
         }
-        return new QualityEntry(header, seq, quals, this.encoding);
+        return new QualityEntry(header.substring(1), seq, quals, this.encoding);
     }
 
     @Override
