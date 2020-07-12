@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -19,7 +20,6 @@ import jseqa.util.Interval;
  *
  */
 public class FastaUtils {
-
 
     /**
      * Read in FASTA {@link Entry}s into a {@code List}.
@@ -73,6 +73,65 @@ public class FastaUtils {
     }
 
     /**
+     * Factory pattern for creating entry readers.
+     */
+    interface ReaderFactory<T> {
+        /**
+         * Creates an instance of reader from a file of sequences
+         * @param seqFile
+         * @return
+         * @throws FileNotFoundException
+         */
+        T create(Path seqFile) throws IOException;
+    }
+
+    /**
+     * Maximum sequence length from the maximum int entries in a fq file.
+     * @param fqFile
+     * @return maximum length or -1 if fails to read from file.
+     * @throws IOException
+     */
+    public static int fastqMaxSequenceLength(Path fqFile) {
+        return FastaUtils.estimateMaxSequenceLength(fqFile,
+                FastqReader::new,
+                Integer.MAX_VALUE);
+    }
+
+
+    /**
+     * Estimates maximum sequence length from first 5000 entries in a fq file.
+     * @param fqFile
+     * @return maximum length or -1 if fails to read from file.
+     * @throws IOException
+     */
+    public static int estimateFastqMaxSequenceLength(Path fqFile) {
+        return FastaUtils.estimateMaxSequenceLength(fqFile,
+                FastqReader::new,
+                5000);
+    }
+
+    /**
+     * Estimates maximum sequence length from a sequence file limited to the first few entries.
+     * @param seqFile file with entries.
+     * @param limit first few entries to screen.
+     * @return maximum length or -1 if fails to read from file.
+     */
+    static <T extends AbstractSequenceReader & Iterable<? extends Entry>> int estimateMaxSequenceLength(Path seqFile,
+                                                                                            ReaderFactory<T> readerFactory,
+                                                                                            int limit) {
+        try (T fr = readerFactory.create(seqFile)) {
+            return StreamSupport.stream(fr.spliterator(), false)
+                    .limit(limit)
+                    .mapToInt(ent -> ent.sequence().length())
+                    .max()
+                    .getAsInt();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
      * Partition a FASTA file into equal sized partitions based on entry index. Returns a list of 
      * {@link FastaReader} objects, one for each interval.
      * @param faFile {@code Path} of FASTA file to partition
@@ -87,25 +146,6 @@ public class FastaUtils {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-
-    /**
-     * Estimates maximum sequence length from first 500 entries in a fq file.
-     * @param fqFile
-     * @return maximum length or -1 if fails to read from file.
-     * @throws IOException
-     */
-    public static int estimateFastqMaxSequenceLength(Path fqFile) {
-        try (FastqReader fr = new FastqReader(fqFile)) {
-            return StreamSupport.stream(fr.spliterator(), false)
-                    .limit(500)
-                    .mapToInt(ent -> ent.sequence().length())
-                    .max()
-                    .getAsInt();
-        } catch (IOException e) {
-            return -1;
         }
     }
 
@@ -167,7 +207,7 @@ public class FastaUtils {
      * @param factory
      * @param numEntries
      * @param numParts
-     * @param <T>
+     * @param <T> a reader for entries (i.e., IntervalFastqReader, IntervalFastaReader, IntervalPairedFastq).
      * @return
      */
     private static <T> Stream<T> partitionReaderIntoIntervals(IntervalReaderFactory<T> factory,
