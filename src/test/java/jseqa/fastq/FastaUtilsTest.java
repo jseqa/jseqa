@@ -36,6 +36,22 @@ public class FastaUtilsTest {
     }
 
     @Test
+    public void testEstimateMaxSequenceLength() {
+        int l1 = FastaUtils.estimateMaxSequenceLength(this.faFile,
+                FastaReader::new,
+                1);
+        assertEquals(31, l1);
+        int l5 = FastaUtils.estimateMaxSequenceLength(this.faFile,
+                FastaReader::new,
+                5);
+        assertEquals(34, l5);
+        int maxL = FastaUtils.estimateMaxSequenceLength(this.faFile,
+                FastaReader::new,
+                Integer.MAX_VALUE);
+        assertEquals(42, maxL);
+    }
+
+    @Test
     public void testPartitionIntoIntervals() {
         List<FastaReader> fas = FastaUtils.partitionIntoIntervals(faFile, 2)
                                           .collect(Collectors.toList());

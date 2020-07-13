@@ -37,6 +37,10 @@ public class IntervalFastqReader extends FastqReader {
         this.currEntryIndex = 0;
     }
 
+    public Interval interval() {
+        return this.intval;
+    }
+
     @Override
     public QualityEntry nextEntry() throws IOException {
         if (this.intval.contains(this.currEntryIndex)) {
