@@ -57,9 +57,9 @@ public abstract class AbstractAffinePairwiseAlignment extends AbstractPairwiseAl
         if (this.endMatrix == BacktrackPtr.DIAG) {
             return this.alignScoreMatrix.getDiagonal(this.endCell.first(), this.endCell.second());
         } else if (this.endMatrix == BacktrackPtr.LEFT) {
-            return this.alignScoreMatrix.getInsertion(this.endCell.first(), this.endCell.second());
-        } else {
             return this.alignScoreMatrix.getDeletion(this.endCell.first(), this.endCell.second());
+        } else {
+            return this.alignScoreMatrix.getInsertion(this.endCell.first(), this.endCell.second());
         }
     }
 
@@ -125,7 +125,12 @@ public abstract class AbstractAffinePairwiseAlignment extends AbstractPairwiseAl
      */
     @Override
     public Alignment backtrack() {
-        this.setBacktrackCell();
+        return this.backtrack(PairwiseAlignment.UNBANDED);
+    }
+
+    @Override
+    public Alignment backtrack(int bandwidth) {
+        this.setBacktrackCell(bandwidth);
 
         int diagScore = this.alignScoreMatrix.getDiagonal(this.endCell.first(), this.endCell.second());
         int insScore = this.alignScoreMatrix.getInsertion(this.endCell.first(), this.endCell.second());

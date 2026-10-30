@@ -105,7 +105,12 @@ public abstract class AbstractBasicPairwiseAlignment extends AbstractPairwiseAli
      */
     @Override
     public Alignment backtrack() {
-        this.setBacktrackCell();
+        return this.backtrack(PairwiseAlignment.UNBANDED);
+    }
+
+    @Override
+    public Alignment backtrack(int bandwidth) {
+        this.setBacktrackCell(bandwidth);
         int score = this.alignScoreMatrix.get(this.endCell.first(), this.endCell.second());
         this.currAlign = this.recursiveBacktrack(this.endCell.first(), 
                                                  this.endCell.second(), 

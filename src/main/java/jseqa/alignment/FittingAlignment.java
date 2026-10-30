@@ -55,7 +55,8 @@ public class FittingAlignment extends AbstractBasicPairwiseAlignment
 
     @Override
     void bandedFillMatrix(int nrow, int ncol, int bandwidth) {
-        BandedMatrixFiller.super.fillBandedMatrix(nrow, ncol, bandwidth);
+        BandedMatrixFiller.super.fillBandedMatrix(nrow, ncol, bandwidth,
+                this.alignScoreMatrix);
     }
 
     @Override
@@ -70,10 +71,30 @@ public class FittingAlignment extends AbstractBasicPairwiseAlignment
      */
     @Override
     protected void setBacktrackCell() {
+        this.setBacktrackCell(PairwiseAlignment.UNBANDED);
+    }
+
+    @Override
+    protected void setBacktrackCell(int bandwidth) {
         this.endCell = new Pair<Integer,Integer>(this.lenSeqA, this.lenSeqB);
         int maxScore = this.alignScoreMatrix.get(this.lenSeqA, this.lenSeqB);
         int maxRow = this.lenSeqA;
-        for (int j = 0; j < this.lenSeqB + 1; j++) {
+        int firstColumn = 0;
+        int endColumn = this.lenSeqB + 1;
+        if (bandwidth != PairwiseAlignment.UNBANDED) {
+            if (bandwidth < 1) {
+                throw new IllegalArgumentException("Bandwidth must be at least 1");
+            }
+            firstColumn = this.firstBandColumn(maxRow,
+                    this.lenSeqB + 1, bandwidth);
+            endColumn = this.endBandColumn(maxRow,
+                    this.lenSeqB + 1, bandwidth);
+            if (firstColumn < endColumn) {
+                this.endCell = new Pair<Integer,Integer>(maxRow, firstColumn);
+                maxScore = this.alignScoreMatrix.get(maxRow, firstColumn);
+            }
+        }
+        for (int j = firstColumn; j < endColumn; j++) {
             if (this.alignScoreMatrix.get(maxRow, j) > maxScore) {
                 this.endCell = new Pair<Integer,Integer>(maxRow, j);
                 maxScore = this.alignScoreMatrix.get(maxRow, j);
