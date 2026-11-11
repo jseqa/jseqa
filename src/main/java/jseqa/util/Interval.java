@@ -71,9 +71,9 @@ public class Interval {
     }
 
     /**
-     * Determines if val is in [s,e), i.e., \(s \leq val < e\).
+     * Determines if val is in [s,e), i.e., \(s \leq val &lt; e\).
      * @param val int value to check if is in interval
-     * @return true if \(s \leq val < e\), false otherwise
+     * @return true if \(s \leq val &lt; e\), false otherwise
      */
     public boolean contains(int val) {
         if (this.start <= val && val < this.end) {
