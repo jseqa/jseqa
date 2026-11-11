@@ -73,6 +73,32 @@
 				<version>3.12.0</version>
 				<configuration>
 					<doclint>none</doclint>
+					<additionalOptions>
+						<additionalOption>--allow-script-in-comments</additionalOption>
+					</additionalOptions>
+					<bottom><![CDATA[
+<script>
+(function () {
+    "use strict";
+
+    var pageText = document.body.textContent;
+    if (!pageText.match(/(?:\\\\\\\(|\\\\\\\[)/)) {
+        return;
+    }
+
+    window.MathJax = {
+        tex: {
+            inlineMath: [["\\\\(", "\\\\)"]],
+            displayMath: [["\\\\[", "\\\\]"]]
+        }
+    };
+
+    var script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js";
+    document.head.appendChild(script);
+}());
+</script>
+]]></bottom>
 				</configuration>
 				<executions>
 					<execution>

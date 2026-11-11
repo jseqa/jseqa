@@ -13,8 +13,8 @@ import jseqa.util.Pair;
  *  M_{i,j} = \max
  *     \begin{cases}
  *     0 \\
- *     M_{i-1,j-1} + \delta(u_i,v_j) &   \\
- *     M_{i-1,j} + \Delta & \\
+ *     M_{i-1,j-1} + \delta(u_i,v_j) &amp;   \\
+ *     M_{i-1,j} + \Delta &amp; \\
  *     M_{i,j-1} + \Delta
  *     \end{cases}
  *  \]
