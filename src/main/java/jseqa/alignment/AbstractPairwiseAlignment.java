@@ -61,6 +61,14 @@ public abstract class AbstractPairwiseAlignment implements PairwiseAlignment {
     abstract protected void setBacktrackCell();
 
     /**
+     * Set the backtrack cell for a banded or full-matrix alignment. Algorithms
+     * whose endpoint does not depend on a search can use the ordinary method.
+     */
+    protected void setBacktrackCell(int bandwidth) {
+        this.setBacktrackCell();
+    }
+
+    /**
      * Returns the argmax for three values, i.e., 0, 1, 2, corresponding 
      * to aVal, bVal, and cVal, respectively.
      * @param aVal
@@ -83,6 +91,9 @@ public abstract class AbstractPairwiseAlignment implements PairwiseAlignment {
      */
     @Override
     public abstract Alignment backtrack();
+
+    @Override
+    public abstract Alignment backtrack(int bandwidth);
     
     /**
      * Recursive method that backtracks and returns the compiled {@code Alignment} object.

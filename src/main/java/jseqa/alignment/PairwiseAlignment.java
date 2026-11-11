@@ -9,6 +9,9 @@ public interface PairwiseAlignment {
     /** Minimum value to be used to prevent underflow. */
     public static final int MIN_VALUE = -1000000;
 
+    /** Sentinel used when backtracking is not restricted to a band. */
+    public static final int UNBANDED = -1;
+
     /** Initialize the dynamic programming matrix. */
     public void initMatrix();
 
@@ -26,6 +29,13 @@ public interface PairwiseAlignment {
      * @return {@code Alignment} produced by backtracking.
      */
     public Alignment backtrack();
+
+    /**
+     * Run backtracking with endpoint selection restricted to a band.
+     * @param bandwidth width of the band, or {@link #UNBANDED} for the full matrix
+     * @return {@code Alignment} produced by backtracking
+     */
+    public Alignment backtrack(int bandwidth);
 
     /**
      * Retrieve the last computed alignment.

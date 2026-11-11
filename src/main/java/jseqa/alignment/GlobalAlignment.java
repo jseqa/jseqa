@@ -34,6 +34,7 @@ public class GlobalAlignment extends AbstractBasicPairwiseAlignment
     @Override
     public void initMatrix() {
         //		super.initMatrix();
+        this.alignScoreMatrix.set(0, 0, 0);
         // now have penalties in first row/column
         for (int i = 1; i < this.lenSeqA + 1; i++) {
             int val = i * this.scoreMatrix.gapPenalty();
@@ -56,7 +57,8 @@ public class GlobalAlignment extends AbstractBasicPairwiseAlignment
     /** {@inheritDoc} */
     @Override
     void bandedFillMatrix(int nrow, int ncol, int bandwidth) {
-        BandedMatrixFiller.super.fillBandedMatrix(nrow, ncol, bandwidth);
+        BandedMatrixFiller.super.fillBandedMatrix(nrow, ncol, bandwidth,
+                this.alignScoreMatrix);
     }
 
     /** {@inheritDoc} */

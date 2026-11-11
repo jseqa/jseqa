@@ -1,8 +1,8 @@
 jSeqA
 ===============
 
-![build-status](https://img.shields.io/bitbucket/pipelines/sbonisso/jseqa.svg?style=flat)
-[![Coverage Status](https://coveralls.io/repos/bitbucket/sbonisso/jseqa/badge.svg?branch=master)](https://coveralls.io/bitbucket/sbonisso/jseqa?branch=master)
+[![CI](https://github.com/jseqa/jseqa/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/jseqa/jseqa/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/jseqa/jseqa/badge.svg?branch=master)](https://coveralls.io/github/jseqa/jseqa?branch=master)
 
 Java sequence analysis library (jSeqA). Provides functionality required to perform basic sequence analysis tasks, including:
 

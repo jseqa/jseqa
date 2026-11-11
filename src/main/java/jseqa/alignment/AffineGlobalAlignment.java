@@ -56,7 +56,8 @@ public class AffineGlobalAlignment extends AbstractAffinePairwiseAlignment
 
     @Override
     void bandedFillMatrix(int nrow, int ncol, int bandwidth) {
-        BandedMatrixFiller.super.fillBandedMatrix(nrow, ncol, bandwidth);
+        BandedMatrixFiller.super.fillBandedMatrix(nrow, ncol, bandwidth,
+                this.alignScoreMatrix);
     }
 
     /**

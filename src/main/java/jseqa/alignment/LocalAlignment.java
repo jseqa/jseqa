@@ -80,7 +80,7 @@ public class LocalAlignment extends AbstractBasicPairwiseAlignment
     /** {@inheritDoc} */
     @Override
     void bandedFillMatrix(int nrow, int ncol, int bandwidth) {
-        BandedMatrixFiller.super.fillBandedMatrix(nrow, ncol, bandwidth);
+        fillBandedMatrix(nrow, ncol, bandwidth, this.alignScoreMatrix);
     }
 
     /**

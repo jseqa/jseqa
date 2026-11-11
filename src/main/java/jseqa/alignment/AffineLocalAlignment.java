@@ -49,17 +49,26 @@ public class AffineLocalAlignment extends AffineGlobalAlignment {
     /**
      * {@inheritDoc}
      * <br>
-     * Search all three N x M matrix for best scoring cell and backtrack starting from there.
+     * Search all three N x M matrices for the best scoring cell.
      */
     @Override
     protected void setBacktrackCell() {
-        Pair<Integer,Integer> diagBest = this.getMaxCell(this.alignScoreMatrix.diagMatrix, this.lenSeqA, this.lenSeqB);
-        Pair<Integer,Integer> insBest = this.getMaxCell(this.alignScoreMatrix.insMatrix, this.lenSeqA, this.lenSeqB);
-        Pair<Integer,Integer> delBest = this.getMaxCell(this.alignScoreMatrix.delMatrix, this.lenSeqA, this.lenSeqB);
+        this.setBacktrackCell(PairwiseAlignment.UNBANDED);
+    }
+
+    /** Search only cells populated by the requested band. */
+    @Override
+    protected void setBacktrackCell(int bandwidth) {
+        Pair<Integer,Integer> diagBest = this.getMaxCell(this.alignScoreMatrix.diagMatrix,
+                this.lenSeqA, this.lenSeqB, bandwidth);
+        Pair<Integer,Integer> insBest = this.getMaxCell(this.alignScoreMatrix.insMatrix,
+                this.lenSeqA, this.lenSeqB, bandwidth);
+        Pair<Integer,Integer> delBest = this.getMaxCell(this.alignScoreMatrix.delMatrix,
+                this.lenSeqA, this.lenSeqB, bandwidth);
 
         int diagScore = this.alignScoreMatrix.getDiagonal(diagBest.first(), diagBest.second());
-        int insScore = this.alignScoreMatrix.getInsertion(diagBest.first(), diagBest.second());
-        int delScore = this.alignScoreMatrix.getDeletion(diagBest.first(), diagBest.second());
+        int insScore = this.alignScoreMatrix.getInsertion(insBest.first(), insBest.second());
+        int delScore = this.alignScoreMatrix.getDeletion(delBest.first(), delBest.second());
 
         int retval = this.argmax3(diagScore, insScore, delScore);
         if (retval == 0) {
@@ -67,26 +76,39 @@ public class AffineLocalAlignment extends AffineGlobalAlignment {
             this.endMatrix = BacktrackPtr.DIAG;
         } else if (retval == 1) {
             this.endCell = insBest;
-            this.endMatrix = BacktrackPtr.LEFT;
-        } else { //if(retval == 2) {
-            this.endCell = delBest;
             this.endMatrix = BacktrackPtr.UP;
-        } 
+        } else {
+            this.endCell = delBest;
+            this.endMatrix = BacktrackPtr.LEFT;
+        }
     }
 
     /**
-     * Helper method that finds the maximum scoring cell in the matrix of scores.
-     * @param mat {@code AlignmentMatrixScore} of scores to search.
-     * @param maxNRow 
-     * @param maxNCol
-     * @return
+     * Find the maximum scoring cell in a score matrix.
      */
-    private Pair<Integer,Integer> getMaxCell(AlignmentMatrixScore mat, int maxNRow, int maxNCol) {
-        int max_i = maxNRow;
-        int max_j = maxNCol;
+    private Pair<Integer,Integer> getMaxCell(AlignmentMatrixScore mat,
+                                              int maxNRow,
+                                              int maxNCol,
+                                              int bandwidth) {
+        int max_i = bandwidth == PairwiseAlignment.UNBANDED ? maxNRow : 0;
+        int max_j = bandwidth == PairwiseAlignment.UNBANDED ? maxNCol : 0;
         int maxScore = mat.get(max_i, max_j);
-        for (int i = 0; i < maxNRow + 1; i++) {
-            for (int j = 0; j < maxNCol + 1; j++) {
+        int firstRow = bandwidth == PairwiseAlignment.UNBANDED ? 0 : 1;
+        for (int i = firstRow; i < maxNRow + 1; i++) {
+            int firstColumn = 1;
+            int endColumn = maxNCol + 1;
+            if (bandwidth == PairwiseAlignment.UNBANDED) {
+                firstColumn = 0;
+            } else {
+                if (bandwidth < 1) {
+                    throw new IllegalArgumentException("Bandwidth must be at least 1");
+                }
+                firstColumn = this.firstBandColumn(i,
+                        maxNCol + 1, bandwidth);
+                endColumn = this.endBandColumn(i,
+                        maxNCol + 1, bandwidth);
+            }
+            for (int j = firstColumn; j < endColumn; j++) {
                 if (mat.get(i, j) > maxScore) {
                     max_i = i;
                     max_j = j;

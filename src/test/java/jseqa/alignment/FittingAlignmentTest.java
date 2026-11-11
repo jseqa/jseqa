@@ -44,4 +44,36 @@ public class FittingAlignmentTest {
         assertEquals(11, aln.score());
     }
 
+    @Test
+    public void testBandedBacktrackIgnoresScoresOutsideBand() {
+        String larger = "GGGGGGGAAATTTCCCCCCCCCCC";
+        String smaller = "AAATTTC";
+        int size = larger.length() + 5;
+
+        FittingAlignment fresh = new FittingAlignment(smaller, larger,
+                new DnaSubstitutionMatrix(-5));
+        fresh.setAlignmentMatrix(new AlignmentMatrixScore(size, size),
+                new AlignmentMatrixBacktrack(size, size));
+        fresh.initMatrix();
+        fresh.bandedFillMatrix(10);
+        Alignment expected = fresh.backtrack(10);
+
+        AlignmentMatrixScore reusedScores = new AlignmentMatrixScore(size, size);
+        for (int i = 0; i <= smaller.length(); i++) {
+            for (int j = 0; j <= larger.length(); j++) {
+                reusedScores.set(i, j, 100000);
+            }
+        }
+        FittingAlignment reused = new FittingAlignment(smaller, larger,
+                new DnaSubstitutionMatrix(-5));
+        reused.setAlignmentMatrix(reusedScores,
+                new AlignmentMatrixBacktrack(size, size));
+        reused.initMatrix();
+        reused.bandedFillMatrix(10);
+        Alignment actual = reused.backtrack(10);
+
+        assertEquals(expected.toString(), actual.toString());
+        assertEquals(expected.score(), actual.score());
+    }
+
 }
